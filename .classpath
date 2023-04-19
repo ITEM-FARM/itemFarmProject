@@ -6,15 +6,19 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/ItemFarm Tomcat v9.0 Server">
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/itemfarm/lib/json-20211205.jar"/>
+	<classpathentry kind="lib" path="C:/itemfarm/lib/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/itemfarm/lib/mysql-connector-java-8.0.25.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/itemFarm/lib/json-20211205.jar"/>
-	<classpathentry kind="lib" path="C:/itemFarm/lib/lombok.jar"/>
-	<classpathentry kind="lib" path="C:/itemFarm/lib/mysql-connector-java-8.0.25.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
