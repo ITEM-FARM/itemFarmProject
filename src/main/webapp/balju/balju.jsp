@@ -20,14 +20,11 @@
 				
 				<div class="container-fluid">
 					<h1>hihi</h1>
-          
           	<a href="${pageContext.request.contextPath}/">홈</a>
 	
             <%
               Connection conn = MysqlUtil.getConnection();
               out.println(conn);
-
-
             %>
 				</div>
 			</div>
