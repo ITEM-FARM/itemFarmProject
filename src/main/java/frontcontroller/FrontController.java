@@ -17,7 +17,7 @@ import controller.CompanyListController;
 import controller.ProductController;
 import controller.StatisticsController;
 import controller.StoringController;
-import controller.UnstoringController;
+import controller.UnstoringInsertController;
 import controller.WarehousingController;
 
 
@@ -54,8 +54,11 @@ public class FrontController extends HttpServlet {
 		case "/storing/new.do":
 			controller = new StoringController();
 			break;
-		case "/unstoring/new.do":
-			controller = new UnstoringController();
+		case "/unstoring/unstoringInsert.do": // 주문건 등록 (출고관리)
+			controller = new UnstoringInsertController();
+			break;
+		case "/unstoring/unstoringList.do": // 주문건 조회 (출고관리)
+			controller = new UnstoringListController();
 			break;
 		case "/warehousing/new.do":
 			controller = new WarehousingController();
