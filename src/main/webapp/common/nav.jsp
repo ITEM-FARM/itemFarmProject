@@ -64,9 +64,16 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="../storing/new.do">
-                    <i class="fas fa-fw fa-store"></i>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-truck"></i>
                     <span>입고관리</span></a>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="../storing/storing_insert.do">입고등록</a>
+                        <a class="collapse-item" href="../storing/storing_list.do">입고내역조회</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->

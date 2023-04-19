@@ -16,7 +16,7 @@ import controller.BaljuController;
 import controller.CompanyController;
 import controller.ProductController;
 import controller.StatisticsController;
-import controller.StoringController;
+import controller.StoringInsertController;
 import controller.UnstoringController;
 import controller.WarehousingController;
 
@@ -51,8 +51,11 @@ public class FrontController extends HttpServlet {
 		case "/statistics/new.do":
 			controller = new StatisticsController();
 			break;
-		case "/storing/new.do":
-			controller = new StoringController();
+		case "/storing/storing_insert.do":
+			controller = new StoringInsertController();
+			break;
+		case "/storing/storing_list.do":
+			controller = new StoringListController();
 			break;
 		case "/unstoring/new.do":
 			controller = new UnstoringController();
