@@ -1,14 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>    	
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+    <%@ include file="../common/commonCSS.jsp" %>
+	<title>Insert title here</title>
 </head>
 <body>
-	<h1>입출고</h1>
-	<hr>
-	<a href="${pageContext.request.contextPath}/">홈</a>
+	<div id="wrapper">
+		<%@ include file="../common/nav.jsp" %>
+		<div id="content-wrapper" class="d-flex flex-column">
+			<div id="content">
+				<%@ include file="../common/header.jsp" %>
+				
+				<div class="container-fluid">
+					<h1>�궡�슜</h1>
+				</div>
+			</div>
+			<%@ include file="../common/footer.jsp" %>
+		</div>
+	</div>
+	<%@ include file="../common/commonBtn.jsp" %>
+	<%@ include file="../common/commonJS.jsp" %>
 </body>
 </html>
