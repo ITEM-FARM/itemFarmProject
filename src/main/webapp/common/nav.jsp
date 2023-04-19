@@ -36,7 +36,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="../company/new.do">
+                <a class="nav-link" href="../company/companyList">
                     <i class="fas fa-fw fa-city"></i>
                     <span>기업관리</span></a>
             </li>
@@ -64,9 +64,16 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="../storing/new.do">
-                    <i class="fas fa-fw fa-store"></i>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="true" aria-controls="collapseThree">
+                    <i class="fas fa-fw fa-truck"></i>
                     <span>입고관리</span></a>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="../storing/storing_insert.do">입고등록</a>
+                        <a class="collapse-item" href="../storing/storing_list.do">입고내역조회</a>
+                    </div>
+                </div>
             </li>
 
             <!-- Divider -->
@@ -82,8 +89,8 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="../unstoring/new.do">주문건등록</a>
-                        <a class="collapse-item" href="../unstoring/new.do">주문건조회</a>
+                        <a class="collapse-item" href="../unstoring/unstoringInsert.do">주문건등록</a>
+                        <a class="collapse-item" href="../unstoring/unstoringList.do">주문건조회</a>
                     </div>
                 </div>
             </li>
@@ -120,26 +127,32 @@
         <!-- End of Sidebar -->
 	</div>
 	<script>
-		var myFolder = "/" + $(location).attr("pathname").split("/")[1];
-		$(".nav-item").each(function (idx, item) {
-			var path1 = $(this).find("a").attr("href");
-			var path2 = $(this).find("div:last").find("a").attr("href");
-			console.log(myFolder == "");
-			console.log(path1 + " " + path2);
-			
-			if(myFolder == "/") {
-				$(this).removeClass("active");
-			}
-			else if(path1.includes(myFolder)) {
-				$(this).addClass("active");
-			}
-			else if(path2 != undefined && path2.includes(myFolder)) {
-				$(this).addClass("active");
-			}
-			else{
-				$(this).removeClass("active");
-			}
-		});
+	/* 
+	은빈: 주소창에서 얻은 경로에서 폴더만 받아와(myFolder) 
+	nav와 연결된 링크(path1, path2)에 포함여부에 따라 클래스 추가 
+	path2인 경우 dropdown이 유지되도록 클래스 추가
+	*/
+	var myFolder = "/" + $(location).attr("pathname").split("/")[1];
+	$(".nav-item").each(function (idx, item) {
+		var path1 = $(this).find("a").attr("href");
+		var path2 = $(this).find("div:last").find("a").attr("href");
+
+		if(myFolder == "/") {
+			$(this).removeClass("active");
+		}
+		else if(path1.includes(myFolder)) {
+			$(this).addClass("active");
+		}
+		else if(path2 != undefined && path2.includes(myFolder)) {
+			$(this).addClass("active");
+			$(this).find("a").removeClass("collapsed");
+			$(this).find("a").attr("aria-expanded", true);
+			$(this).find("div").addClass("show");
+		}
+		else{
+			$(this).removeClass("active");
+		}
+	});
 	</script>
 </body>
 </html>

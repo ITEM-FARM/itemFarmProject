@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.AuthController;
 import controller.BaljuController;
-import controller.CompanyController;
+import controller.CompanyListController;
 import controller.ProductController;
 import controller.StatisticsController;
-import controller.StoringController;
-import controller.UnstoringController;
+import controller.StoringInsertController;
+import controller.UnstoringInsertController;
 import controller.WarehousingController;
 
 
@@ -42,8 +42,8 @@ public class FrontController extends HttpServlet {
 		case "/balju/new.do":
 			controller = new BaljuController();
 			break;
-		case "/company/new.do":
-			controller = new CompanyController();
+		case "/company/companyList.do":
+			controller = new CompanyListController();
 			break;
 		case "/product/new.do":
 			controller = new ProductController();
@@ -51,11 +51,17 @@ public class FrontController extends HttpServlet {
 		case "/statistics/new.do":
 			controller = new StatisticsController();
 			break;
-		case "/storing/new.do":
-			controller = new StoringController();
+		case "/storing/storing_insert.do":
+			controller = new StoringInsertController();
 			break;
-		case "/unstoring/new.do":
-			controller = new UnstoringController();
+		case "/storing/storing_list.do":
+			controller = new StoringListController();
+			break;
+		case "/unstoring/unstoringInsert.do": // 주문건 등록 (출고관리)
+			controller = new UnstoringInsertController();
+			break;
+		case "/unstoring/unstoringList.do": // 주문건 조회 (출고관리)
+			controller = new UnstoringListController();
 			break;
 		case "/warehousing/new.do":
 			controller = new WarehousingController();
