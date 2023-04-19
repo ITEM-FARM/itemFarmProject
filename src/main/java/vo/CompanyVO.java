@@ -17,4 +17,3 @@ public class CompanyVO {
 	private double company_commission;
 	private char company_status;
 }
-

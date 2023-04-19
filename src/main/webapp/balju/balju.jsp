@@ -1,7 +1,7 @@
 <%@page import="util.MysqlUtil"%>
 <%@page import="java.sql.Connection"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> 
    
 <!DOCTYPE html>
 <html>
@@ -17,15 +17,13 @@
 				<%@ include file="../common/header.jsp" %>
 				
 				<div class="container-fluid">
-					<h1>내용</h1>
+					<h1>�댁��</h1>
           
-          	<a href="${pageContext.request.contextPath}/">Ȩ</a>
+          	<a href="${pageContext.request.contextPath}/">홈</a>
 	
             <%
               Connection conn = MysqlUtil.getConnection();
               out.println(conn);
-
-
             %>
 				</div>
 			</div>
