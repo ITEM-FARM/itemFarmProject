@@ -1,7 +1,9 @@
+
 <%@page import="util.MysqlUtil"%>
+
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> 
+    pageEncoding="UTF-8"%>    
    
 <!DOCTYPE html>
 <html>
@@ -17,8 +19,7 @@
 				<%@ include file="../common/header.jsp" %>
 				
 				<div class="container-fluid">
-					<h1>�댁��</h1>
-          
+					<h1>hihi</h1>
           	<a href="${pageContext.request.contextPath}/">홈</a>
 	
             <%
