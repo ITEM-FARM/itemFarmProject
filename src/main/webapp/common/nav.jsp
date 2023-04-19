@@ -36,7 +36,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="../company/new.do">
+                <a class="nav-link" href="../company/companyList">
                     <i class="fas fa-fw fa-city"></i>
                     <span>기업관리</span></a>
             </li>
@@ -82,8 +82,8 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="../unstoring/new.do">주문건등록</a>
-                        <a class="collapse-item" href="../unstoring/new.do">주문건조회</a>
+                        <a class="collapse-item" href="../unstoring/unstoringInsert.do">주문건등록</a>
+                        <a class="collapse-item" href="../unstoring/unstoringList.do">주문건조회</a>
                     </div>
                 </div>
             </li>
@@ -123,6 +123,7 @@
 	/* 
 	은빈: 주소창에서 얻은 경로에서 폴더만 받아와(myFolder) 
 	nav와 연결된 링크(path1, path2)에 포함여부에 따라 클래스 추가 
+	path2인 경우 dropdown이 유지되도록 클래스 추가
 	*/
 	var myFolder = "/" + $(location).attr("pathname").split("/")[1];
 	$(".nav-item").each(function (idx, item) {

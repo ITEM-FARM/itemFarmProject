@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.AuthController;
 import controller.BaljuController;
-import controller.CompanyController;
+import controller.CompanyListController;
 import controller.ProductController;
 import controller.StatisticsController;
 import controller.StoringController;
@@ -42,8 +42,8 @@ public class FrontController extends HttpServlet {
 		case "/balju/new.do":
 			controller = new BaljuController();
 			break;
-		case "/company/new.do":
-			controller = new CompanyController();
+		case "/company/companyList.do":
+			controller = new CompanyListController();
 			break;
 		case "/product/new.do":
 			controller = new ProductController();
