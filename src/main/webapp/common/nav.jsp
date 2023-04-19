@@ -120,26 +120,31 @@
         <!-- End of Sidebar -->
 	</div>
 	<script>
-		var myFolder = "/" + $(location).attr("pathname").split("/")[1];
-		$(".nav-item").each(function (idx, item) {
-			var path1 = $(this).find("a").attr("href");
-			var path2 = $(this).find("div:last").find("a").attr("href");
-			console.log(myFolder == "");
-			console.log(path1 + " " + path2);
-			
-			if(myFolder == "/") {
-				$(this).removeClass("active");
-			}
-			else if(path1.includes(myFolder)) {
-				$(this).addClass("active");
-			}
-			else if(path2 != undefined && path2.includes(myFolder)) {
-				$(this).addClass("active");
-			}
-			else{
-				$(this).removeClass("active");
-			}
-		});
+	/* 
+	은빈: 주소창에서 얻은 경로에서 폴더만 받아와(myFolder) 
+	nav와 연결된 링크(path1, path2)에 포함여부에 따라 클래스 추가 
+	*/
+	var myFolder = "/" + $(location).attr("pathname").split("/")[1];
+	$(".nav-item").each(function (idx, item) {
+		var path1 = $(this).find("a").attr("href");
+		var path2 = $(this).find("div:last").find("a").attr("href");
+
+		if(myFolder == "/") {
+			$(this).removeClass("active");
+		}
+		else if(path1.includes(myFolder)) {
+			$(this).addClass("active");
+		}
+		else if(path2 != undefined && path2.includes(myFolder)) {
+			$(this).addClass("active");
+			$(this).find("a").removeClass("collapsed");
+			$(this).find("a").attr("aria-expanded", true);
+			$(this).find("div").addClass("show");
+		}
+		else{
+			$(this).removeClass("active");
+		}
+	});
 	</script>
 </body>
 </html>
