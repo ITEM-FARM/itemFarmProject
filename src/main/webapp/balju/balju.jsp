@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>    	
+<%@page import="util.MysqlUtil"%>
+<%@page import="java.sql.Connection"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +18,15 @@
 				
 				<div class="container-fluid">
 					<h1>내용</h1>
+          
+          	<a href="${pageContext.request.contextPath}/">Ȩ</a>
+	
+            <%
+              Connection conn = MysqlUtil.getConnection();
+              out.println(conn);
+
+
+            %>
 				</div>
 			</div>
 			<%@ include file="../common/footer.jsp" %>
