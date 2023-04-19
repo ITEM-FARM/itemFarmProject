@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>·Î±×ÀÎ</h1>
+	<h1>ë¡œê·¸ì¸</h1>
 	<hr>
-	<a href="${pageContext.request.contextPath}/">È¨</a>
+	<a href="${pageContext.request.contextPath}/">í™ˆ</a>
 </body>
 </html>
