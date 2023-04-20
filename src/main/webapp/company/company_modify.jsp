@@ -5,6 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+table {
+	margin: 0px auto;
+}
+td {
+	padding: 10px 10px;
+}
+label {
+	padding: 0px 10px;
+}
+</style>
 </head>
 <body>
 	<!-- 은빈: 기업 정보 수정 modal (구현중) -->
@@ -18,7 +29,37 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">company 정보 수정합니다</div>
+                <div class="modal-body">
+                	<table>
+                		<tr>
+                			<th>기업 코드</th>
+                			<td><input type="number" id="company_id" name="company_id" readonly
+                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
+                		</tr>
+                		<tr>
+                			<th>기업명</th>
+                			<td><input type="text" id="company_name" name="company_name" 
+                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
+                		</tr>
+                		<tr>
+                			<th>비밀번호</th>
+                			<td><input type="text" id="company_pw" name="company_pw" 
+                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
+                		</tr>
+                		<tr>
+                			<th>수수료(%)</th>
+                			<td><input type="number" id="company_commission" name="company_commission" step="0.01"
+                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
+                		</tr>
+                		<tr>
+                			<th>활성화 상태</th>
+                			<td>
+                				<label><input type="radio" id="company_statusY" name="company_status" value="Y">활성</label>
+                				<label><input type="radio" id="company_statusN" name="company_status" value="N">비활성</label>
+                			</td>
+                		</tr>
+                	</table>
+				</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">닫기</button>
                     <a class="btn btn-primary" href="#">수정</a>

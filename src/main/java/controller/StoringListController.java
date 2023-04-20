@@ -1,6 +1,8 @@
-package frontcontroller;
+package controller;
 
 import java.util.Map;
+
+import frontcontroller.CommonInterface;
 
 public class StoringListController implements CommonInterface {
 
