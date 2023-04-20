@@ -24,4 +24,7 @@ public class ProductVO {
 	 private Timestamp product_regdate;
 	 private String manager_id;
 	 
+	 //안전재고-현재재고 저장용(select 시 필요)
+	 private int order_quantity;
+	 
 }
