@@ -53,8 +53,8 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="../balju/new.do">발주등록</a>
-                        <a class="collapse-item" href="../balju/new.do">발주내역조회</a>
+                        <a class="collapse-item" href="../balju/baljuCheckList.do">발주등록</a>
+                        <a class="collapse-item" href="../balju/baljuConfirmList.do">발주내역조회</a>
                     </div>
                 </div>
             </li>
