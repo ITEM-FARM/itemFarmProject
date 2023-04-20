@@ -14,12 +14,14 @@
 				<%@ include file="../common/header.jsp" %>
 				
 				<div class="container-fluid">
-					<h1>내용</h1>
+					<a class="modal-link btn btn-icon-split" href="#" role="button" aria-haspopup="true" 
+                            aria-expanded="false" data-toggle="modal" data-target="#connectModalName">모달</a>
 				</div>
 			</div>
 			<%@ include file="../common/footer.jsp" %>
 		</div>
 	</div>
+	<%@ include file="modal.jsp" %>
 	<%@ include file="../common/commonETC.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>
 </body>
