@@ -7,6 +7,9 @@
     <%@ include file="../common/commonCSS.jsp" %>
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 	<title>전체기업조회</title>
+<style>
+
+</style>
 </head>
 <body>
 	<div id="wrapper">
@@ -20,11 +23,16 @@
                     
                     <!-- 
                     은빈: 기업 목록 조회
-                    	기업 코드, 기업명 누르면 수정 modal(구현중)
+                    기업 코드, 기업명 누르면 수정 modal
+                    기업 등록 modal(구현중)	
                     -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">📢기업을 선택하면 수정 페이지로 이동합니다.</h6>
+                            <a class="modal-link btn btn-primary btn-icon-split" href="../companyInsert" role="button" aria-haspopup="true" 
+                            aria-expanded="false" data-toggle="modal" data-target="#CompanyInsertModal">
+                            	<span class="text">기업 등록</span>
+                            </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -70,6 +78,7 @@
 		</div>
 	</div>
 	<%@ include file="company_modify.jsp" %>
+	<%@ include file="company_insert.jsp" %>
 	<%@ include file="../common/commonETC.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>
 	<!-- Page level plugins -->

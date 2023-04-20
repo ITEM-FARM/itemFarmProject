@@ -18,23 +18,23 @@ label {
 </style>
 </head>
 <body>
-	<!-- 은빈: 기업 정보 수정 modal -->
-	<div class="modal fade" id="CompanyModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	<!-- 은빈: 기업 등록 modal -->
+	<div class="modal fade" id="CompanyInsertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">기업 등록</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                	<form action="/company/companyModify.do" method="post" id="companyModifyForm">
+                	<form action="/company/companyInsert.do" method="post" id="companyInsertForm">
 	                	<table>
 	                		<tr>
 	                			<th>기업 코드</th>
-	                			<td><input type="number" id="company_id" name="company_id" readonly
+	                			<td><input type="number" id="company_id" name="company_id" placeholder="일단 직접 입력"
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
@@ -55,7 +55,7 @@ label {
 	                		<tr>
 	                			<th>활성화 상태</th>
 	                			<td>
-	                				<label><input type="radio" id="company_statusY" name="company_status" value="Y">활성</label>
+	                				<label><input type="radio" id="company_statusY" name="company_status" value="Y" checked>활성</label>
 	                				<label><input type="radio" id="company_statusN" name="company_status" value="N">비활성</label>
 	                			</td>
 	                		</tr>
@@ -64,7 +64,7 @@ label {
 				</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">닫기</button>
-                    <button class="btn btn-primary" type="submit" form="companyModifyForm">수정</button>
+                    <button class="btn btn-primary" type="submit" form="companyInsertForm">등록</button>
                 </div>
             </div>
         </div>

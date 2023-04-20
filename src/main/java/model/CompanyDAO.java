@@ -71,6 +71,9 @@ public class CompanyDAO {
 		}
 		return resultCount;
 	}
+	
+	// 은빈: 기업 등록
+	
 
 	// 은빈: company 객체 생성
 	private CompanyVO makeCompany(ResultSet rs) throws SQLException {

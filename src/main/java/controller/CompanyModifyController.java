@@ -9,9 +9,9 @@ import model.CompanyService;
 import vo.CompanyVO;
 
 public class CompanyModifyController implements CommonInterface{
-
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {
+		// 은빈: post요청 - 기업 정보 수정
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
 		
 		CompanyVO company = makeCompany(request);
