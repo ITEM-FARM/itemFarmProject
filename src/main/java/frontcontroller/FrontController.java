@@ -15,6 +15,7 @@ import controller.AuthController;
 import controller.BaljuCheckListController;
 import controller.BaljuController;
 import controller.CompanyListController;
+import controller.CompanyModifyController;
 import controller.ProductController;
 import controller.StatisticsController;
 import controller.StoringInsertController;
@@ -47,6 +48,9 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/company/companyList.do":
 			controller = new CompanyListController();
+			break;
+		case "/company/companyModify.do":
+			controller = new CompanyModifyController();
 			break;
 		case "/product/new.do":
 			controller = new ProductController();

@@ -24,45 +24,47 @@ label {
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">OO 기업 정보 수정</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                	<table>
-                		<tr>
-                			<th>기업 코드</th>
-                			<td><input type="number" id="company_id" name="company_id" readonly
-                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
-                		</tr>
-                		<tr>
-                			<th>기업명</th>
-                			<td><input type="text" id="company_name" name="company_name" 
-                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
-                		</tr>
-                		<tr>
-                			<th>비밀번호</th>
-                			<td><input type="text" id="company_pw" name="company_pw" 
-                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
-                		</tr>
-                		<tr>
-                			<th>수수료(%)</th>
-                			<td><input type="number" id="company_commission" name="company_commission" step="0.01"
-                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
-                		</tr>
-                		<tr>
-                			<th>활성화 상태</th>
-                			<td>
-                				<label><input type="radio" id="company_statusY" name="company_status" value="Y">활성</label>
-                				<label><input type="radio" id="company_statusN" name="company_status" value="N">비활성</label>
-                			</td>
-                		</tr>
-                	</table>
+                	<form action="/company/companyModify.do" method="post" id="companyModifyForm">
+	                	<table>
+	                		<tr>
+	                			<th>기업 코드</th>
+	                			<td><input type="number" id="company_id" name="company_id" readonly
+	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
+	                		</tr>
+	                		<tr>
+	                			<th>기업명</th>
+	                			<td><input type="text" id="company_name" name="company_name" 
+	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
+	                		</tr>
+	                		<tr>
+	                			<th>비밀번호</th>
+	                			<td><input type="text" id="company_pw" name="company_pw" 
+	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
+	                		</tr>
+	                		<tr>
+	                			<th>수수료(%)</th>
+	                			<td><input type="number" id="company_commission" name="company_commission" step="0.01"
+	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
+	                		</tr>
+	                		<tr>
+	                			<th>활성화 상태</th>
+	                			<td>
+	                				<label><input type="radio" id="company_statusY" name="company_status" value="Y">활성</label>
+	                				<label><input type="radio" id="company_statusN" name="company_status" value="N">비활성</label>
+	                			</td>
+	                		</tr>
+	                	</table>
+	                </form>
 				</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">닫기</button>
-                    <a class="btn btn-primary" href="#">수정</a>
+                    <button class="btn btn-primary" type="submit" form="companyModifyForm">수정</button>
                 </div>
             </div>
         </div>
