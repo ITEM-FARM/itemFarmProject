@@ -155,6 +155,7 @@
 			<%@ include file="../common/footer.jsp"%>
 		</div>
 	</div>
+  
 	<%@ include file="/unstoring/unstoring_modal.jsp"%>
 	<%@ include file="../common/commonETC.jsp"%>
 	<%@ include file="../common/commonJS.jsp"%>

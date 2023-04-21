@@ -13,14 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.AuthController;
 import controller.BaljuCheckListController;
+import controller.BaljuConfirmListController;
 import controller.BaljuController;
 import controller.CancelOrderController;
 import controller.CompanyListController;
+import controller.CompanyModifyController;
 import controller.ProductController;
 import controller.StatisticsController;
 import controller.StoringInsertController;
 import controller.TrackingNumberInputController;
 import controller.UnstoringDetailController;
+import controller.StoringListController;
 import controller.UnstoringInsertController;
 import controller.UnstoringListController;
 import controller.WarehousingController;
@@ -47,8 +50,14 @@ public class FrontController extends HttpServlet {
 		case "/balju/baljuCheckList.do":
 			controller = new BaljuCheckListController();
 			break;
+		case "/balju/baljuConfirmList.do":
+			controller = new BaljuConfirmListController();
+			break;
 		case "/company/companyList.do":
 			controller = new CompanyListController();
+			break;
+		case "/company/companyModify.do":
+			controller = new CompanyModifyController();
 			break;
 		case "/product/new.do":
 			controller = new ProductController();
