@@ -18,6 +18,7 @@ public class BaljuCheckListController implements CommonInterface {
 		
 		if(method.equals("GET")) {
 			BaljuService service = new BaljuService();
+			//14는 기업 아이디
 			List<ProductVO> baljuchecklist = service.selectBaljuCheckList(14);
 			
 			HttpServletRequest request = (HttpServletRequest)data.get("request");
