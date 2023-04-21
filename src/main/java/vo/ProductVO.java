@@ -26,5 +26,6 @@ public class ProductVO {
 	 
 	 //안전재고-현재재고 저장용(select 시 필요)
 	 private int order_quantity;
-	 
+	 //통합검색 시 필요
+	 private String total_select;
 }

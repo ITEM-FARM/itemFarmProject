@@ -131,7 +131,7 @@
 			<%@ include file="../common/footer.jsp" %>
 		</div>
 	</div>
-	<%@ include file="../common/commonBtn.jsp" %>
+	<%@ include file="../common/commonETC.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>
 	
 	<!-- Page level plugins -->
