@@ -14,6 +14,7 @@ public class CompanyListController implements CommonInterface {
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
+		System.out.println(request.getParameter("comID"));
 		
 		CompanyService service = new CompanyService();
 		List<CompanyVO> companyList = service.companyList();

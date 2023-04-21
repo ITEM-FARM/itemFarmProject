@@ -12,4 +12,9 @@ public class ProductService {
 		return dao.productSelect(selectValue, valueType);
 		
 	}
+	
+	// 은빈: 특정 기업의 상품 조회
+	public List<ProductVO> productList(int comID) {
+		return dao.productList(comID);
+	}
 }

@@ -18,7 +18,7 @@ import controller.BaljuController;
 import controller.CancelOrderController;
 import controller.CompanyListController;
 import controller.CompanyModifyController;
-import controller.ProductController;
+import controller.ProductListController;
 import controller.StatisticsController;
 import controller.StoringInsertController;
 import controller.TrackingNumberInputController;
@@ -59,8 +59,8 @@ public class FrontController extends HttpServlet {
 		case "/company/companyModify.do":
 			controller = new CompanyModifyController();
 			break;
-		case "/product/new.do":
-			controller = new ProductController();
+		case "/product/productList.do":
+			controller = new ProductListController();
 			break;
 		case "/statistics/new.do":
 			controller = new StatisticsController();

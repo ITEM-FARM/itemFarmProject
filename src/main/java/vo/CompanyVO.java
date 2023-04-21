@@ -1,5 +1,7 @@
 package vo;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-public class CompanyVO {
+public class CompanyVO implements Serializable{
 	private int company_id;
 	private String company_name;
 	private String company_pw;

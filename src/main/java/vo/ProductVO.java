@@ -24,6 +24,9 @@ public class ProductVO {
 	 private Timestamp product_regdate;
 	 private String manager_id;
 	 
+	 // 은빈: 매니저 이름으로 찍기 위해 그냥 가져옴 (manager와 join)
+	 private String manager_name;
+	 
 	 //안전재고-현재재고 저장용(select 시 필요)
 	 private int order_quantity;
 

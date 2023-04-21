@@ -1,12 +1,28 @@
+<%@page import="vo.CompanyVO"%>
+<%@page import="java.util.List"%>
+<%@page import="model.CompanyService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>      
+<%
+CompanyService service = new CompanyService();
+List<CompanyVO> com = service.companyList();
+
+pageContext.setAttribute("lookUpList", com);
+%>
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+#select-box {
+	height: 150px;
+	overflow-y: scroll;
+}
+</style>
 </head>
 <body id="page-top">
 	<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
 		<!-- Sidebar Toggle (Topbar) -->
  		<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
   			<i class="fa fa-bars"></i>
@@ -14,6 +30,26 @@
 
 		<!-- Topbar Navbar -->
 		<ul class="navbar-nav ml-auto">
+		<li class="nav-item no-arrow">
+			<span class="mr-2 d-none d-lg-inline text-gray-600 small">현재 조회중</span><br>
+			<span class="mr-2 d-none d-lg-inline text-gray-600"></span>
+		</li>
+			
+		<div class="topbar-divider d-none d-sm-block"></div>
+			
+		<li class="nav-item no-arrow dropdown">
+				<a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+  				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+ 					<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+        	        <span class="mr-2 d-none d-lg-inline text-gray-600 small">조회 기업 변경</span>
+       	     	</a>
+       	     	<div id="select-box" class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+					<div class="dropdown-header">기업 목록</div>
+					<c:forEach items="${lookUpList}" var="look" varStatus="status">
+						<a class="dropdown-item" data-company="${look.company_id}">${look.company_name}</a>
+					</c:forEach>
+				</div>
+			</li>
 
      		<div class="topbar-divider d-none d-sm-block"></div>
 
@@ -27,5 +63,23 @@
 			</li>
 		</ul>
 	</nav>
+	<script>
+	$(".dropdown-item").on("click", function () {
+		var comId = $(this).attr("data-company");
+		var url = $(location).attr("pathname") + "?comID=" + comId;
+
+		$.ajax({
+			url: $(location).attr("pathname"),
+			data: {"comID":comId},
+			success: function (result) {
+				$(location).attr("href", url);
+			},
+			error: function(message) {
+				alert(message);
+			}
+		}); 
+	});
+	
+	</script>
 </body>
 </html>

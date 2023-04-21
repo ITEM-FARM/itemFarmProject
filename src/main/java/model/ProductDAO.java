@@ -14,6 +14,7 @@ import java.util.Map;
 import com.mysql.cj.MysqlConnection;
 
 import util.MysqlUtil;
+import vo.CompanyVO;
 import vo.ProductVO;
 
 public class ProductDAO {
@@ -21,9 +22,34 @@ public class ProductDAO {
 	Connection conn;
 	Statement st;
 	PreparedStatement pst; // ?지원
-
 	ResultSet rs;
 	
+	// 은빈: 특정 기업의 전체 상품 조회
+	public List<ProductVO> productList(int comID) {
+		String sql = "select * from product join manager using(manager_id) where company_id=" + comID;
+		List<ProductVO> productList = new ArrayList<>();
+		
+		conn = MysqlUtil.getConnection();
+		
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			
+			while(rs.next()) {
+				ProductVO product = makeAllProduct(rs);
+				productList.add(product);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(rs, st, conn);
+		}
+		
+		return productList;
+	}
+	
+	
+
 	public List<ProductVO> productSelect(String selectValue, String valueType) {
 		Map<String, String> map = new HashMap<>();
 		String sql = "select * from product  where 1=1 ";
@@ -77,9 +103,25 @@ public class ProductDAO {
 		product.setProduct_name(rs.getString("Product_name"));
 		product.setProduct_stock(rs.getInt("Product_stock"));
 		product.setProduct_safety(rs.getInt("Product_safety"));
-		
-		
-		
+	
+		return product;
+	}
+	
+	// 은빈: 조회를 위한 모든 열이 있는 상품 만들기
+	private ProductVO makeAllProduct(ResultSet rs) throws SQLException {
+		ProductVO product = new ProductVO();
+
+		product.setCompany_id(rs.getInt("Company_id"));
+		product.setProduct_code(rs.getInt("Product_code"));
+		product.setSubcategory_name(rs.getString("Subcategory_name"));
+		product.setProduct_name(rs.getString("Product_name"));
+		product.setProduct_cost(rs.getInt("Product_cost"));
+		product.setProduct_price(rs.getInt("Product_price"));
+		product.setProduct_stock(rs.getInt("Product_stock"));
+		product.setProduct_safety(rs.getInt("Product_safety"));
+		// product.setProduct_regdate(null);
+		product.setProduct_status(rs.getString("Product_status").charAt(0));
+		product.setManager_name(rs.getString("Manager_name"));
 		
 		return product;
 	}
