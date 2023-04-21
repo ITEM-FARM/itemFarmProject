@@ -8,7 +8,7 @@ import frontcontroller.CommonInterface;
 import model.UnstoringService;
 import vo.UnstoringVO;
 
-public class CancelOrderController implements CommonInterface {
+public class UnstoringCancelOrderController implements CommonInterface {
 
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {

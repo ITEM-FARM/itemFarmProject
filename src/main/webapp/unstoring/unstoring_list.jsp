@@ -18,7 +18,6 @@
 				<div class="container-fluid">
 					<!-- empSelect.jsp 보고 따라함 -->
 					<!-- 여기 안에 내용을 다 써야 한다는 소리구나 -->
-					<h1>주문건 조회 페이지</h1>
 					<%-- <form method="get" action="">
 						<table class="table table-hover">
 							<thead>
@@ -61,7 +60,7 @@
 
 					</form> --%>
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">Tables</h1>
+					<h1 class="h3 mb-2 text-gray-800" style="text-align:center;">주문건 조회 - 기업 이름도 보이게 할 것</h1>
 					<p class="mb-4">
 						DataTables is a third party plugin that is used to generate the
 						demo table below. For more information about DataTables, please
@@ -72,8 +71,7 @@
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">DataTables
-								Example</h6>
+							<h6 class="m-0 font-weight-bold text-primary" style="text-align:center;">조회 양식</h6>
 						</div>
 
 
@@ -99,19 +97,26 @@
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach var="list" items="${unstoringList }"
+										<%-- 용희: UnstoringListController에서 set한 걸 get한 데이터 --%>
+										<c:forEach var="list" items="${unstoringList }" 
 											varStatus="status">
 											<tr>
 												<td>${status.count }</td>
 												<!-- 은빈 -->
 												<!-- 데이터 전송의 경우 VO의 toString을 data-tmp의 형태처럼 나오도록 수정해야 함 (companyVO 참고) -->
 												<!-- data-tmp로 임시로 적었는데 여기의 data-@@와 jQuery의 data(@@)의 이름이 같아야 함 -->
-												<td><a data-tmp="'key':'데이터1','key2':'데이터2'"
-													class="modal-link btn btn-icon-split" href="#"
-													role="button" aria-haspopup="true" aria-expanded="false"
-													data-toggle="modal" data-target="#unstoringModal">${list.unstoring_code }
+												<%-- 
+												용희 : 모달은.. 잠시 포기, 일단 redirect로 구현하겠음
+												<td><a class="modal-link btn btn-icon-split" 
+												       role="button" 
+												       aria-haspopup="true" 
+												       aria-expanded="false" 
+												       data-toggle="modal" 
+												       href="#" 
+												       data-target="#unstoringDetailModal">${list.unstoring_code }
 												</a>
-												</td>
+												</td> --%>
+												<td><a href="javascript:sendDataByRedirect(${list.unstoring_code })">${list.unstoring_code }</a></td>
 												<!-- data-target의 이름과 modal.jsp의 id가 같아야 함(현재 이름: connectModalName) -->
 												<td>${list.customer_name }</td>
 												<td>${list.customer_address }</td>
@@ -169,7 +174,6 @@
 		src="${pageContext.request.contextPath}/js/demo/datatables-demo.js"></script>
 
 
-	<!-- 송장입력 및 주문취소 버튼 누르면 => ajax로 해당 로직 처리하게끔 하는 JS 코드 -->
 	<script>
 		// 1. 송장입력 => ★고민: 이것도 포맷이 있는데... 이걸 어떻게 적용하지??
 		function tracking_number_input(unstoring_code) {
@@ -194,20 +198,14 @@
 			}
 		}
 
-		// 3. 
-		function unstoring_detail() {
-			alert('테스트');
-			$.ajax({
-				url : "/unstoring/unstoringDetail.do",
-				method : "GET",
-				success : function() {
-
-				},
-				error : function() {
-
-				}
-			});
+		// 3. 용희 : 주문건 상세조회 - 일단 redirect로 구현 (Modal 포기 ㅅㅂ)
+		function sendDataByRedirect(number){
+			var sessionData = number;
+			sessionStorage.setItem("sessionData", sessionData); // JS 영역에서 세션에 값 저장하기 => 서버에 저장되는 게 아니고 브라우저에 저장되는 거구나 (JS의 sessionStorage는)
+			console.log('aa' + number);
+			location.href = "/unstoring/unstoringTest.do?unstoring_code=" + number;
 		}
+		
 
 		// 2. 주문취소 (ajax로 한 코드 => but, ajax는 새로고침이 안되서 일단 폐기)
 
@@ -232,7 +230,7 @@
 		} */
 	</script>
 	<script>
-		// 은빈 : json 객체 모달로 전송
+		/* // 은빈 : json 객체 모달로 전송
 		$("##unstoringModal").on("show.bs.modal", function(event) {
 			var str = $(event.relatedTarget).data('tmp').split(",");
 
@@ -251,8 +249,8 @@
 				var id = "#"+key.replaceAll("'", "");
 				$(id).attr("value", json[key]);
 			}
-			 */
-		});
+			 
+		}); */
 	</script>
 </body>
 </html>

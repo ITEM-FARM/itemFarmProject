@@ -11,6 +11,7 @@ import java.util.List;
 
 import util.MysqlUtil;
 import vo.CompanyVO;
+import vo.UnstoringDetailVO;
 import vo.UnstoringVO;
 
 public class UnstoringDAO {
@@ -23,6 +24,55 @@ public class UnstoringDAO {
 	int resultCount; // insert, update, delete건수
 	
 	
+	// 주문건 상세조회
+	public List<UnstoringDetailVO> selectUnstoringDetail(UnstoringVO vo) {
+		String sql = """
+				select ud.unstoring_code '주문번호', ud.product_code '상품번호', p.product_name '상품명', ud.unstoring_quantity '상품수량', u.customer_name, u.customer_address, u.tracking_number, u.unstoring_state
+				from unstoring_detail ud join unstoring u on ud.unstoring_code = u.unstoring_code 
+	                     join product p on p.product_code = ud.product_code
+                         join company c on c.company_id = p.company_id
+				where ud.unstoring_code = ?
+				""";
+		List<UnstoringDetailVO> unstoringDetailList = new ArrayList<>();
+		conn = MysqlUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, vo.getUnstoring_code());
+			
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				UnstoringDetailVO detailVO = makeUnstoringDetail(rs);
+				unstoringDetailList.add(detailVO);
+			}
+		} catch (SQLException e) {
+			System.out.println("여기서 에러");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(rs, pst, conn);
+		}
+		System.out.println("잘 왔습니다");
+		return unstoringDetailList;
+	}
+	
+	
+	private UnstoringDetailVO makeUnstoringDetail(ResultSet rs2) throws SQLException {
+		UnstoringDetailVO detailVO = new UnstoringDetailVO();
+		detailVO.setUnstoring_code(rs.getString("주문번호"));
+		detailVO.setProduct_code(rs.getInt("상품번호"));
+		detailVO.setProduct_name(rs.getString("상품명"));
+		detailVO.setUnstoring_quantity(rs.getInt("상품수량"));
+		
+		// 용희 : 주문건 상세조회 페이지에서 '주문자 정보'를 주기 위해 필요했음.
+		detailVO.setCustomer_name(rs.getString("u.customer_name"));
+		detailVO.setCustomer_address(rs.getString("u.customer_address"));
+		detailVO.setTracking_number(rs.getString("u.tracking_number"));
+		detailVO.setUnstoring_state(rs.getString("u.unstoring_state"));
+		
+		return detailVO;
+	}
+
+
 	// 송장입력 버튼 => 입력한 송장번호로 update
 	public int trackingNumberInput(UnstoringVO unstoring) {
 		String sql = """

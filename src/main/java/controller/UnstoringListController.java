@@ -30,6 +30,7 @@ public class UnstoringListController implements CommonInterface {
 		List<UnstoringVO> unstoringList = service.selectAll(company);
 		// request가 유지되는 동안 저장한다. (dispatch 방식으로 forward 할 거니까)
 		request.setAttribute("unstoringList", unstoringList);
+		
 
 		return page;
 	}

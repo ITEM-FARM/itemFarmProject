@@ -9,7 +9,7 @@ import frontcontroller.CommonInterface;
 import model.UnstoringService;
 import vo.UnstoringVO;
 
-public class TrackingNumberInputController implements CommonInterface {
+public class UnstoringTrackingNumberInputController implements CommonInterface {
 
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {

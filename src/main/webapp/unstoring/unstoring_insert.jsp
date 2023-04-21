@@ -8,12 +8,38 @@
 <script>
 	// 용희 : '주문건 등록' 성공하면 알림창 표시
 
-	//1. EmpInsert컨트롤러에서 set한 msg(입력성공/입력실패)를 여기서 받아서  
+	/* //1. EmpInsert컨트롤러에서 set한 msg(입력성공/입력실패)를 여기서 받아서  
 	var msg = "${result}";
 	if (msg == 1) {
 		alert(msg); // 2. 화면에 출력
 		msg = null;
-	}
+	} */
+	
+	
+	$(document).ready(function(){
+		// 1. EmpInsert컨트롤러에서 set한 msg(입력성공/입력실패)를 여기서 받아서  
+		var msg = "${result}";
+		if (msg == 1) {
+			alert(msg); // 2. 화면에 출력
+			msg = null;
+		}
+		
+		
+		// 2. 등록 버튼 누르면 => 확인창 뜨게끔 
+		$("#btnInsert").on("click", function(){
+			var result = confirm('등록하시겠습니까?');
+			
+			if(result){
+				// form 양식 action 주기 (예전에 했던 예제들 찾아보면 이거 있을 듯)
+			}else{
+				
+			}
+		});
+		
+	});
+	
+	
+	
 </script>
 </head>
 <body>
@@ -73,20 +99,21 @@
 								<td colspan="2"><input type="submit" value="등록"></td>
 							</tr>
 						</table> -->
-						
-						
+						<!-- Basic Card Example -->
+
+
 						<!-- Page Heading -->
-						<h1 class="h3 mb-2 text-gray-800">주문건 등록 페이지</h1>
+						<h1 class="h3 mb-2 text-gray-800">주문건 등록</h1>
 						<p class="mb-4">
-							주문건을 등록하는 페이지입니다. 일단 방법 1로 구현했구요. <br>
-							방법 2(엑셀파일 업로드 기능 + 데이터 DB insert)는 나중에 할 예정 <br>
-							 <a target="_blank" href="https://chobopark.tistory.com/246">방법 2 관련 구글링 링크</a>.
+							주문건을 등록하는 페이지입니다. 일단 방법 1로 구현했구요. <br> 방법 2(엑셀파일 업로드 기능 +
+							데이터 DB insert)는 나중에 할 예정 <br> <a target="_blank"
+								href="https://chobopark.tistory.com/246">방법 2 관련 구글링 링크</a>.
 						</p>
 
 						<!-- DataTales Example -->
 						<div class="card shadow mb-4">
 							<div class="card-header py-3">
-								<h6 class="m-0 font-weight-bold text-primary">주문건 등록하기</h6>
+								<h6 class="m-0 font-weight-bold text-primary">등록 양식</h6>
 							</div>
 							<div class="card-body">
 								<div class="table-responsive">
@@ -139,13 +166,11 @@
 											</tr>
 
 										</tbody>
+										<tr style="text-align: center;">
+											<td colspan="2"><input id="btnInsert" type="submit" value="등록">
+													        </td>
+										</tr>
 									</table>
-									
-									<!-- 등록, 초기화 버튼 넣고 싶음 (위치랑 크기가 애로사항) -->
-									<!-- 초기화 버튼 : reset 함수 만들어줘야 함  -->
-									<tr style="text-align: center;">
-												<td colspan="2"><input type="submit" value="등록"></td>
-												<td colspan="2"><input type="button" value="초기화" onclick="reset()"></td>
 								</div>
 							</div>
 						</div>

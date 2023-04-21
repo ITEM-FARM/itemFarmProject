@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 
 import vo.CompanyVO;
+import vo.UnstoringDetailVO;
 import vo.UnstoringVO;
 
 public class UnstoringService {
@@ -27,6 +28,11 @@ public class UnstoringService {
 	// 주문건 조회
 	public List<UnstoringVO> selectAll(CompanyVO company) {
 		return dao.selectAll(company);
+	}
+	
+	// 주문건 상세조회
+	public List<UnstoringDetailVO> selectUnstoringDetail(UnstoringVO vo) {
+		return dao.selectUnstoringDetail(vo);
 	}
 
 }
