@@ -25,4 +25,21 @@ public class UnstoringVO {
 	private String tracking_number; // 송장번호 (일단 String으로 할까?? 나중에 long이나 double, 맞는 거롤 바꾸고)
 	private String unstoring_state; // 출고상태
 
+	// 은빈: modal창으로 데이터 전달을 위해 toString 직접 정의
+	@Override
+	public String toString() {
+		String str = "";
+		str += "'unstoring_code':" + unstoring_code;
+		str += ",'customer_name':" + customer_name;
+		str += ",'customer_address':" + customer_address;
+		str += ",'order_register':" + order_register;
+		str += ",'unstoring_date':" + unstoring_date;
+		str += ",'unstoring_memo':" + unstoring_memo;
+		str += ",'manager_id':" + manager_id;
+		str += ",'tracking_number':" + tracking_number;
+		str += ",'unstoring_state':" + unstoring_state;
+
+		return str;
+	}
+
 }

@@ -36,7 +36,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="../company/companyList">
+                <a class="nav-link" href="../company/companyList.do">
                     <i class="fas fa-fw fa-city"></i>
                     <span>기업관리</span></a>
             </li>

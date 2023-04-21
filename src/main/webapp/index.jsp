@@ -16,7 +16,7 @@
 				<div class="container-fluid">
 					<h1>첫 화면</h1>
 						<hr>
-						<p><a href="${pageContext.request.contextPath}/auth/new.do">로그인/로그아웃</a></p>
+						<p><a href="${pageContext.request.contextPath}/auth/login.jsp">로그인/로그아웃</a></p>
 						<p><a href="${pageContext.request.contextPath}/balju/new.do">발주</a></p>
 						<p><a href="${pageContext.request.contextPath}/company/new.do">기업</a></p>
 						<p><a href="${pageContext.request.contextPath}/product/new.do">상품</a></p>
@@ -29,7 +29,7 @@
 			<%@ include file="../common/footer.jsp" %>
 		</div>
 	</div>
-	<%@ include file="../common/commonBtn.jsp" %>
+	<%@ include file="../common/commonETC.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>
 </body>
 </html>
