@@ -15,11 +15,14 @@ import controller.AuthController;
 import controller.BaljuCheckListController;
 import controller.BaljuConfirmListController;
 import controller.BaljuController;
+import controller.CancelOrderController;
 import controller.CompanyListController;
 import controller.CompanyModifyController;
 import controller.ProductController;
 import controller.StatisticsController;
 import controller.StoringInsertController;
+import controller.TrackingNumberInputController;
+import controller.UnstoringDetailController;
 import controller.StoringListController;
 import controller.UnstoringInsertController;
 import controller.UnstoringListController;
@@ -73,6 +76,15 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/unstoring/unstoringList.do": // 주문건 조회 (출고관리)
 			controller = new UnstoringListController();
+			break;
+		case "/unstoring/trackingNumberInput.do": // 송장번호 입력 ajax (출고관리)
+			controller = new TrackingNumberInputController();
+			break;
+		case "/unstoring/cancelOrder.do": // 주문취소 ajax (출고관리)
+			controller = new CancelOrderController();
+			break;
+		case "/unstoring/unstoringDetail.do": // 주문건 상세조회 (모달)
+			controller = new UnstoringDetailController();
 			break;
 		case "/warehousing/new.do":
 			controller = new WarehousingController();

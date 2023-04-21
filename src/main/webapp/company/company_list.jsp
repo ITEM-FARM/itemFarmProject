@@ -77,8 +77,10 @@
 			<%@ include file="../common/footer.jsp" %>
 		</div>
 	</div>
+
 	<%@ include file="company_modify.jsp" %>
 	<%@ include file="company_insert.jsp" %>
+
 	<%@ include file="../common/commonETC.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>
 	<!-- Page level plugins -->

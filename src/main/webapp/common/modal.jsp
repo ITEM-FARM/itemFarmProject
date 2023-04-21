@@ -18,7 +18,9 @@ label {
 </style>
 </head>
 <body>
+
 	<!-- id와 modalPage.jsp의 data-target이 같아야 함 (현재 이름: connectModalName) -->
+
 	<div class="modal fade" id="connectModalName" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
