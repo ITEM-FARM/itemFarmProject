@@ -20,10 +20,6 @@ public class BaljuCheckListController implements CommonInterface {
 			BaljuService service = new BaljuService();
 			List<ProductVO> baljuchecklist = service.selectBaljuCheckList(14);
 			
-			for(ProductVO v : baljuchecklist) {
-				System.out.println(v);
-			}
-			
 			HttpServletRequest request = (HttpServletRequest)data.get("request");
 			request.setAttribute("baljuchecklist", baljuchecklist);
 		}

@@ -26,7 +26,7 @@ public class ProductVO {
 	 
 	 //안전재고-현재재고 저장용(select 시 필요)
 	 private int order_quantity;
-	 
+
 	 // 은빈: modal에 객체 전달을 위해 toString 재정의 (띄어쓰기 반영 되는지 확인 필요)
 	 @Override
 		public String toString() {
@@ -47,4 +47,8 @@ public class ProductVO {
 			return str;
 		}
 	 
+
+	 //통합검색 시 필요
+	 private String total_select;
+
 }

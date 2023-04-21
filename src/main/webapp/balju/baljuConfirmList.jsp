@@ -14,13 +14,13 @@
 				<%@ include file="../common/header.jsp" %>
 				
 				<div class="container-fluid">
-					<h1>내용</h1>
+					<h1>발주 confirm List</h1>
 				</div>
 			</div>
 			<%@ include file="../common/footer.jsp" %>
 		</div>
 	</div>
-	<%@ include file="../common/commonETC.jsp" %>
+	<%@ include file="../common/commonBtn.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>
 </body>
 </html>
