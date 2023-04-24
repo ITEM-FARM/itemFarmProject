@@ -4,6 +4,7 @@
 <%
 session.setAttribute("comId", 10); 
 session.setAttribute("comName", "samsung");
+session.setAttribute("managerId", "eb");
 %>
 <!DOCTYPE html>
 <html>
