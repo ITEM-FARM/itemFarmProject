@@ -15,9 +15,11 @@ import controller.LoginCheckController;
 import controller.BaljuCheckListController;
 import controller.BaljuConfirmListController;
 import controller.BaljuController;
+import controller.CompanyInsertController;
 import controller.UnstoringCancelOrderController;
 import controller.CompanyListController;
 import controller.CompanyModifyController;
+import controller.ProductInsertController;
 import controller.ProductListController;
 import controller.ProductModifyController;
 import controller.SessionController;
@@ -63,11 +65,17 @@ public class FrontController extends HttpServlet {
 		case "/company/companyModify.do":
 			controller = new CompanyModifyController();
 			break;
+		case "/company/companyInsert.do":
+			controller = new CompanyInsertController();
+			break;
 		case "/product/productList.do":
 			controller = new ProductListController();
 			break;
 		case "/product/productModify.do":
 			controller = new ProductModifyController();
+			break;
+		case "/product/productInsert.do":
+			controller = new ProductInsertController();
 			break;
 		case "/statistics/new.do":
 			controller = new StatisticsController();

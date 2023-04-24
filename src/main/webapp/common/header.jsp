@@ -17,6 +17,9 @@ pageContext.setAttribute("lookUpList", service.companyList());
 	height: 150px;
 	overflow-y: scroll;
 }
+.activeColor {
+	color: rgb(47, 217, 0);
+}
 </style>
 </head>
 <body id="page-top">
@@ -29,8 +32,21 @@ pageContext.setAttribute("lookUpList", service.companyList());
 		<!-- Topbar Navbar -->
 		<ul class="navbar-nav ml-auto">
 		<li class="nav-item no-arrow">
-			<span class="mr-2 d-none d-lg-inline text-gray-600 small">현재 조회중</span><br>
-			<span class="mr-2 d-none d-lg-inline text-gray-600">${comName}</span>
+			<div>
+				<span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인 사용자
+				<i class="fa fa-circle fa-0.5x activeColor" aria-hidden="true"></i></span><br>	
+				<span class="mr-2 d-none d-lg-inline text-gray-600 small">${managerUser.manager_name}</span>
+			</div>
+		</li>
+		
+		<div class="topbar-divider d-none d-sm-block"></div>
+		
+		<li class="nav-item no-arrow">
+			<div>
+				<span class="mr-2 d-none d-lg-inline text-gray-600 small">현재 조회중
+				<i class="fa fa-circle fa-0.5x activeColor" aria-hidden="true"></i></span><br>	
+				<span class="mr-2 d-none d-lg-inline text-gray-600 small">${comName}</span>
+			</div>
 		</li>
 			
 		<div class="topbar-divider d-none d-sm-block"></div>
