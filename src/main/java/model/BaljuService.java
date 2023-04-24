@@ -24,4 +24,9 @@ public class BaljuService {
 		int result = baljudao.baljuIteminBaljuBox(balju);
 		return result!= 0 ? "발주아이템성공" : "발주아이템실패";
 	}
+	
+	//[태영] 발주 테이블 조회
+	public List<BaljuVO> BaljuList(int company_id){
+		return baljudao.BaljuList(company_id);
+	}
 }

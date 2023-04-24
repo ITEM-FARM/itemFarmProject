@@ -4,6 +4,7 @@
 <html>
 <head>
     <%@ include file="../common/commonCSS.jsp" %>
+    <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 	<title>Insert title here</title>
 </head>
 <body>
