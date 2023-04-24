@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.AuthController;
+import controller.LoginCheckController;
 import controller.BaljuCheckListController;
 import controller.BaljuConfirmListController;
 import controller.BaljuController;
@@ -48,8 +48,8 @@ public class FrontController extends HttpServlet {
 		data.put("response", response);
 		
 		switch (path) {
-		case "/auth/new.do":
-			controller = new AuthController();
+		case "/auth/loginCheck.do":
+			controller = new LoginCheckController();
 			break;
 		case "/balju/baljuCheckList.do":
 			controller = new BaljuCheckListController();
