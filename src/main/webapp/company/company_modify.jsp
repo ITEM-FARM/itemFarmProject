@@ -49,11 +49,11 @@ label {
 	                		</tr>
 	                		<tr>
 	                			<th>수수료(%)</th>
-	                			<td><input type="number" id="company_commission" name="company_commission" step="0.01"
+	                			<td><input type="number" id="company_commission" name="company_commission" step="0.1"
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
-	                			<th>활성화 상태</th>
+	                			<th>상태</th>
 	                			<td>
 	                				<label><input type="radio" id="company_statusY" name="company_status" value="Y">활성</label>
 	                				<label><input type="radio" id="company_statusN" name="company_status" value="N">비활성</label>

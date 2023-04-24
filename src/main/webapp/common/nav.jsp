@@ -7,8 +7,6 @@
 <head>
 </head>
 <body id="page-top">
-<c:set value="${pageContext.request.requestURI}" var="path"/>
-<c:set value="${fn:split(path, '/')[0]}" var="folder"/>
 	<div id="wrapper">
 	<!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -26,7 +24,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item ">
-                <a class="nav-link" href="../product/new.do">
+                <a class="nav-link" href="../product/productList.do">
                     <i class="fas fa-fw fa-briefcase"></i>
                     <span>상품관리</span></a>
             </li>

@@ -1,28 +1,25 @@
 package controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import frontcontroller.CommonInterface;
-import model.CompanyService;
-import vo.CompanyVO;
 
-public class CompanyListController implements CommonInterface {
+public class SessionController implements CommonInterface{
 
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
 		HttpSession session = request.getSession();
-	
-		CompanyService service = new CompanyService();
-		List<CompanyVO> companyList = service.companyList();
 		
-		request.setAttribute("companyList", companyList);
+		int comId = Integer.parseInt(request.getParameter("comId"));
+		String comName = request.getParameter("comName");
+		session.setAttribute("comId", comId); 
+		session.setAttribute("comName", comName);
 		
-		return "/company/company_list.jsp";
+		return "responseBody:OK";
 	}
 
 }

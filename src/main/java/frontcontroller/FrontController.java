@@ -18,7 +18,9 @@ import controller.BaljuController;
 import controller.UnstoringCancelOrderController;
 import controller.CompanyListController;
 import controller.CompanyModifyController;
-import controller.ProductController;
+import controller.ProductListController;
+import controller.ProductModifyController;
+import controller.SessionController;
 import controller.StatisticsController;
 import controller.StoringInsertController;
 import controller.UnstoringTrackingNumberInputController;
@@ -61,8 +63,11 @@ public class FrontController extends HttpServlet {
 		case "/company/companyModify.do":
 			controller = new CompanyModifyController();
 			break;
-		case "/product/new.do":
-			controller = new ProductController();
+		case "/product/productList.do":
+			controller = new ProductListController();
+			break;
+		case "/product/productModify.do":
+			controller = new ProductModifyController();
 			break;
 		case "/statistics/new.do":
 			controller = new StatisticsController();
@@ -97,6 +102,9 @@ public class FrontController extends HttpServlet {
 		case "/warehousing/new.do":
 			controller = new WarehousingController();
 			break;
+		case "/session.do":
+			controller = new SessionController();
+			break;	
 		default:
 			break;
 		}
@@ -111,9 +119,9 @@ public class FrontController extends HttpServlet {
 		
 		if(page.indexOf("redirect:") >= 0) {
 			response.sendRedirect(page.substring(9));
-		}else if (page.indexOf("responseBody:") >= 0) {
-			 response.getWriter().append(page.substring(13)); // 이거 자체가 success의 responseData임!
-		 }else {
+		} else if (page.indexOf("responseBody:") >= 0) {
+		 response.getWriter().append(page.substring(13));
+		} else {
 			RequestDispatcher rd;
 			rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);

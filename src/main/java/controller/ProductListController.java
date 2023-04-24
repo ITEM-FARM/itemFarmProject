@@ -7,22 +7,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import frontcontroller.CommonInterface;
-import model.CompanyService;
-import vo.CompanyVO;
+import model.ProductService;
+import vo.ProductVO;
 
-public class CompanyListController implements CommonInterface {
+public class ProductListController implements CommonInterface {
 
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
+
 		HttpSession session = request.getSession();
-	
-		CompanyService service = new CompanyService();
-		List<CompanyVO> companyList = service.companyList();
+
+		int comId = (int) session.getAttribute("comId"); 
+
+		ProductService service = new ProductService();
 		
-		request.setAttribute("companyList", companyList);
+		List<ProductVO> companyList = service.productList(comId);
 		
-		return "/company/company_list.jsp";
+		request.setAttribute("productList", companyList);
+		
+		return "/product/product_list.jsp";
 	}
 
 }
