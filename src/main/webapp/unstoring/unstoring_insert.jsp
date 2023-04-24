@@ -105,7 +105,7 @@
 											<tr>
 												<td><label for="manager_id">담당자 ID</label></td>
 												<td><input name="manager_id" id="manager_id"
-													type="text" required readonly value="로그인한 담당자 ID"></td>
+													type="text" required readonly value="${magID }"></td>
 											</tr>
 
 										</tbody>

@@ -65,8 +65,6 @@ pageContext.setAttribute("lookUpList", service.companyList());
 				</div>
 			</li>
 
-     		<div class="topbar-divider d-none d-sm-block"></div>
-
 
 			<!-- Nav Item - User Information -->
 			<div class="topbar-divider d-none d-sm-block"></div>

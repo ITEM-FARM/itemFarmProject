@@ -36,7 +36,7 @@
 				$("table tr>td:nth-child("+(index+1)+")").removeClass('selected');
 			});
 		});
-	
+		
 	</script>	
 <title>Insert title here</title>
 </head>
@@ -59,7 +59,7 @@
 						(2) 체크 후 저장버튼을 누르면 해당 로직이 실행됩니다. <br>
 						(3) 주문번호를 누르면 '주문건 상세 페이지'로 이동합니다. <br>
 						<a target="_blank" href="https://datatables.net">official DataTables documentation</a>.
-						<p><i class="fas fa-exclamation-triangle"></i> 발주서 번호를 누르면 상세 조회가 가능합니다.</p> 
+						<p><i class="fas fa-exclamation-triangle"></i> 주문번호를 누르면 상세 조회가 가능합니다.</p> 
 					</p>
 
 					<!-- DataTales Example -->
@@ -80,28 +80,25 @@
 							   id="btnTrackingNumber" 
 							   class="btn btn-secondary btn-icon-split"> 
 							   <span class="icon text-white-50"> <i class="fas fa-arrow-right"></i>
-							</span> <span class="text">송장저장</span>
+							</span> <span class="text">입력저장</span>
 							</a>
 							
 							<br>
 							<br>
-							
+
 							<!-- 주문취소 / 취소저장 -->
-							<a type="radio"
-								id="btnCancel"
-								href="#"
+							<a type="radio" id="btnCancel" href="#"
 								class="btn btn-danger btn-icon-split"> <span
 								class="icon text-white-50"> <i class="fas fa-trash"></i></span>
 								<span class="text">주문취소</span>
-							</a> 
-							<!-- href="javascript:cancel_order()"는 없어도 될 듯?? form submit으로 대체  -->
-							<a type="button"
-							   id="btnCancelOrder"
-							   class="btn btn-secondary btn-icon-split"> 
-							   <span class="icon text-white-50"> <i class="fas fa-arrow-right"></i>
-							</span> <span class="text">취소저장(이름 추천좀)</span>
 							</a>
-							
+							<!-- href="javascript:cancel_order()"는 없어도 될 듯?? form submit으로 대체  -->
+							<a type="button" id="btnCancelOrder"
+								class="btn btn-secondary btn-icon-split"> <span
+								class="icon text-white-50"> <i class="fas fa-arrow-right"></i>
+							</span> <span class="text">취소저장</span>
+							</a>
+
 						</div>
 
 
@@ -169,7 +166,8 @@
 										</c:forEach>
 									</tbody>
 								</table>
-								
+
+
 								<!-- JSON 데이터 보내기 위한 form -->
 								<!-- 2-1. 송장번호 -->
 								<form id="frm1" action="/unstoring/trackingNumberInput.do">
@@ -241,11 +239,17 @@
 						console.log('else');
 					}
 				});
-				
-				
+			    
 				// 2. 용희 : 송장입력 및 주문취소 체크박스로 체크한 놈들 DB에 저장하기
 				// 2-1. 송장번호 저장
 				$("#btnTrackingNumber").on("click", function() {
+					
+					// 관리자 비밀번호 체크 (by 은빈)
+					var password = prompt("관리자 확인", "비밀번호를 입력하세요");
+					
+					if("${managerUser.manager_pw}" != password || password == ""){
+						alert("비밀번호가 올바르지 않습니다.");
+					}else{
 					// 자바쪽으로 json 형태로 보내야 할 듯.
 					// 리스트 생성
 					var testList = new Array() ;
@@ -281,6 +285,8 @@
 					
 					var frm = $("#frm1");
 					frm.submit();
+					
+					}
 				}); 
 				
 			});
@@ -307,6 +313,23 @@
 				});
 				
 				
+				/* // by 은빈 : 비밀번호 입력해야만 송장번호 저장 가능하게끔
+				// ★ 근데 이거 위치가 여기 맞냐??? => 다시 조정  
+				$("#btnCancelOrder").on("click", function () {
+			    	var password = prompt("관리자 확인", "비밀번호를 입력하세요");
+			    	
+			    	if("${managerUser.manager_pw}" === password) {
+			    		return true;
+			    	} else if(password === null) {
+			    		
+			    	} else {
+			    		alert("비밀번호가 올바르지 않습니다.");
+			    	}
+
+			    	return false;
+			    });
+				 */
+				
 				// 2-2. 주문취소 저장
 				$("#btnCancelOrder").on("click", function() {
 					/* 이 자리에 alert를 두니까 => 주문취소 버튼 누르는 횟수만큼 alert 창이 뜨네... (지금 머리가 안 돌아가서 왜 그런질 모르겠네 ㅋㅋ)
@@ -315,8 +338,11 @@
 						alert("주문취소할 행을 먼저 선택하여 주십시오.");
 					}
 					*/
+					var password = prompt("관리자 확인", "비밀번호를 입력하세요");
 					
-					
+					if("${managerUser.manager_pw}" != password || password == ""){
+						alert("비밀번호가 올바르지 않습니다.");
+					}else{
 					// 자바쪽으로 json 형태로 보내야 할 듯.
 					// 리스트 생성
 					var testList = new Array() ;
@@ -352,37 +378,21 @@
 					
 					var frm = $("#frm2");
 					frm.submit();
+					
+					var result = ${result};
+					console.log('저장한 결과값은..? ' + result);
+					}
+					if(result == 1){
+						alert(result + ' 주문취소에 성공하였습니다.');
+					}else{
+						alert(result + '주문취소에 실패하였습니다.');
+					}
+					
 				});
 			});
 			});
 
 			
-		
-		
-		
-		
-		/* // 1. 송장입력 => ★고민: 이것도 포맷이 있는데... 이걸 어떻게 적용하지??
-		function tracking_number_input(unstoring_code) {
-			var tracking_number = prompt('송장번호 입력');
-			location.href = "/unstoring/trackingNumberInput.do?unstoring_code="
-					+ unstoring_code + "&tracking_number=" + tracking_number; // get 요청이니까
-		}
-
-		// 2. 주문취소
-		function cancel_order(unstoring_code) {
-			var result = "${result}";
-			location.href = "/unstoring/cancelOrder.do?unstoring_code="
-					+ unstoring_code;
-
-			if (result == 1) {
-				alert('주문취소에 성공하였습니다');
-			} else {
-				alert('주문취소에 실패하였습니다');
-			}
-		} */
-
-		
-		
 		
 		// 3. 용희 : 주문건 상세조회 - 일단 redirect로 구현 (Modal 포기 ㅋㅋ)
 		function sendDataByRedirect(number) {
@@ -390,6 +400,11 @@
 			location.href = "/unstoring/unstoringTest.do?unstoring_code="
 					+ number;
 		}
+		
+		
+		
+		// 4. 용희 : 송장입력/주문취소의 결과 유무 보여주기 
+		
 	</script>
 
 </body>

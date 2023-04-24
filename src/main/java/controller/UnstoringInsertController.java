@@ -33,6 +33,9 @@ public class UnstoringInsertController implements CommonInterface {
 		int company_id = (int) session.getAttribute("comId"); // ★나중에 로그인 및 세션-setAttribute 전부 되면 그때 사용
 		companyVO.setCompany_id(company_id); 
 		
+		// 세션으로부터 Manager 정보 받기 (참조: LoginCheckController)
+		String magID = (String) session.getAttribute("magID");
+		
 		// 주문건 등록 양식에 '상품코드' 가져오기 위한
 		UnstoringService service = new UnstoringService();
 		List<UnstoringDetailVO> detailList = service.selectProductCode(companyVO);
@@ -70,7 +73,7 @@ public class UnstoringInsertController implements CommonInterface {
 			String unstoringCode = code+selected_company+formatedNow;
 			
 			//매니저 아이디 - ★ 추후 세션으로 가져올 예정
-			String manager_id = "ty";
+			String manager_id = magID;
 			//////////////////////////// 주문번호 만들기 끝 ////////////////////////////
 			
 			

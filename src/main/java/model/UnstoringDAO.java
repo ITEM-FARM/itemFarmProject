@@ -74,20 +74,31 @@ public class UnstoringDAO {
 
 
 	// 송장입력 버튼 => 입력한 송장번호로 update
-	public int trackingNumberInput(List<UnstoringVO> listVO) {
+	public int trackingNumberInput(List<UnstoringVO> listVO, String trkNum) {
 		String sql = """
 				update unstoring
 				set tracking_number = ?, unstoring_state = '출고완료'
 				where unstoring_code = ?
 				""";
-		UnstoringVO unstoring = new UnstoringVO();
 		conn = MysqlUtil.getConnection();
+		UnstoringVO unstoring = new UnstoringVO();
 		try {
+			conn.setAutoCommit(false);
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, unstoring.getTracking_number());
-			pst.setString(2, unstoring.getUnstoring_code());
 			
-			resultCount = pst.executeUpdate();
+			// 여러 건에 대하여 동일한 '송장번호'를 모두 update 해야 하므로
+			for(int i=0; i<listVO.size(); i++) {
+				pst.setString(1, trkNum);
+				
+				unstoring = listVO.get(i);
+				pst.setString(2, unstoring.getUnstoring_code());
+				
+				pst.addBatch();
+			}
+			pst.executeBatch();
+			conn.commit();
+			
+			resultCount = pst.executeUpdate(); // 여러 건이어도 executeUpdate의 리턴값은 1인가 보네
 		} catch (SQLException e) {
 			resultCount = -1;
 			e.printStackTrace();
@@ -99,16 +110,26 @@ public class UnstoringDAO {
 	
 	
 	// 주문취소 버튼 => 주문상태(unstoring_state)를 '주문취소'로 update (O)
-	public int cancelOrder(UnstoringVO unstoring) {
+	public int cancelOrder(List<UnstoringVO> listVO) {
 		String sql = """
 				update unstoring
-				set unstoring_state = '주문취소'
+				set unstoring_state = '주문취소', tracking_number = 'Canceled'
 				where unstoring_code = ?	
 				""";
 		conn = MysqlUtil.getConnection();
+		UnstoringVO unstoring = new UnstoringVO();
 		try {
+			conn.setAutoCommit(false);
 			pst = conn.prepareStatement(sql);
-			pst.setString(1, unstoring.getUnstoring_code());
+			
+			for(int i=0; i<listVO.size(); i++) {
+				unstoring = listVO.get(i);
+				pst.setString(1, unstoring.getUnstoring_code());
+				
+				pst.addBatch();
+			}
+			pst.executeBatch();
+			conn.commit();
 			
 			resultCount = pst.executeUpdate();
 		} catch (SQLException e) {
@@ -124,7 +145,7 @@ public class UnstoringDAO {
 	// 주문건 등록 양식에 '상품코드' 가져오기 위한
 	public List<UnstoringDetailVO> selectProductCode(CompanyVO companyVO){
 		String sql = """
-				select product_code '상품번호', product_name '상품명'
+				select distinct(product_code) '상품번호', product_name '상품명'
 				from unstoring_detail join product using(product_code)
 				where company_id = ?
 				""";
@@ -142,13 +163,11 @@ public class UnstoringDAO {
 				detailList.add(detailVO);
 			}
 		} catch (SQLException e) {
-			System.out.println("에러났음?");
+			System.out.println("DAO - 상품코드 가져오는 부분에서 에러");
 			e.printStackTrace();
 		} finally {
 			MysqlUtil.dbDisconnect(rs, pst, conn);
 		}
-		System.out.println("왜안됨?");
-		System.out.println("DAO에서 " +detailList);
 		return detailList;
 	}
 	
