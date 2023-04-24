@@ -28,7 +28,6 @@
 		}
 		
 		
-		/*[태영] 테이블 thead > tr hover시 row 색 변경*/
 	</style>
 	
 	<script>

@@ -28,7 +28,7 @@ public class BaljuConfirmListController implements CommonInterface {
 
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {
-		String page = "baljuConfirmList.jsp"; //기존 페이지는 balju.jsp 페이지
+		String page = "baljuConfirmList.jsp"; 
 		String method = (String)data.get("method");
 		HttpServletRequest request = (HttpServletRequest)data.get("request");
 		
