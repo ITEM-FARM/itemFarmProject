@@ -21,7 +21,7 @@ label {
 </head>
 <body>
 
-	<div class="modal fade" id="unstoringModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="unstoringDetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -31,32 +31,18 @@ label {
                     </button>
                 </div>
                 <div class="modal-body">
-                	<table>
-                		<tr>
-                			<td><label>주문자 성함 :</label>객체를 전송받아서 getAttribute 해야할 자리</td>
-                		</tr>
-                		<tr>
-                			<td><label>주문자 주소 :</label></td>
-                		</tr>
-                		<tr>
-                			<td><label>송장번호 :</label></td>
-                		</tr>
-                		<tr>
-                			<td><label>주문상태 :</label></td>
-                		</tr>
-                	</table>
-                	
+                	                	
                 	<!-- Page Heading -->
-                    <!-- <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p> -->
+                    <!-- <h1 class="h3 mb-2 text-gray-800">Tables</h1> -->
+                    <p class="mb-4"> 
+                    	<!-- <a target="_blank" href="https://datatables.net">official DataTables documentation</a> -->
+                    </p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <!-- <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
-                        </div> -->
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">주문번호: ${modalTest }</h6>
+                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
