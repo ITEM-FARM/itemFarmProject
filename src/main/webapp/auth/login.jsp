@@ -18,21 +18,27 @@
     	.login-type-grid > span {
     		margin-right: 20px;
     	}
+    	
+    	.bg-login-image {
+    		background-image: url("../common/love.jpg") !important;
+    		background-size: 
+    	}
+    	
+    	.login-box{
+    		padding-left: 3rem !important;
+    		padding-right: 3rem !important;
+    		padding-top: 7rem !important;
+    		padding-bottom: 7rem !important;
+    	}
     </style>
     
-    <script>
-    $(function(){
-    	var companyUser = "${companyUser}";
-    	var managerUser = "${managerUser}";
-		
-    	if(companyUser=="FAIL" || managerUser=="FAIL"){
-    		alert("로그인에 실패하였습니다. 다시 시도해주세요.");
-    	}
-
-    });
-    </script>
+   
 
 </head>
+
+ 
+
+
 
 <body class="bg-gradient-primary">
 
@@ -49,16 +55,16 @@
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6">
-                                <div class="p-5">
+                                <div class="login-box">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">LOGIN</h1>
+                                        <h1 class="h2 text-gray-900 mb-4">LOGIN</h1>
                                     </div>
                                     <form class="user" method="post" action="<%=request.getContextPath() %>/auth/loginCheck.do">
                                     	<div class="form-group">
                                     		<div class="login-type-grid">
 	                                    		<span class="text-primary">로그인 유형</span>
 	                                    		<div class="form-check form-check-inline">
-												  <input class="form-check-input" type="radio" name="logintype" id="manager" value="manager">
+												  <input class="form-check-input" type="radio" name="logintype" id="manager" value="manager" checked="checked">
 												  <label class="form-check-label" for="manager">3PL</label>
 												</div>
 												<div class="form-check form-check-inline">
@@ -92,7 +98,23 @@
         </div>
 
     </div>
-	
+	 <script>
+    $(function(){
+    	var companyUser = "${companyUser}";
+    	var managerUser = "${managerUser}";
+		
+    	if(managerUser=="FAIL"){
+    		alert("매니저 로그인에 실패하였습니다. 다시 시도해주세요.");
+    		<c:set var="managerUser" value="" scope="session"/>
+    	}
+    	
+    	if(companyUser=="FAIL" ){
+    		alert("기업 로그인에 실패하였습니다. 다시 시도해주세요.");
+    		companyUser=="FAIL" 
+    	}
+
+    });
+    </script>
 	<%@ include file="../common/commonETC.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>
 </body>

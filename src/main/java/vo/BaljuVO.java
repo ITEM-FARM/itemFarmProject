@@ -24,4 +24,7 @@ public class BaljuVO {
 	 //[태영] 발주 detail table에만 들어가는 친구
 	 private int product_code;
 	 private int balju_quantity;
+	 
+	 //[발주] 상세 조회시 필요한 상품 정보
+	 private String product_name;
 }

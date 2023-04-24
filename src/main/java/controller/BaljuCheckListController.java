@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import frontcontroller.CommonInterface;
 import model.BaljuService;
@@ -18,10 +19,12 @@ public class BaljuCheckListController implements CommonInterface {
 		
 		if(method.equals("GET")) {
 			BaljuService service = new BaljuService();
-			//14는 기업 아이디
-			List<ProductVO> baljuchecklist = service.selectBaljuCheckList(14);
-			
 			HttpServletRequest request = (HttpServletRequest)data.get("request");
+			HttpSession session = request.getSession();
+			
+			int comId = (Integer)session.getAttribute("comId");
+			List<ProductVO> baljuchecklist = service.selectBaljuCheckList(comId);
+			
 			request.setAttribute("baljuchecklist", baljuchecklist);
 		}
 		
