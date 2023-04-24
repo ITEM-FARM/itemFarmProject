@@ -19,25 +19,27 @@ public class UnstoringDAO {
 	Connection conn;
 	Statement st;
 	PreparedStatement pst; // ?지원
+	PreparedStatement pst2; // ?지원
 //	CallableStatement cst; //SP지원 (Stored Procedure 할때 필요) 
 	ResultSet rs;
 	int resultCount; // insert, update, delete건수
 	
 	
 	// 주문건 상세조회
-	public List<UnstoringDetailVO> selectUnstoringDetail(UnstoringVO vo) {
+	public List<UnstoringDetailVO> selectUnstoringDetail(UnstoringVO vo, CompanyVO vo2) {
 		String sql = """
 				select ud.unstoring_code '주문번호', ud.product_code '상품번호', p.product_name '상품명', ud.unstoring_quantity '상품수량', u.customer_name, u.customer_address, u.tracking_number, u.unstoring_state
 				from unstoring_detail ud join unstoring u on ud.unstoring_code = u.unstoring_code 
 	                     join product p on p.product_code = ud.product_code
                          join company c on c.company_id = p.company_id
-				where ud.unstoring_code = ?
+				where ud.unstoring_code = ? and c.company_id = ?
 				""";
 		List<UnstoringDetailVO> unstoringDetailList = new ArrayList<>();
 		conn = MysqlUtil.getConnection();
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, vo.getUnstoring_code());
+			pst.setInt(2, vo2.getCompany_id());
 			
 			rs = pst.executeQuery();
 			while (rs.next()) {
@@ -45,13 +47,11 @@ public class UnstoringDAO {
 				unstoringDetailList.add(detailVO);
 			}
 		} catch (SQLException e) {
-			System.out.println("여기서 에러");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			MysqlUtil.dbDisconnect(rs, pst, conn);
 		}
-		System.out.println("잘 왔습니다");
 		return unstoringDetailList;
 	}
 	
@@ -119,18 +119,57 @@ public class UnstoringDAO {
 		}
 		return resultCount;
 	}
-
-	// 신규 주문건 등록 (참조 : EmpDAO - empInsert)
-	public int unstoringInsert(UnstoringVO unstoring) {
-		// 단, 송장번호, 출고상태에 대해선 insert X (송장번호는 null이 될 거고, 출고상태는 내가 준 디폴트값('출고대기')으로 될
-		// 듯??)
+	
+	
+	// 주문건 등록 양식에 '상품코드' 가져오기 위한
+	public List<UnstoringDetailVO> selectProductCode(CompanyVO companyVO){
 		String sql = """
-				insert into unstoring(unstoring_code, customer_name, customer_address, order_register, unstoring_date, unstoring_memo, manager_id)
-				values(?,?,?,?,?,?,?)
+				select product_code '상품번호', product_name '상품명'
+				from unstoring_detail join product using(product_code)
+				where company_id = ?
 				""";
+		List<UnstoringDetailVO> detailList = new ArrayList<>();
 		conn = MysqlUtil.getConnection();
 		try {
 			pst = conn.prepareStatement(sql);
+			pst.setInt(1, companyVO.getCompany_id());
+
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				UnstoringDetailVO detailVO = new UnstoringDetailVO();
+				detailVO.setProduct_code(rs.getInt("상품번호"));
+				detailVO.setProduct_name(rs.getString("상품명"));
+				detailList.add(detailVO);
+			}
+		} catch (SQLException e) {
+			System.out.println("에러났음?");
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(rs, pst, conn);
+		}
+		System.out.println("왜안됨?");
+		System.out.println("DAO에서 " +detailList);
+		return detailList;
+	}
+	
+
+	// 신규 주문건 등록 - insert 2개 문장을 따로 따로하여 각 테이블에 넣기
+	// (참조: 과거 EmpDAO)
+	public int unstoringInsert(UnstoringVO unstoring, UnstoringDetailVO detail) {
+		// 단, 송장번호, 출고상태에 대해선 insert X (송장번호는 null이 될 거고, 출고상태는 내가 준 디폴트값('출고대기')으로 될
+		// 듯??)
+		String sql_insert_1 = """
+				insert into unstoring(unstoring_code, customer_name, customer_address, order_register, unstoring_date, unstoring_memo, manager_id)
+				values(?,?,?,?,?,?,?)
+				""";
+		String sql_insert_2 = """
+				insert into unstoring_detail(unstoring_code, product_code, unstoring_quantity)
+				values(?,?,?)
+				""";
+		conn = MysqlUtil.getConnection();
+		try {
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement(sql_insert_1);
 			pst.setString(1, unstoring.getUnstoring_code());
 			pst.setString(2, unstoring.getCustomer_name());
 			pst.setString(3, unstoring.getCustomer_address());
@@ -138,10 +177,17 @@ public class UnstoringDAO {
 			pst.setDate(5, unstoring.getUnstoring_date());
 			pst.setString(6, unstoring.getUnstoring_memo());
 			pst.setString(7, unstoring.getManager_id());
-//			pst.setString(8, unstoring.getTracking_number());
-//			pst.setString(9, unstoring.getUnstoring_state());
+			int a = pst.executeUpdate();
+			
+			pst2 = conn.prepareStatement(sql_insert_2);
+			pst2.setString(1, unstoring.getUnstoring_code());
+			pst2.setInt(2, detail.getProduct_code());
+			pst2.setInt(3, detail.getUnstoring_quantity());
+			int b = pst2.executeUpdate();
+			
+			conn.commit();
 
-			resultCount = pst.executeUpdate();
+			resultCount = a+b;
 		} catch (SQLException e) {
 			resultCount = -1;
 			e.printStackTrace();
@@ -150,7 +196,8 @@ public class UnstoringDAO {
 		}
 		return resultCount;
 	}
-
+	
+	
 	// 주문건 조회 (company_id가 100번인 기업의 주문건은 VO 형태로 여러개니까 List<>)
 	public List<UnstoringVO> selectAll(CompanyVO company) { // ★★ 로그인해서 세션에 저장된 그 회사의 정보가 들어와야 하고 => 그놈의 company_id로 아래
 															// sql 조회할 거니가 필요함
@@ -170,8 +217,8 @@ public class UnstoringDAO {
 
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				UnstoringVO unstore = makeUnstore(rs);
-				unstoreList.add(unstore);
+				UnstoringVO unstoring = makeUnstore(rs);
+				unstoreList.add(unstoring);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -195,5 +242,7 @@ public class UnstoringDAO {
 
 		return unstoring;
 	}
-
+	
 }
+
+

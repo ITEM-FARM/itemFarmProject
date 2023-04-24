@@ -19,20 +19,25 @@ public class UnstoringService {
 	public int cancelOrder(UnstoringVO unstoring) {
 		return dao.cancelOrder(unstoring);
 	}
-
-	// 신규 주문건 등록 (참조 : EmpDAO - empInsert)
-	public int unstoringInsert(UnstoringVO unstore) {
-		return dao.unstoringInsert(unstore);
+	
+	// 주문건 등록 양식에 '상품코드' 가져오기 위한
+	public List<UnstoringDetailVO> selectProductCode(CompanyVO companyVO){
+		return dao.selectProductCode(companyVO);
 	}
 
+	// 신규 주문건 등록 1 (출고 테이블 Insert)
+	public int unstoringInsert(UnstoringVO unstore, UnstoringDetailVO detail) {
+		return dao.unstoringInsert(unstore, detail);
+	}
+	
 	// 주문건 조회
 	public List<UnstoringVO> selectAll(CompanyVO company) {
 		return dao.selectAll(company);
 	}
 	
 	// 주문건 상세조회
-	public List<UnstoringDetailVO> selectUnstoringDetail(UnstoringVO vo) {
-		return dao.selectUnstoringDetail(vo);
+	public List<UnstoringDetailVO> selectUnstoringDetail(UnstoringVO vo, CompanyVO vo2) {
+		return dao.selectUnstoringDetail(vo, vo2);
 	}
 
 }

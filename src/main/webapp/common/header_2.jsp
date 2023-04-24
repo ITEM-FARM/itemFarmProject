@@ -30,32 +30,6 @@ pageContext.setAttribute("lookUpList", service.companyList());
 
 			<!-- Nav Item - User Information -->
 			<div class="topbar-divider d-none d-sm-block"></div>
-			<li class="nav-item no-arrow"><span
-				class="mr-2 d-none d-lg-inline text-gray-600 small">현재 조회중</span><br>
-				<span class="mr-2 d-none d-lg-inline text-gray-600">${comName}</span>
-			</li>
-
-			<div class="topbar-divider d-none d-sm-block"></div>
-
-			<li class="nav-item no-arrow dropdown"><a
-				class="nav-link dropdown-toggle" href="#" role="button"
-				id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> <i
-					class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> <span
-					class="mr-2 d-none d-lg-inline text-gray-600 small">조회 기업 변경</span>
-			</a>
-				<div id="select-box"
-					class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-					aria-labelledby="dropdownMenuLink">
-					<div class="dropdown-header">기업 목록</div>
-					<c:forEach items="${lookUpList}" var="look" varStatus="status">
-						<a class="dropdown-item" data-comId="${look.company_id}"
-							data-comName="${look.company_name}">${look.company_name}</a>
-					</c:forEach>
-				</div></li>
-
-			<!-- Nav Item - User Information -->
-			<div class="topbar-divider d-none d-sm-block"></div>
 			<li class="nav-item no-arrow"><a class="nav-link" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false"
 				data-toggle="modal" data-target="#logoutModal"> <i

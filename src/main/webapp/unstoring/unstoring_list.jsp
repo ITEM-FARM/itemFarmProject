@@ -15,9 +15,13 @@
 		.selected{
 			background-color: #dddfeb;
 		}
-		
-		
-		/*[태영] 테이블 thead > tr hover시 row 색 변경*/
+		b{
+			display: table-cell;
+			padding-right: 1em;
+		}
+		strong{
+			padding-right: 1em;
+		}
 	</style>
 	
 	<script>
@@ -48,18 +52,22 @@
 					<!-- 여기 안에 내용을 다 써야 한다는 소리구나 -->
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800" style="text-align:center;">OO기업 주문건 조회 (기업 이름도 보이게 할 것)</h1>
+					<h1 class="h3 mb-2 text-gray-800">주문건 조회</h1>
 					<p class="mb-4">
 						# 페이지 설명 <br>
 						(1) 송장입력 or 주문취소 버튼(radio)을 누르면 해당하는 값만 체크박스가 enabled 됩니다. <br>
 						(2) 체크 후 저장버튼을 누르면 해당 로직이 실행됩니다. <br>
 						(3) 주문번호를 누르면 '주문건 상세 페이지'로 이동합니다. <br>
 						<a target="_blank" href="https://datatables.net">official DataTables documentation</a>.
+						<p><i class="fas fa-exclamation-triangle"></i> 발주서 번호를 누르면 상세 조회가 가능합니다.</p> 
 					</p>
 
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">주문건 조회 결과 - 총 ${totalCount }건</h6>
+							<hr>
+							
 							<!-- 송장입력 / 송장저장 -->
 							<a type="radio"
 								id="btnInput"
@@ -75,6 +83,9 @@
 							</span> <span class="text">송장저장</span>
 							</a>
 							
+							<br>
+							<br>
+							
 							<!-- 주문취소 / 취소저장 -->
 							<a type="radio"
 								id="btnCancel"
@@ -88,8 +99,9 @@
 							   id="btnCancelOrder"
 							   class="btn btn-secondary btn-icon-split"> 
 							   <span class="icon text-white-50"> <i class="fas fa-arrow-right"></i>
-							</span> <span class="text">취소저장(이름, 위치 추천받음)</span>
+							</span> <span class="text">취소저장(이름 추천좀)</span>
 							</a>
+							
 						</div>
 
 
@@ -99,7 +111,7 @@
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<thead>
-										<tr>
+										<tr id="headrow">
 											<th></th>
 											<th>Index</th>
 											<th>주문번호</th>
@@ -374,8 +386,6 @@
 		
 		// 3. 용희 : 주문건 상세조회 - 일단 redirect로 구현 (Modal 포기 ㅋㅋ)
 		function sendDataByRedirect(number) {
-			var sessionData = number;
-			sessionStorage.setItem("sessionData", sessionData); // JS 영역에서 세션에 값 저장하기 => 서버에 저장되는 게 아니고 브라우저에 저장되는 거구나 (JS의 sessionStorage는)
 			console.log('aa' + number);
 			location.href = "/unstoring/unstoringTest.do?unstoring_code="
 					+ number;
