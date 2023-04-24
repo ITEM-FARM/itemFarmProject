@@ -111,7 +111,9 @@ public class FrontController extends HttpServlet {
 		
 		if(page.indexOf("redirect:") >= 0) {
 			response.sendRedirect(page.substring(9));
-		}
+		}else if (page.indexOf("responseBody:") >= 0) {
+			 response.getWriter().append(page.substring(13)); // 이거 자체가 success의 responseData임!
+		 }
 		else {
 			RequestDispatcher rd;
 			rd = request.getRequestDispatcher(page);
