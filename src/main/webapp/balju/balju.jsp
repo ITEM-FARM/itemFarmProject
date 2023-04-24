@@ -28,7 +28,6 @@
 		}
 		
 		
-		/*[태영] 테이블 thead > tr hover시 row 색 변경*/
 	</style>
 	
 	<script>
@@ -173,11 +172,12 @@
 				console.log(arr);
 				$.ajax({
 					url:"baljuConfirmList.do",
-					headers: {'Content-Type': 'application/json'},
-					data:{ baljuCheckList: arr},
+					data:JSON.stringify(arr),
 					method:"post",
+					contentType: 'application/json; charset=utf-8',
 					success:(result,status,xhr)=>{
-						console.log("textStatus", status);
+						console.log("textStatus", result);
+						location.href="baljuConfirmList.do";
 					},
 					error:(jqXHR, textStatus, errorThrown)=>{
 						console.log("textStatus", textStatus);
