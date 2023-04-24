@@ -15,7 +15,7 @@
     <%@ include file="../common/commonCSS.jsp" %>
     <!-- Custom styles for this page -->
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-	<title>Insert title here</title>
+	<title>발주 등록 폼</title>
 	
 	<style>
 		/* [태영] 테이블 마우스 hover시 background 색 변경 */

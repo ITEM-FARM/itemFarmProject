@@ -20,7 +20,6 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/eclipse-workspace/lib/commons-dbcp2-2.9.0.jar"/>
-
+	<classpathentry kind="lib" path="C:/itemFarm/lib/commons-dbcp2-2.9.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

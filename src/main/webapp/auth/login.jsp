@@ -1,26 +1,44 @@
+<%@page import="util.MysqlUtil"%>
+<%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <%@ include file="../common/commonCSS.jsp" %>
 
     <title>로그인</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="${pageContext.request.contextPath}/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="${pageContext.request.contextPath}/css/sb-admin-2.min.css" rel="stylesheet">
+    <style>
+    	.login-type-grid > span {
+    		margin-right: 20px;
+    	}
+    	
+    	.bg-login-image {
+    		background-image: url("../common/love.jpg") !important;
+    		background-size: 
+    	}
+    	
+    	.login-box{
+    		padding-left: 3rem !important;
+    		padding-right: 3rem !important;
+    		padding-top: 7rem !important;
+    		padding-bottom: 7rem !important;
+    	}
+    </style>
+    
+   
 
 </head>
+
+ 
+
+
 
 <body class="bg-gradient-primary">
 
@@ -37,54 +55,38 @@
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6">
-                                <div class="p-5">
+                                <div class="login-box">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">로그인</h1>
+                                        <h1 class="h2 text-gray-900 mb-4">LOGIN</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" method="post" action="<%=request.getContextPath() %>/auth/loginCheck.do">
                                     	<div class="form-group">
-                                    		<span class="text">로그인 유형</span>
-                                    		<label><input name="loginType" type="radio" value="admin">3PL</label>
-	                						<label><input name="loginType" type="radio" value="company">기업</label>
+                                    		<div class="login-type-grid">
+	                                    		<span class="text-primary">로그인 유형</span>
+	                                    		<div class="form-check form-check-inline">
+												  <input class="form-check-input" type="radio" name="logintype" id="manager" value="manager" checked="checked">
+												  <label class="form-check-label" for="manager">3PL</label>
+												</div>
+												<div class="form-check form-check-inline">
+												  <input class="form-check-input" type="radio" name="logintype" id="company" value="company">
+												  <label class="form-check-label" for="company">기업</label>
+												</div>
+											</div>
                                     	</div>
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <input type="text" class="form-control form-control-user"
+                                                id="inputID" name="inputID"
+                                                placeholder="아이디를 입력해주세요.">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
+                                                id="inputPW" name="inputPW" placeholder="비밀번호를 입력해주세요.">
                                         </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
-                                        </div>
-                                        <a href="/" class="btn btn-primary btn-user btn-block">
+
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
-                                        </a>
-                                        <!-- 
-                                        <hr>
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Login with Google
-                                        </a>
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                        </a> 
-                                        -->
+                                        </button>
                                     </form>
-                                    <!-- 
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
-                                    </div> 
-                                    -->
                                 </div>
                             </div>
                         </div>
@@ -96,16 +98,24 @@
         </div>
 
     </div>
+	 <script>
+    $(function(){
+    	var companyUser = "${companyUser}";
+    	var managerUser = "${managerUser}";
+		
+    	if(managerUser=="FAIL"){
+    		alert("매니저 로그인에 실패하였습니다. 다시 시도해주세요.");
+    		<c:set var="managerUser" value="" scope="session"/>
+    	}
+    	
+    	if(companyUser=="FAIL" ){
+    		alert("기업 로그인에 실패하였습니다. 다시 시도해주세요.");
+    		companyUser=="FAIL" 
+    	}
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="${pageContext.request.contextPath}/vendor/jquery/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="${pageContext.request.contextPath}/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="${pageContext.request.contextPath}/js/sb-admin-2.min.js"></script>
-
+    });
+    </script>
+	<%@ include file="../common/commonETC.jsp" %>
+	<%@ include file="../common/commonJS.jsp" %>
 </body>
 </html>
