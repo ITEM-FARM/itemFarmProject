@@ -73,7 +73,27 @@ public class CompanyDAO {
 	}
 	
 	// 은빈: 기업 등록
-	
+	public int companyInsert(CompanyVO company) {
+		String sql = """
+			insert into company values(nextval('seq_company'), ?, ?, ?, ?)	
+			""";
+		
+		conn = MysqlUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, company.getCompany_name());
+			pst.setString(2, company.getCompany_pw());
+			pst.setDouble(3, company.getCompany_commission());
+			pst.setString(4, Character.toString(company.getCompany_status()));
+			resultCount = pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(null, pst, conn);
+		}
+		
+		return resultCount;
+	}
 	
 	// 은빈: 첫 기업 불러오기 (3PL 로그인 시 선택될 default 기업)
 	public CompanyVO defaultCompany() {

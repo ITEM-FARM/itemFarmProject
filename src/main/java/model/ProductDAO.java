@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +81,37 @@ public class ProductDAO {
 		
 		return resultCount;
 	}
-
+	
+	// 은빈: 상품 등록
+	public int productInsert(ProductVO product) {
+		String sql = """
+			insert into product(product_code, subcategory_name, company_id, product_name, product_cost, product_price,
+								product_stock, product_safety, product_status, product_regdate, manager_id)
+			values(nextval('seq_product'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+			""";
+		
+		conn = MysqlUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, product.getSubcategory_name());
+			pst.setInt(2, product.getCompany_id());
+			pst.setString(3, product.getProduct_name());
+			pst.setInt(4, product.getProduct_cost());
+			pst.setInt(5, product.getProduct_price());
+			pst.setInt(6, product.getProduct_stock());
+			pst.setInt(7, product.getProduct_safety());
+			pst.setString(8, Character.toString(product.getProduct_status()));
+			pst.setTimestamp(9, product.getProduct_regdate());
+			pst.setString(10, product.getManager_id());
+			resultCount = pst.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(null, pst, conn);
+		}
+		
+		return resultCount;
+	}
 
 	//이솔: product 상품명, 상품코드 톻합검색
 	public List<ProductVO> productSelect(String selectValue, String valueType) {

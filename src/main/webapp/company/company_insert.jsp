@@ -33,11 +33,6 @@ label {
                 	<form action="/company/companyInsert.do" method="post" id="companyInsertForm">
 	                	<table>
 	                		<tr>
-	                			<th>기업 코드</th>
-	                			<td><input type="number" id="company_id" name="company_id" placeholder="일단 직접 입력"
-	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
-	                		</tr>
-	                		<tr>
 	                			<th>기업명</th>
 	                			<td><input type="text" id="company_name" name="company_name" 
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
@@ -49,7 +44,7 @@ label {
 	                		</tr>
 	                		<tr>
 	                			<th>수수료(%)</th>
-	                			<td><input type="number" id="company_commission" name="company_commission" step="0.01"
+	                			<td><input type="number" id="company_commission" name="company_commission" step="0.1"
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
