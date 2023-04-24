@@ -27,8 +27,12 @@ public class ProductDAO {
 	int resultCount;
 	
 	// 은빈: 특정 기업의 전체 상품 조회
-	public List<ProductVO> productList(int comID) {
+	public List<ProductVO> productList(int comID, String cond) {
 		String sql = "select * from product join manager using(manager_id) where company_id=" + comID;
+		
+		if (!cond.equals("all")) {
+			sql += " and product_status='" + cond + "'";
+		}
 		List<ProductVO> productList = new ArrayList<>();
 		
 		conn = MysqlUtil.getConnection();

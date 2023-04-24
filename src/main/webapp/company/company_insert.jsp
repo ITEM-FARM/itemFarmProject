@@ -34,17 +34,17 @@ label {
 	                	<table>
 	                		<tr>
 	                			<th>기업명</th>
-	                			<td><input type="text" id="company_name" name="company_name" 
+	                			<td><input type="text" id="company_name" name="company_name" required
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
 	                			<th>비밀번호</th>
-	                			<td><input type="text" id="company_pw" name="company_pw" 
+	                			<td><input type="text" id="company_pw" name="company_pw" required
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
-	                			<th>수수료(%)</th>
-	                			<td><input type="number" id="company_commission" name="company_commission" step="0.1"
+	                			<th>수수료 (%)</th>
+	                			<td><input type="number" id="company_commission" name="company_commission" step="0.01" required
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
@@ -59,10 +59,19 @@ label {
 				</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">닫기</button>
-                    <button class="btn btn-primary" type="submit" form="companyInsertForm">등록</button>
+                    <button id="companyInsertBtn" class="btn btn-primary" type="submit" form="companyInsertForm">등록</button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    $("#companyInsertBtn").on("click", function() {
+    	if(confirm("정말 등록하시겠습니까?") === true) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    });
+    </script>
 </body>
 </html>

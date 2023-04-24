@@ -13,8 +13,8 @@ public class ProductService {
 	}
 	
 	// 은빈: 특정 기업의 전체 상품 조회
-	public List<ProductVO> productList(int comID) {
-		return dao.productList(comID);
+	public List<ProductVO> productList(int comID, String cond) {
+		return dao.productList(comID, cond);
 	}
 	
 	// 은빈: 상품 정보 수정
