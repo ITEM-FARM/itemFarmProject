@@ -30,7 +30,7 @@ label {
                     </button>
                 </div>
                 <div class="modal-body">
-                	<form action="/product/productModify.do" method="post" id="companyModifyForm">
+                	<form action="/product/productModify.do" method="post" id="productModifyForm">
 	                	<table>
 	                		<tr>
 	                			<th>상품 코드</th>
@@ -89,7 +89,7 @@ label {
 				</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">닫기</button>
-                    <button class="btn btn-primary" type="submit" form="companyModifyForm">수정</button>
+                    <button class="btn btn-primary" type="submit" form="productModifyForm">수정</button>
                 </div>
             </div>
         </div>
