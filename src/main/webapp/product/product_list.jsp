@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,10 +26,19 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">📢상품을 선택하면 수정 페이지로 이동합니다.</h6>
-                            <a class="modal-link btn btn-primary btn-icon-split" href="../productInsert" role="button" aria-haspopup="true" 
-                            aria-expanded="false" data-toggle="modal" data-target="#ProductInsertModal">
-                            	<span class="text">상품 등록</span>
-                            </a>
+                            <div>
+                            	<a class="modal-link btn btn-primary btn-icon-split" href="../productInsert" role="button" aria-haspopup="true" 
+		                           aria-expanded="false" data-toggle="modal" data-target="#ProductInsertModal">
+		                            <span class="text">상품 등록</span>
+		                        </a>
+		                        <label>
+		                            <select id="prodStatus-filter" name="prodStatus-filter" class="custom-select custom-select-sm form-control form-control-sm">
+		                            	<option value="all">전체보기</option>
+		                            	<option value="Y">활성</option>
+		                            	<option value="N">비활성</option>
+		                            </select>
+		                        </label>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -38,8 +48,8 @@
 											<th>상품 코드</th>
 											<th>상품명</th>
 											<th>카테고리</th>
-											<th>원가</th>
-											<th>판매가</th>
+											<th>원가 (원)</th>
+											<th>판매가 (원)</th>
 											<th>재고</th>
 											<th>안전재고</th>
 											<th>등록일</th>
@@ -52,8 +62,8 @@
 											<th>상품 코드</th>
 											<th>상품명</th>
 											<th>카테고리</th>
-											<th>원가</th>
-											<th>판매가</th>
+											<th>원가 (원)</th>
+											<th>판매가 (원)</th>
 											<th>재고</th>
 											<th>안전재고</th>
 											<th>등록일</th>
@@ -61,21 +71,21 @@
 											<th>상품 담당자</th>
 										</tr>
                                     </tfoot>
-                                    <tbody>
+                                    <tbody id="table-body">
                                         <c:forEach items="${productList}" var="product">
 											<tr>
 												<td>
-													<a data-company="${product}" class="modal-link" href="../productDetail-code:${product.product_code}" role="button"
+													<a data-product="${product}" class="modal-link" href="../productDetail-code:${product.product_code}" role="button"
   				aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#ProductModifyModal" >${product.product_code}</a></td>
 												<td>
-													<a data-company="${product}" class="modal-link" href="../productDetail-name:${product.product_name}" role="button"
+													<a data-product="${product}" class="modal-link" href="../productDetail-name:${product.product_name}" role="button"
   				aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#ProductModifyModal" >${product.product_name}</a></td>
 												<td>${product.subcategory_name}</td>
-												<td>${product.product_cost}</td>
-												<td>${product.product_price}</td>
+												<td><fmt:formatNumber value="${product.product_cost}"></fmt:formatNumber></td>
+												<td><fmt:formatNumber value="${product.product_price}"></fmt:formatNumber></td>
 												<td>${product.product_stock}</td>
 												<td>${product.product_safety}</td>
-												<td>${product.product_regdate}</td>
+												<td><fmt:formatDate value="${product.product_regdate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 												<td>${product.product_status == "Y".charAt(0) ? "활성" : "비활성"}</td>
 												<td>${product.manager_name}</td> 
 											</tr>
@@ -111,7 +121,7 @@
 	- $.each($(".company_status"): 데이터에 따라 체크 상태 변화
 	*/
 		$("#ProductModifyModal").on("show.bs.modal", function (event) {
-			var str = $(event.relatedTarget).data('company').split(",");
+			var str = $(event.relatedTarget).data('product').split(",");
 			
 			var json = {};
 			$.each(str, function (idx, item) {
@@ -124,7 +134,8 @@
 				
 				if(!id.includes("status")) {
 					$(id).attr("value", json[key]);
-				} else {
+				} 
+				else {
 					if(json[key] == "Y") {
 						$("#product_statusN").removeAttr("checked");
 						$("#product_statusY").attr("checked", "");
@@ -135,6 +146,17 @@
 				}
 			}
 		});
+	
+	$("#prodStatus-filter").on("change", function() {
+		$.ajax({
+			url: $(location).attr("pathname"),
+			method: "post",
+			data: {"filter":$(this).val()},
+			success: function(result) {
+				$("#table-body").html(result);
+			}
+		});
+	});
 	</script>
 </body>
 </html>

@@ -58,7 +58,8 @@ pageContext.setAttribute("lookUpList", service.companyList());
        	     	<div id="select-box" class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
 					<div class="dropdown-header">기업 목록</div>
 					<c:forEach items="${lookUpList}" var="look" varStatus="status">
-						<a class="dropdown-item" data-comId="${look.company_id}" data-comName="${look.company_name}">${look.company_name}</a>
+						<a class="dropdown-item" data-comId="${look.company_id}" 
+						data-comName="${look.company_name}">${look.company_id}: ${look.company_name}</a>
 					</c:forEach>
 				</div>
 			</li>

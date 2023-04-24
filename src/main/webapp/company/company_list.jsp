@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +41,7 @@
                                         <tr>
 											<th>기업 코드</th>
 											<th>기업명</th>
-											<th>수수료</th>
+											<th>수수료 (%)</th>
 											<th>상태</th>
 										</tr>
                                     </thead>
@@ -48,7 +49,7 @@
                                         <tr>
 											<th>기업 코드</th>
 											<th>기업명</th>
-											<th>수수료</th>
+											<th>수수료 (%)</th>
 											<th>상태</th>
 										</tr>
                                     </tfoot>
@@ -62,7 +63,7 @@
 												<td>
 													<a data-company="${company}" class="modal-link" href="../companyDetail-name:${company.company_name}" role="button"
   				aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#CompanyModifyModal" >${company.company_name}</a></td>
-												<td>${company.company_commission}%</td>
+												<td><fmt:formatNumber value="${company.company_commission}" type="percent"></fmt:formatNumber></td>
 												<td>${company.company_status == "Y".charAt(0) ? "활성" : "비활성"}</td> 
 											</tr>
 										</c:forEach>
