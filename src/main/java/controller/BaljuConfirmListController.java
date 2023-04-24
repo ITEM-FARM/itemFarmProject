@@ -39,6 +39,10 @@ public class BaljuConfirmListController implements CommonInterface {
 			//조회 
 			BaljuService service = new BaljuService();
 			
+			int comId = (Integer)session.getAttribute("comId");
+			List<BaljuVO> baljulist = service.BaljuList(comId);
+			
+			request.setAttribute("baljulist", baljulist);
 			
 			return page;
 			
