@@ -4,6 +4,7 @@
 <html>
 <head>
 <%@ include file="../common/commonCSS.jsp"%>
+<<<<<<< HEAD
 <link href="/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 <title>Insert title here</title>
@@ -40,8 +41,10 @@
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary"
-								style="text-align: center;">주문건 상세조회</h6>
+							<a href="/unstoring/unstoringList.do" class="btn btn-secondary btn-icon-split"> <span
+								class="icon text-white-50"> <i class="fas fa-arrow-right"></i>
+							</span> <span class="text">조회 페이지로 돌아가기(위치 오른쪽으로 하고 싶은데)</span>
+							</a>
 						</div>
 
 

@@ -74,12 +74,13 @@ public class UnstoringDAO {
 
 
 	// 송장입력 버튼 => 입력한 송장번호로 update
-	public int trackingNumberInput(UnstoringVO unstoring) {
+	public int trackingNumberInput(List<UnstoringVO> listVO) {
 		String sql = """
 				update unstoring
 				set tracking_number = ?, unstoring_state = '출고완료'
 				where unstoring_code = ?
 				""";
+		UnstoringVO unstoring = new UnstoringVO();
 		conn = MysqlUtil.getConnection();
 		try {
 			pst = conn.prepareStatement(sql);

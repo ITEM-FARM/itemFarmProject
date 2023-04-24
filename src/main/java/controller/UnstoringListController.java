@@ -13,7 +13,6 @@ public class UnstoringListController implements CommonInterface {
 
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {
-		String page = "/unstoring/unstoring_list.jsp";
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
 		UnstoringService service = new UnstoringService();
 		HttpSession session = request.getSession();
@@ -31,7 +30,7 @@ public class UnstoringListController implements CommonInterface {
 		// request가 유지되는 동안 저장한다. (dispatch 방식으로 forward 할 거니까)
 		request.setAttribute("unstoringList", unstoringList);
 		
-
+		String page = "/unstoring/unstoring_list.jsp";
 		return page;
 	}
 

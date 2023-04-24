@@ -11,8 +11,8 @@ public class UnstoringService {
 	UnstoringDAO dao = new UnstoringDAO();
 
 	// 송장입력 버튼 => 입력한 송장번호로 update
-	public int trackingNumberInput(UnstoringVO unstoring) {
-		return dao.trackingNumberInput(unstoring);
+	public int trackingNumberInput(List<UnstoringVO> listVO) {
+		return dao.trackingNumberInput(listVO);
 	}
 
 	// 주문취소 버튼 => 주문상태(unstoring_state)를 '주문취소'로 update
