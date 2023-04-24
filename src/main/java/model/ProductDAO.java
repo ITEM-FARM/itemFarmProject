@@ -80,6 +80,8 @@ public class ProductDAO {
 		return resultCount;
 	}
 
+
+	//이솔: product 상품명, 상품코드 톻합검색
 	public List<ProductVO> productSelect(String selectValue, String valueType) {
 		Map<String, String> map = new HashMap<>();
 		String sql = "select * from product  where 1=1 ";
@@ -102,9 +104,9 @@ public class ProductDAO {
 				  sql += "or";
 			  }
 			  sql+=" cast(" + product.getKey() + " as char(10)) like '%" + product.getValue() + "%'";  
-			  
-			  
 		  }
+		  
+		  System.out.println(sql);
 		List<ProductVO> productList = new ArrayList<>();
 		conn = MysqlUtil.getConnection();
 		
@@ -126,6 +128,8 @@ public class ProductDAO {
 		return productList;
 	}
 
+	
+	
 	private ProductVO makeProduct(ResultSet rs) throws SQLException {
 		ProductVO product = new ProductVO();
 		

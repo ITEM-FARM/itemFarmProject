@@ -15,7 +15,7 @@ import controller.AuthController;
 import controller.BaljuCheckListController;
 import controller.BaljuConfirmListController;
 import controller.BaljuController;
-import controller.CancelOrderController;
+import controller.UnstoringCancelOrderController;
 import controller.CompanyListController;
 import controller.CompanyModifyController;
 import controller.ProductListController;
@@ -23,11 +23,13 @@ import controller.ProductModifyController;
 import controller.SessionController;
 import controller.StatisticsController;
 import controller.StoringInsertController;
-import controller.TrackingNumberInputController;
+import controller.UnstoringTrackingNumberInputController;
 import controller.UnstoringDetailController;
 import controller.StoringListController;
 import controller.UnstoringInsertController;
 import controller.UnstoringListController;
+import controller.UnstoringTestController;
+import controller.UnstoringTestReadController;
 import controller.WarehousingController;
 
 
@@ -83,13 +85,19 @@ public class FrontController extends HttpServlet {
 			controller = new UnstoringListController();
 			break;
 		case "/unstoring/trackingNumberInput.do": // 송장번호 입력 ajax (출고관리)
-			controller = new TrackingNumberInputController();
+			controller = new UnstoringTrackingNumberInputController();
 			break;
 		case "/unstoring/cancelOrder.do": // 주문취소 ajax (출고관리)
-			controller = new CancelOrderController();
+			controller = new UnstoringCancelOrderController();
 			break;
-		case "/unstoring/unstoringDetail.do": // 주문건 상세조회 (모달)
+		case "/unstoring/unstoringDetail.do": // 주문건 상세조회 (모달) - 일단 포기 
 			controller = new UnstoringDetailController();
+			break;
+		case "/unstoring/unstoringTest.do": // 주문건 상세조회 (리디렉트)
+			controller = new UnstoringTestController();
+			break;
+		case "/unstoring/unstoringTestRead.do": // 주문건 상세조회 (리디렉트)
+			controller = new UnstoringTestReadController();
 			break;
 		case "/warehousing/new.do":
 			controller = new WarehousingController();

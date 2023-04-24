@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    	
 <%
@@ -24,7 +25,7 @@ session.setAttribute("comName", "samsung");
 				</div>
 			</div>
 			<%@ include file="../common/footer.jsp" %>
-		</div>
+		</div> 
 	</div>
 	<%@ include file="../common/commonETC.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>
