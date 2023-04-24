@@ -144,16 +144,21 @@ $(function(){
 	
 	
 	$("#allChecking").on("click",function(){
-		
 		var checked = $('#allChecking').is(':checked');
-		console.log(checked);
-		//if(checked) { 
-			$('#allChk input').attr('checked',checked);
-		//}else{
-		//	console.log('현재' + checked);
-		//	$('#allChk input').attr('checked',!checked);
-		//}
-		
+		$('#checkOne').prop('checked',checked);		
+	});
+	
+	
+	$('#deleteProduct').on("click",function(){
+		console.log("여기?");
+		$('input[id=checkOne]:checked').each(function(){
+			console.log("ddd");
+			var checkedTd = $(this).val();
+			var deleteTr = $("tr[id='" + checkedTd +"']");
+			deleteTr.remove();
+			console.log(checkedTd);
+			
+		});
 	});
 	
 })
@@ -164,41 +169,30 @@ function storingQuantity(code, name, obj, count){
 		listCount++;
 		var col = "chk" + listCount;
 		outputBody += `
-			<tr>
+			<tr id="${'${listCount}'}">
 			    <td>
-				    <div class="form-check" id="allChk"><input class="form-check-input text-center mx-0 my-2" type="checkbox" value="" 
-				    id="${'${col}'}" onclick="checking('chk${"${listCount}"}')">
+				    <div class="form-check"><input class="form-check-input text-center mx-0 my-2"  id="checkOne" type="checkbox" value="${'${listCount}'}" onclick="checking('chk${"${listCount}"}')">
 				    </div>
 			    </td>
 			    <td>${'${listCount}'}</td>
 			    <td>${'${code}'}</td>
 			    <td>${'${name}'}</td>
 			    <td>
-			    	<input type="number" class="form-control-sm border-secondary" value="${'${count}'}">
+			    	<input type="number" class="form-control-sm border-secondary" value="${'${quantity}'}">
 			    </td>
 			    <td>???</td>
 			    <td>???</td>
 		    </tr>
 		
 		`;
-		/* outputBody += `
-			
-		          <tr><td><div class="form-check" id="allChk">
-		            <input class="form-check-input text-center mx-0 my-2" type="checkbox" value="" 
-		          id="chk${listCount}" 
-		          onclick="checking("chk${listCount})">
-		            </div></td><td>'+listCount+'</td><td>' + code +'</td><td>' + name + '</td><td>
-		             <input type="number" class="form-control-sm border-secondary" value="' + quantity + '" / ></td>
-		             <td>' + '???' + '</td><td>' + '???' +  '</td>
-		           </tr>
-		          `; */
+		
 		$('#storingList').html(outputBody);
 };
 
 function checking(chk){
-	console.log(chk);
-	var checked = $('#chk1').is(':checked');
-	console.log(checked);
+	/* console.log(chk);
+	var checked = $(chk).is(':checked');
+	console.log(checked); */
 	//console.log($(obj).attr('checked'));
 	//var checked $(obj).is(':checked');
 	/* if($(obj).attr('checked')){
@@ -206,6 +200,9 @@ function checking(chk){
 	} else {
 		$(obj).attr('checked',true);
 	} */
+	
+	/* var checked = $('#allChecking').is(':checked');
+	$('#allChk input').prop('checked',checked);		 */
 	
 };
 
