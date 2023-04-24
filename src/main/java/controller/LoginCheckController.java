@@ -36,19 +36,23 @@ public class LoginCheckController implements CommonInterface {
 				ManagerVO manager = loginservice.ManagerloginCheck(inputID, inputPW);
 				CompanyService companyservice = new CompanyService();
 				CompanyVO company = companyservice.defaultCompany();
-				if (manager == null) {
+
+				if(manager == null) {
 					page = "redirect:/auth/loginCheck.do";
 				} else {// 매니저 로그인 성공시
 					page = "/";
-					session.setAttribute("comId", company.getCompany_id());
+
+					session.setAttribute("comId", company.getCompany_id()); 
 					session.setAttribute("comName", company.getCompany_name());
 				}
 				System.out.println("manager 로그인:" + manager);
-				session.setAttribute("managerUser", manager == null ? "FAIL" : manager);
-			} else if (logintype.equals("company")) {
-				CompanyVO company = loginservice.companyLoginCheck(Integer.valueOf(inputID), inputPW);
 
-				if (company == null) {
+				session.setAttribute("managerUser", manager==null?"FAIL":manager);	
+				session.setAttribute("magID", manager.getManager_id());
+			}else if(logintype.equals("company")) {
+				CompanyVO company = loginservice.companyLoginCheck(Integer.valueOf(inputID), inputPW); 
+				
+				if(company == null) {
 					page = "redirect:/auth/loginCheck.do";
 				} else { // 기업 로그인 성공시
 					session.setAttribute("comId", company.getCompany_id());

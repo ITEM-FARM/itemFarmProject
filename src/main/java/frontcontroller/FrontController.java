@@ -49,13 +49,13 @@ public class FrontController extends HttpServlet {
 		data.put("response", response);
 		
 		switch (path) {
-		case "/auth/loginCheck.do":
+		case "/auth/loginCheck.do"://[태영] 로그인 
 			controller = new LoginCheckController();
 			break;
-		case "/balju/baljuCheckList.do":
+		case "/balju/baljuCheckList.do": //[태영]발주서 생성
 			controller = new BaljuCheckListController();
 			break;
-		case "/balju/baljuConfirmList.do":
+		case "/balju/baljuConfirmList.do"://[태영]발주 조회, 상세 조회
 			controller = new BaljuConfirmListController();
 			break;
 		case "/company/companyList.do":

@@ -82,7 +82,7 @@ public class BaljuDAO {
 			pst.setString(4, balju.getBalju_memo());
 			
 			resultCount = pst.executeUpdate();
-			System.out.println("Balju resultCount:" + resultCount );
+			//System.out.println("Balju resultCount:" + resultCount );
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -109,7 +109,7 @@ public class BaljuDAO {
 			pst.setInt(3, balju.getBalju_quantity());
 			
 			resultCount = pst.executeUpdate();
-			System.out.println("Balju_detail resultCount:" + resultCount);
+			//System.out.println("Balju_detail resultCount:" + resultCount);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -121,6 +121,43 @@ public class BaljuDAO {
 	/////////////////////////////////////////////////////////////////////////////////////////
 	
 	//[태영] 발주 테이블 조회
-	
+	public List<BaljuVO> BaljuList(int company_id){
+		String sql = """
+				SELECT b.balju_code, b.balju_date, b.manager_id, b.balju_memo
+				FROM balju b JOIN balju_detail d ON b.balju_code = d.balju_code 
+					JOIN product p ON d.product_code = p.product_code
+				WHERE company_id = ?
+				""";
+		List<BaljuVO> baljulist = new ArrayList<>();
+		conn = MysqlUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, company_id);
+			rs = pst.executeQuery();
+			while(rs.next()) {
+				BaljuVO balju = makepbalju(rs);
+				baljulist.add(balju);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(rs, pst, conn);
+		}
+		
+		return baljulist;
+	}
+
+	private BaljuVO makepbalju(ResultSet rs) {
+		BaljuVO balju = new BaljuVO();
+		try {
+			balju.setBalju_code(rs.getString("balju_code"));
+			balju.setBalju_date(rs.getTimestamp("balju_date"));
+			balju.setManager_id(rs.getString("manager_id"));
+			balju.setBalju_memo(rs.getString("balju_memo"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return balju;
+	}
 	
 }
