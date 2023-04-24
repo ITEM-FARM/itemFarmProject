@@ -5,14 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter @Setter // @ToString
+@Getter @Setter
 public class ProductVO {
-
-	 private int product_code;
+	private int product_code;
 	 private String subcategory_name;
 	 private int company_id;
 	 private String product_name;
@@ -34,18 +32,20 @@ public class ProductVO {
 	 @Override
 		public String toString() {
 			String str = "";
-			str += "'product_code':" + product_code;
-			str += ",'subcategory_name':" + subcategory_name;
-			str += ",'company_id':" + company_id;
-			str += ",'product_name':" + product_name;
-			str += ",'product_cost':" + product_cost;
-			str += ",'product_price':" + product_price;
-			str += ",'product_stock':" + product_stock;
-			str += ",'product_safety':" + product_safety;
-			str += ",'product_status':" + product_status;
-			str += ",'product_regdate':" + product_regdate;
-			str += ",'manager_id':" + manager_id;
-			str += ",'order_quantity':" + order_quantity;
+			str += "'product_code' : " + product_code;
+			str += ",'subcategory_name' : " + subcategory_name;
+			str += ",'company_id' : " + company_id;
+			str += ",'product_name' : " + product_name;
+			str += ",'product_cost' : " + product_cost;
+			str += ",'product_price' : " + product_price;
+			str += ",'product_stock' : " + product_stock;
+			str += ",'product_safety' : " + product_safety;
+			str += ",'product_status' : " + product_status;
+			str += ",'product_regdate' : " + product_regdate;
+			str += ",'manager_id' : " + manager_id;
+			str += ",'order_quantity' : " + order_quantity;
+			str += ",'total_select' : " + total_select;
+			str += ",'manager_name' : " + manager_name;
 
 			return str;
 		}
@@ -53,5 +53,4 @@ public class ProductVO {
 
 	 //통합검색 시 필요
 	 private String total_select;
-
 }

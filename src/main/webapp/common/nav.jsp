@@ -2,16 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%
-pageContext.setAttribute("comID", 10);
-%>
 <!DOCTYPE html>
 <html>
 <head>
 </head>
 <body id="page-top">
-<c:set value="${pageContext.request.requestURI}" var="path"/>
-<c:set value="${fn:split(path, '/')[0]}" var="folder"/>
 	<div id="wrapper">
 	<!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -29,7 +24,7 @@ pageContext.setAttribute("comID", 10);
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item ">
-                <a class="nav-link" href="../product/productList.do?comID=${comID}">
+                <a class="nav-link" href="../product/productList.do">
                     <i class="fas fa-fw fa-briefcase"></i>
                     <span>상품관리</span></a>
             </li>
@@ -39,7 +34,7 @@ pageContext.setAttribute("comID", 10);
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="../company/companyList.do?comID=${comID}">
+                <a class="nav-link" href="../company/companyList.do">
                     <i class="fas fa-fw fa-city"></i>
                     <span>기업관리</span></a>
             </li>
@@ -56,8 +51,8 @@ pageContext.setAttribute("comID", 10);
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="../balju/baljuCheckList.do?comID=${comID}">발주등록</a>
-                        <a class="collapse-item" href="../balju/baljuConfirmList.do?comID=${comID}">발주내역조회</a>
+                        <a class="collapse-item" href="../balju/baljuCheckList.do">발주등록</a>
+                        <a class="collapse-item" href="../balju/baljuConfirmList.do">발주내역조회</a>
                     </div>
                 </div>
             </li>
@@ -73,8 +68,8 @@ pageContext.setAttribute("comID", 10);
                     <span>입고관리</span></a>
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="../storing/storing_insert.do?comID=${comID}">입고등록</a>
-                        <a class="collapse-item" href="../storing/storing_list.do?comID=${comID}">입고내역조회</a>
+                        <a class="collapse-item" href="../storing/storing_insert.do">입고등록</a>
+                        <a class="collapse-item" href="../storing/storing_list.do">입고내역조회</a>
                     </div>
                 </div>
             </li>
@@ -92,8 +87,8 @@ pageContext.setAttribute("comID", 10);
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="../unstoring/unstoringInsert.do?comID=${comID}">주문건등록</a>
-                        <a class="collapse-item" href="../unstoring/unstoringList.do?comID=${comID}">주문건조회</a>
+                        <a class="collapse-item" href="../unstoring/unstoringInsert.do">주문건등록</a>
+                        <a class="collapse-item" href="../unstoring/unstoringList.do">주문건조회</a>
                     </div>
                 </div>
             </li>
@@ -103,7 +98,7 @@ pageContext.setAttribute("comID", 10);
 
              <!-- Nav Item - Dashboard -->
              <li class="nav-item">
-                <a class="nav-link" href="../warehousing/new.do?comID=${comID}">
+                <a class="nav-link" href="../warehousing/new.do">
                     <i class="fas fa-fw fa-table"></i>
                     <span>입출고 내역 조회</span></a>
             </li>

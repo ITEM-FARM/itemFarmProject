@@ -15,14 +15,14 @@ public class ProductListController implements CommonInterface {
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
+
 		HttpSession session = request.getSession();
 
-		int comID = Integer.parseInt(request.getParameter("comID"));
-		session.setAttribute("comID", comID);
-		
+		int comId = (int) session.getAttribute("comId"); 
+
 		ProductService service = new ProductService();
 		
-		List<ProductVO> companyList = service.productList(comID);
+		List<ProductVO> companyList = service.productList(comId);
 		
 		request.setAttribute("productList", companyList);
 		

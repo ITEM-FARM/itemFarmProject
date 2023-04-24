@@ -17,15 +17,14 @@ public class CompanyVO implements Serializable{
 	private double company_commission;
 	private char company_status;
 	
-	// 은빈: modal창으로 데이터 전달을 위해 toString 직접 정의
 	@Override
 	public String toString() {
 		String str = "";
-		str += "'company_id':" + company_id;
-		str += ",'company_name':" + company_name;
-		str += ",'company_pw':" + company_pw;
-		str += ",'company_commission':" + company_commission;
-		str += ",'company_status':" + company_status;
+		str += "'company_id' : " + company_id;
+		str += ",'company_name' : " + company_name;
+		str += ",'company_pw' : " + company_pw;
+		str += ",'company_commission' : " + company_commission;
+		str += ",'company_status' : " + company_status;
 
 		return str;
 	}

@@ -19,6 +19,8 @@ import controller.CancelOrderController;
 import controller.CompanyListController;
 import controller.CompanyModifyController;
 import controller.ProductListController;
+import controller.ProductModifyController;
+import controller.SessionController;
 import controller.StatisticsController;
 import controller.StoringInsertController;
 import controller.TrackingNumberInputController;
@@ -62,6 +64,9 @@ public class FrontController extends HttpServlet {
 		case "/product/productList.do":
 			controller = new ProductListController();
 			break;
+		case "/product/productModify.do":
+			controller = new ProductModifyController();
+			break;
 		case "/statistics/new.do":
 			controller = new StatisticsController();
 			break;
@@ -89,6 +94,9 @@ public class FrontController extends HttpServlet {
 		case "/warehousing/new.do":
 			controller = new WarehousingController();
 			break;
+		case "/session.do":
+			controller = new SessionController();
+			break;	
 		default:
 			break;
 		}
@@ -103,8 +111,9 @@ public class FrontController extends HttpServlet {
 		
 		if(page.indexOf("redirect:") >= 0) {
 			response.sendRedirect(page.substring(9));
-		}
-		else {
+		} else if (page.indexOf("responseBody:") >= 0) {
+		 response.getWriter().append(page.substring(13));
+		} else {
 			RequestDispatcher rd;
 			rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);

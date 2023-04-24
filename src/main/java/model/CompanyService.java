@@ -17,4 +17,9 @@ public class CompanyService {
 		int result = dao.companyModify(company);
 		return result > 0 ? "정보를 수정했습니다." : "정보 수정에 실패했습니다.";
 	}
+	
+	// 은빈: default 기업 추출
+	public CompanyVO defaultCompany() {
+		return dao.defaultCompany();
+	}
 }

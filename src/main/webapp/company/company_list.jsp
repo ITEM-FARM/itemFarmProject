@@ -42,7 +42,7 @@
 											<th>기업 코드</th>
 											<th>기업명</th>
 											<th>수수료</th>
-											<th>활성화 상태</th>
+											<th>상태</th>
 										</tr>
                                     </thead>
                                     <tfoot>
@@ -50,18 +50,18 @@
 											<th>기업 코드</th>
 											<th>기업명</th>
 											<th>수수료</th>
-											<th>활성화 상태</th>
+											<th>상태</th>
 										</tr>
                                     </tfoot>
                                     <tbody>
                                         <c:forEach items="${companyList}" var="company">
-											<tr class="companyRow">
+											<tr>
 												<td>
-													<a data-company="${company}" data-id="${company.company_id}" class="modal-link" href="../companyDetail-id:${company.company_id}" role="button"
+													<a data-company="${company}" class="modal-link" href="../companyDetail-id:${company.company_id}" role="button"
   				aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#CompanyModifyModal" >${company.company_id}</a>
 												</td>
 												<td>
-													<a data-company="${company}" data-id="${company.company_id}" class="modal-link" href="../companyDetail-name:${company.company_name}" role="button"
+													<a data-company="${company}" class="modal-link" href="../companyDetail-name:${company.company_name}" role="button"
   				aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#CompanyModifyModal" >${company.company_name}</a></td>
 												<td>${company.company_commission}%</td>
 												<td>${company.company_status == "Y".charAt(0) ? "활성" : "비활성"}</td> 
@@ -102,7 +102,7 @@
 			
 			var json = {};
 			$.each(str, function (idx, item) {
-				var value = item.split(":");
+				var value = item.split(" : ");
 				json[value[0]] = value[1];
 			});
 			

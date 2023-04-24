@@ -74,6 +74,30 @@ public class CompanyDAO {
 	
 	// 은빈: 기업 등록
 	
+	
+	// 은빈: 첫 기업 불러오기 (3PL 로그인 시 선택될 default 기업)
+	public CompanyVO defaultCompany() {
+		String sql = "select company_id, company_name from company order by company_id limit 1";
+		CompanyVO company = null;
+		
+		conn = MysqlUtil.getConnection();
+		try {
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			
+			if(rs.next()) {
+				company = new CompanyVO();
+				company.setCompany_id(rs.getInt("Company_id"));
+				company.setCompany_name(rs.getString("Company_name"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(rs, st, conn);
+		}
+		
+		return company;
+	}
 
 	// 은빈: company 객체 생성
 	private CompanyVO makeCompany(ResultSet rs) throws SQLException {

@@ -18,11 +18,11 @@ import vo.CompanyVO;
 import vo.ProductVO;
 
 public class ProductDAO {
-
 	Connection conn;
 	Statement st;
 	PreparedStatement pst; // ?지원
 	ResultSet rs;
+	int resultCount;
 	
 	// 은빈: 특정 기업의 전체 상품 조회
 	public List<ProductVO> productList(int comID) {
@@ -48,7 +48,37 @@ public class ProductDAO {
 		return productList;
 	}
 	
-	
+	// 은빈: 상품 정보 수정
+	public int productModify(ProductVO product) {
+		String sql = """
+				update product
+				set subcategory_name=?, product_name=?, product_cost=?, product_price=?,
+				product_stock=?, product_safety=?, product_status=?
+				where product_code=?
+				""";
+		
+		conn = MysqlUtil.getConnection();
+		
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, product.getSubcategory_name());
+			pst.setString(2, product.getProduct_name());
+			pst.setInt(3, product.getProduct_cost());
+			pst.setInt(4, product.getProduct_price());
+			pst.setInt(5, product.getProduct_stock());
+			pst.setInt(6, product.getProduct_safety());
+			pst.setString(7, Character.toString(product.getProduct_status()));
+			pst.setInt(8, product.getProduct_code());
+			resultCount = pst.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(null, pst, conn);
+		}
+		
+		return resultCount;
+	}
 
 	public List<ProductVO> productSelect(String selectValue, String valueType) {
 		Map<String, String> map = new HashMap<>();
@@ -107,10 +137,10 @@ public class ProductDAO {
 		return product;
 	}
 	
-	// 은빈: 조회를 위한 모든 열이 있는 상품 만들기
+	// 은빈: 조회, 수정을 위한 모든 열이 있는 상품 만들기
 	private ProductVO makeAllProduct(ResultSet rs) throws SQLException {
-		ProductVO product = new ProductVO();
-
+		ProductVO product = new ProductVO();		
+		
 		product.setCompany_id(rs.getInt("Company_id"));
 		product.setProduct_code(rs.getInt("Product_code"));
 		product.setSubcategory_name(rs.getString("Subcategory_name"));
@@ -119,7 +149,7 @@ public class ProductDAO {
 		product.setProduct_price(rs.getInt("Product_price"));
 		product.setProduct_stock(rs.getInt("Product_stock"));
 		product.setProduct_safety(rs.getInt("Product_safety"));
-		// product.setProduct_regdate(null);
+		product.setProduct_regdate(rs.getTimestamp("Product_regdate"));
 		product.setProduct_status(rs.getString("Product_status").charAt(0));
 		product.setManager_name(rs.getString("Manager_name"));
 		

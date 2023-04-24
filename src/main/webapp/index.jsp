@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    	
+<%
+session.setAttribute("comId", 10); 
+session.setAttribute("comName", "samsung");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,19 +15,12 @@
 		<%@ include file="../common/nav.jsp" %>
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content">
-				<%@ include file="../common/header.jsp" %>
+				<%-- <%@ include file="../common/header.jsp" %> --%>
 				
 				<div class="container-fluid">
-					<h1>첫 화면</h1>
+					<h1>Welcome!</h1>
 						<hr>
-						<p><a href="${pageContext.request.contextPath}/auth/login.jsp">로그인/로그아웃</a></p>
-						<p><a href="${pageContext.request.contextPath}/balju/new.do">발주</a></p>
-						<p><a href="${pageContext.request.contextPath}/company/new.do">기업</a></p>
-						<p><a href="${pageContext.request.contextPath}/product/new.do">상품</a></p>
-						<p><a href="${pageContext.request.contextPath}/statistics/new.do">통계</a></p>
-						<p><a href="${pageContext.request.contextPath}/storing/new.do">입고</a></p>
-						<p><a href="${pageContext.request.contextPath}/unstoring/new.do">출고</a></p>
-						<p><a href="${pageContext.request.contextPath}/warehousing/new.do">입출고</a></p>
+						각종 정보를 적는다
 				</div>
 			</div>
 			<%@ include file="../common/footer.jsp" %>

@@ -7,9 +7,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>      
 <%
 CompanyService service = new CompanyService();
-List<CompanyVO> com = service.companyList();
-
-pageContext.setAttribute("lookUpList", com);
+pageContext.setAttribute("lookUpList", service.companyList());
 %>
 <!DOCTYPE html>
 <html>
@@ -32,7 +30,7 @@ pageContext.setAttribute("lookUpList", com);
 		<ul class="navbar-nav ml-auto">
 		<li class="nav-item no-arrow">
 			<span class="mr-2 d-none d-lg-inline text-gray-600 small">현재 조회중</span><br>
-			<span class="mr-2 d-none d-lg-inline text-gray-600"></span>
+			<span class="mr-2 d-none d-lg-inline text-gray-600">${comName}</span>
 		</li>
 			
 		<div class="topbar-divider d-none d-sm-block"></div>
@@ -46,7 +44,7 @@ pageContext.setAttribute("lookUpList", com);
        	     	<div id="select-box" class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
 					<div class="dropdown-header">기업 목록</div>
 					<c:forEach items="${lookUpList}" var="look" varStatus="status">
-						<a class="dropdown-item" data-company="${look.company_id}">${look.company_name}</a>
+						<a class="dropdown-item" data-comId="${look.company_id}" data-comName="${look.company_name}">${look.company_name}</a>
 					</c:forEach>
 				</div>
 			</li>
@@ -65,14 +63,14 @@ pageContext.setAttribute("lookUpList", com);
 	</nav>
 	<script>
 	$(".dropdown-item").on("click", function () {
-		var comId = $(this).attr("data-company");
-		var url = $(location).attr("pathname") + "?comID=" + comId;
+		var comId = $(this).attr("data-comId");
+		var comName = $(this).attr("data-comName");
 
 		$.ajax({
-			url: $(location).attr("pathname"),
-			data: {"comID":comId},
+			url: "/session.do",
+			data: {"comId":comId, "comName":comName},
 			success: function (result) {
-				$(location).attr("href", url);
+				$(location).attr("href", $(location).attr("pathname"));
 			},
 			error: function(message) {
 				alert(message);
