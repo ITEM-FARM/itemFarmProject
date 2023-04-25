@@ -69,4 +69,27 @@ public class LoginDAO {
 		}
 		return company;
 	}
+	
+	//기업 활성화 여부 살펴보기
+	public String isActiveCompany(int id) {
+		String result = "";
+		String sql = "select company_status from company where company_id = ?";
+		
+		conn = MysqlUtil.getConnection();
+		
+		try {
+			st= conn.prepareStatement(sql);
+			st.setInt(1, id);
+			rs = st.executeQuery();
+			if(rs.next()) {
+				result = rs.getString("company_status");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			MysqlUtil.dbDisconnect(rs, st, conn); 
+		}
+		
+		return result;
+	}
 }
