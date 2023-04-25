@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import controller.LoginCheckController;
 import controller.BaljuCheckListController;
 import controller.BaljuConfirmListController;
-import controller.BaljuController;
+import controller.BaljuDetailListController;
 import controller.CompanyInsertController;
 import controller.UnstoringCancelOrderController;
 import controller.CompanyListController;
@@ -58,6 +58,9 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/balju/baljuConfirmList.do"://[태영]발주 조회, 상세 조회
 			controller = new BaljuConfirmListController();
+			break;
+		case "/balju/baljuDetailList.do":
+			controller = new BaljuDetailListController();
 			break;
 		case "/company/companyList.do":
 			controller = new CompanyListController();
