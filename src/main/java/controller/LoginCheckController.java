@@ -70,7 +70,7 @@ public class LoginCheckController implements CommonInterface {
 					System.out.println("company 로그인:" + company);
 					session.setAttribute("companyUser", company==null?"FAIL":company);
 				}
-			
+
 			}
 		}
 

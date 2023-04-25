@@ -173,6 +173,11 @@
 	/*
 	테이블 마우스 hover시 background 색 변경 (참고: balju.jsp)
 	*/
+	var m = "${managerUser}";
+	console.log(m);
+	if(m != null && m != "") {
+		console.log("매니저 있어");
+	}
 	$("#headrow > th").hover(function(){
 		var index = $(this).index();
 		$(this).addClass('selected');
