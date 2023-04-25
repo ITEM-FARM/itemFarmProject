@@ -15,12 +15,13 @@ public class LoginCheckController implements CommonInterface {
 
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {
+		HttpServletRequest request = (HttpServletRequest) data.get("request");
 		String method = (String) data.get("method");
 		String page = "";
 		if (method.equals("GET")) {
 			page = "/auth/login.jsp";
 		} else { // POST 요청시
-			HttpServletRequest request = (HttpServletRequest) data.get("request");
+			
 
 			// logintype은 3PL(manager)인지 기업(company)인지 구분
 			String logintype = request.getParameter("logintype");
