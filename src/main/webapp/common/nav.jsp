@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -32,6 +33,8 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
+			<c:if test="${managerUser != null && managerUser != ''}">
+			
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="../company/companyList.do">
@@ -76,6 +79,7 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider">
+			</c:if>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
@@ -87,7 +91,9 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
+                    	<c:if test="${managerUser != null && managerUser != ''}">
                         <a class="collapse-item" href="../unstoring/unstoringInsert.do">주문건등록</a>
+                        </c:if>
                         <a class="collapse-item" href="../unstoring/unstoringList.do">주문건조회</a>
                     </div>
                 </div>

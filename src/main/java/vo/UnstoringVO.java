@@ -24,6 +24,7 @@ public class UnstoringVO {
 	private String manager_id; // 출고담당자
 	private String tracking_number; // 송장번호 (일단 String으로 할까?? 나중에 long이나 double, 맞는 거롤 바꾸고)
 	private String unstoring_state; // 출고상태
+	private int totalCount; // 총 주문건수
 
 	// 은빈: modal창으로 데이터 전달을 위해 toString 직접 정의
 	@Override
