@@ -73,32 +73,58 @@ public class UnstoringDAO {
 	}
 
 
-	// 송장입력 버튼 => 입력한 송장번호로 update
-	public int trackingNumberInput(List<UnstoringVO> listVO, String trkNum) {
-		String sql = """
+	// 송장입력 버튼 
+	// => (1) 입력한 송장번호로 update
+	// => (2) 재고(product_stock) (-)되게끔 : 이건 트리거?? 아니면 update문을 2번?? (addBatch? or statement 2개?) 
+	public int trackingNumberInput(List<UnstoringVO> list, String trkNum, List<UnstoringDetailVO> detailList) {
+		String sql_track = """
 				update unstoring
 				set tracking_number = ?, unstoring_state = '출고완료'
 				where unstoring_code = ?
 				""";
+		String sql_stock = """
+				update product
+				set product_stock = product_stock - (select unstoring_quantity
+													   from unstoring_detail
+													   where product_code = ? and unstoring_code = ?)
+				where product_code = ?
+				""";
 		conn = MysqlUtil.getConnection();
 		UnstoringVO unstoring = new UnstoringVO();
+		UnstoringDetailVO detailVO = new UnstoringDetailVO();
 		try {
 			conn.setAutoCommit(false);
-			pst = conn.prepareStatement(sql);
+			pst = conn.prepareStatement(sql_track);
+			pst2 = conn.prepareStatement(sql_stock);
 			
-			// 여러 건에 대하여 동일한 '송장번호'를 모두 update 해야 하므로
-			for(int i=0; i<listVO.size(); i++) {
+			// 여러 건을 모두 update 해야 하므로 for + addBatch/executeBatch
+			for(int i=0; i<list.size(); i++) {
+				// sql_track
 				pst.setString(1, trkNum);
 				
-				unstoring = listVO.get(i);
+				unstoring = list.get(i);
+				System.out.println("unstoring : "+unstoring);
 				pst.setString(2, unstoring.getUnstoring_code());
 				
+				// sql_stock
+				detailVO = detailList.get(i);
+				System.out.println("detailVO : "+detailVO);
+				pst2.setInt(1, detailVO.getProduct_code());
+				System.out.println("detailVO.getProduct_code() : "+detailVO.getProduct_code());
+				pst2.setString(2, detailVO.getUnstoring_code());
+				System.out.println("detailVO.getUnstoring_code() : "+detailVO.getUnstoring_code());
+				pst2.setInt(3, detailVO.getProduct_code());
+				
 				pst.addBatch();
+				pst2.addBatch();
 			}
-			pst.executeBatch();
+			int[] a = pst.executeBatch();
+		    int[] b = pst2.executeBatch();
 			conn.commit();
 			
-			resultCount = pst.executeUpdate(); // 여러 건이어도 executeUpdate의 리턴값은 1인가 보네
+			System.out.println("DAO - 송장입력에서 a " + a.toString());
+			System.out.println("DAO - 송장입력에서 b " + b.toString());
+//			resultCount = pst.executeUpdate(); // 여러 건이어도 executeUpdate의 리턴값은 1인가 보네
 		} catch (SQLException e) {
 			resultCount = -1;
 			e.printStackTrace();
@@ -109,8 +135,46 @@ public class UnstoringDAO {
 	}
 	
 	
+	// 송장번호에 해당하는 출고상세(상품코드/주문수량) 정보를 불러오기 위한
+	public List<UnstoringDetailVO> selectDetailByTrkNum(List<UnstoringVO> list) {
+		String sql = """
+				select * from unstoring_detail where unstoring_code = ?
+				""";
+		conn = MysqlUtil.getConnection();
+		List<UnstoringDetailVO> detailList = new ArrayList<>();
+		UnstoringVO unstoring = null;
+		try {
+			conn.setAutoCommit(false);
+			pst = conn.prepareStatement(sql);
+			
+			for(int i=0; i<list.size(); i++) {
+				unstoring = list.get(i);
+				pst.setString(1, unstoring.getUnstoring_code());
+				
+				rs = pst.executeQuery();
+				while(rs.next()) {
+					UnstoringDetailVO detailVO = new UnstoringDetailVO();
+					detailVO.setUnstoring_code(rs.getString("unstoring_code"));
+					detailVO.setProduct_code(rs.getInt("product_code"));
+					System.out.println("rs.getInt(\"product_code\") : " + rs.getInt("product_code"));
+					detailVO.setUnstoring_quantity(rs.getInt("unstoring_quantity"));
+					System.out.println("rs.getInt(\"unstoring_quantity\")" + rs.getInt("unstoring_quantity"));
+					detailList.add(detailVO);
+				}
+			}
+		} catch (SQLException e) {
+			System.out.println("DAO - 송장번호에 해당하는 출고상세(상품코드/주문수량) 정보를 불러오기에서 에러");
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(rs, pst, conn);
+		}
+		return detailList;
+	}
+	
+	
+	
 	// 주문취소 버튼 => 주문상태(unstoring_state)를 '주문취소'로 update (O)
-	public int cancelOrder(List<UnstoringVO> listVO) {
+	public int cancelOrder(List<UnstoringVO> list) {
 		String sql = """
 				update unstoring
 				set unstoring_state = '주문취소', tracking_number = 'Canceled'
@@ -122,8 +186,8 @@ public class UnstoringDAO {
 			conn.setAutoCommit(false);
 			pst = conn.prepareStatement(sql);
 			
-			for(int i=0; i<listVO.size(); i++) {
-				unstoring = listVO.get(i);
+			for(int i=0; i<list.size(); i++) {
+				unstoring = list.get(i);
 				pst.setString(1, unstoring.getUnstoring_code());
 				
 				pst.addBatch();

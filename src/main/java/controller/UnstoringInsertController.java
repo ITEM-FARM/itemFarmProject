@@ -15,6 +15,7 @@ import frontcontroller.CommonInterface;
 import model.UnstoringService;
 import util.DateUtil;
 import vo.CompanyVO;
+import vo.ManagerVO;
 import vo.UnstoringDetailVO;
 import vo.UnstoringVO;
 
@@ -34,13 +35,14 @@ public class UnstoringInsertController implements CommonInterface {
 		companyVO.setCompany_id(company_id); 
 		
 		// 세션으로부터 Manager 정보 받기 (참조: LoginCheckController)
-		String magID = (String) session.getAttribute("magID");
+		ManagerVO managerUser =  (ManagerVO) session.getAttribute("managerUser");
+		String magID = managerUser.getManager_id();
 		
 		// 주문건 등록 양식에 '상품코드' 가져오기 위한
 		UnstoringService service = new UnstoringService();
 		List<UnstoringDetailVO> detailList = service.selectProductCode(companyVO);
 		request.setAttribute("detailList", detailList);
-		System.out.println(detailList);
+		System.out.println("Insert 컨트롤러 - detailList : "+detailList);
 		
 		
 		if (method.equals("GET")) {

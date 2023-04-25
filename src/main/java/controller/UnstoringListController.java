@@ -23,8 +23,8 @@ public class UnstoringListController implements CommonInterface {
 		int company_id = (int) session.getAttribute("comId"); // ★나중에 로그인 및 세션-setAttribute 전부 되면 그때 사용
 		company.setCompany_id(company_id); 
 		
-		// 세션으로부터 Manager 정보 받기 (참조: LoginCheckController)
-		String magID = (String) session.getAttribute("magID");
+//		세션으로부터 Manager 정보 받기 (참조: LoginCheckController)
+//		String magID = (String) session.getAttribute("magID");
 		
 		
 		List<UnstoringVO> unstoringList = service.selectAll(company);

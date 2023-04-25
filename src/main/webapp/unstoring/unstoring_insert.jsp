@@ -102,7 +102,7 @@
 											<tr>
 												<td><label for="manager_id">담당자 ID</label></td>
 												<td><input name="manager_id" id="manager_id"
-													type="text" required readonly value="${magID }"></td>
+													type="text" required readonly value="${managerUser.manager_id }"></td>
 											</tr>
 
 										</tbody>
@@ -147,7 +147,7 @@
 					console.log("textStatus", status);
 				},
 				error:(jqXHR, textStatus, errorThrown)=>{
-					console.log("textStatus", textStatus);
+					console.log("textStatus", textStatus); 
 				}
 			});
 		});

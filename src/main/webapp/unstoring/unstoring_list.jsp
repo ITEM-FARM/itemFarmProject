@@ -120,7 +120,7 @@
 											<th>출고담당자</th>
 											<th>비고</th>
 										</tr>
-									</thead>
+									</thead> 
 									<tbody>
 										<%-- 용희: UnstoringListController에서 set한 걸 get한 데이터 --%>
 										<c:forEach var="list" items="${unstoringList }" 
