@@ -59,6 +59,7 @@ public class LoginCheckController implements CommonInterface {
 
 					page = "/";
 				}
+				 
 				System.out.println("company 로그인:" + company);
 				session.setAttribute("companyUser", company == null ? "FAIL" : company);
 			}
