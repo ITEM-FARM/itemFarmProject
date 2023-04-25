@@ -49,19 +49,28 @@ public class LoginCheckController implements CommonInterface {
 
 				session.setAttribute("managerUser", manager==null?"FAIL":manager);	
 			}else if(logintype.equals("company")) {
-				CompanyVO company = loginservice.companyLoginCheck(Integer.valueOf(inputID), inputPW); 
+				//company loginCheck전에 활성화, 비활성화 기업인지 확인하기
+				String isActiveCompany = loginservice.isActiveCompany(Integer.valueOf(inputID));
 				
-				if(company == null) {
+				//System.out.println("isActiveCompany: " + isActiveCompany);
+				if(isActiveCompany.equals("N")) {//비활성화된 기업이라면
+					session.setAttribute("companyUser", "N");
+					
 					page = "redirect:/auth/loginCheck.do";
-				} else { // 기업 로그인 성공시
-					session.setAttribute("comId", company.getCompany_id());
-					session.setAttribute("comName", company.getCompany_name());
-
-					page = "/";
+				}else {
+					CompanyVO company = loginservice.companyLoginCheck(Integer.valueOf(inputID), inputPW); 
+					
+					if(company == null) {
+						page = "redirect:/auth/loginCheck.do";
+					}else { //기업 로그인 성공시
+						session.setAttribute("comId", company.getCompany_id()); 
+						session.setAttribute("comName", company.getCompany_name());
+						page = "/";
+					}
+					System.out.println("company 로그인:" + company);
+					session.setAttribute("companyUser", company==null?"FAIL":company);
 				}
-				 
-				System.out.println("company 로그인:" + company);
-				session.setAttribute("companyUser", company == null ? "FAIL" : company);
+
 			}
 		}
 

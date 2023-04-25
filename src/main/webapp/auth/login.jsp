@@ -78,6 +78,7 @@
                                                 id="inputID" name="inputID"
                                                 placeholder="아이디를 입력해주세요.">
                                         </div>
+                                        <p id="here" class="text-warning text-xs form-group"></p>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
                                                 id="inputPW" name="inputPW" placeholder="비밀번호를 입력해주세요.">
@@ -108,7 +109,11 @@
     		<c:set var="managerUser" value="" scope="session"/>
     	}
     	
-    	if(companyUser=="FAIL" ){
+    	if(companyUser == "N"){
+    		//alert("비활성화된 기업입니다. 관리자에게 문의하세요.")
+    		$("#here").html("<i class='fas fa-exclamation-triangle'></i> 비활성화된 기업입니다. 관리자에게 문의하세요.");
+    		<c:set var="companyUser" value="" scope="session"/>
+    	}else if(companyUser=="FAIL" ){
     		alert("기업 로그인에 실패하였습니다. 다시 시도해주세요.");
     		<c:set var="companyUser" value="" scope="session"/> 
     	}
