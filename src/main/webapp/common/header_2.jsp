@@ -7,7 +7,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>      
 <%
 CompanyService service = new CompanyService();
-pageContext.setAttribute("lookUpList", service.companyList());
+pageContext.setAttribute("lookUpList", service.companyList("all"));
 %>
 <!DOCTYPE html>
 <html>

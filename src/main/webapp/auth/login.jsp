@@ -110,7 +110,7 @@
     	
     	if(companyUser=="FAIL" ){
     		alert("기업 로그인에 실패하였습니다. 다시 시도해주세요.");
-    		companyUser=="FAIL" 
+    		<c:set var="companyUser" value="" scope="session"/> 
     	}
 
     });

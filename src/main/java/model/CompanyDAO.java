@@ -21,8 +21,14 @@ public class CompanyDAO {
 	int resultCount;
 	
 	// 은빈: 전체 기업 조회
-	public List<CompanyVO> companyList() {
-		String sql = "select * from company order by company_id";
+	public List<CompanyVO> companyList(String cond) {
+		String condition = cond.equals("all") ? " " : " where company_status='" + cond + "' ";
+		String sql = "select * from company" + condition + "order by company_id";
+		/*
+		 * if(!cond.equals("all")) { sql += " where company_status='" + cond + "'"; }
+		 * sql += " order by company_id";
+		 */
+		
 		List<CompanyVO> companyList = new ArrayList<>();
 		
 		conn = MysqlUtil.getConnection();
