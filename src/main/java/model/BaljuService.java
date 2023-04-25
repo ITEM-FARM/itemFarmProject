@@ -29,4 +29,9 @@ public class BaljuService {
 	public List<BaljuVO> BaljuList(int company_id){
 		return baljudao.BaljuList(company_id);
 	}
+	
+	//[태영] 발주 내역 상세 조회(상품 포함)
+	public List<BaljuVO> BaljuDeatailList(String balju_code){
+		return baljudao.BaljuDeatailList(balju_code);
+	}
 }
