@@ -48,7 +48,6 @@ public class LoginCheckController implements CommonInterface {
 				System.out.println("manager 로그인:" + manager);
 
 				session.setAttribute("managerUser", manager==null?"FAIL":manager);	
-				session.setAttribute("magID", manager.getManager_id());
 			}else if(logintype.equals("company")) {
 				CompanyVO company = loginservice.companyLoginCheck(Integer.valueOf(inputID), inputPW); 
 				

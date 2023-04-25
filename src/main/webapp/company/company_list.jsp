@@ -8,6 +8,17 @@
     <%@ include file="../common/commonCSS.jsp" %>
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 	<title>전체기업조회</title>
+	<style>
+	#comFilter {
+		display: inline-block;
+	}
+	#dataTable #datarow:hover {
+		background-color: #dddfeb;
+	}
+	.selected {
+		background-color: #dddfeb;
+	}
+	</style>
 </head>
 <body>
 	<div id="wrapper">
@@ -18,7 +29,22 @@
 				
 				<div class="container-fluid">
 					<h1 class="h3 mb-2 text-gray-800">ITEM FARM에 등록된 기업 목록</h1>
-                    
+                    <p>📢기업을 선택하면 수정 페이지로 이동합니다.</p>
+                    <a class="modal-link btn btn-primary btn-icon-split btn-sm" href="../companyInsert" role="button" aria-haspopup="true" 
+		            	aria-expanded="false" data-toggle="modal" data-target="#CompanyInsertModal">
+		                <span class="text">기업 등록</span>
+		            </a>
+		            <!-- 은빈: post: 기업 상태에 따른 필터링 -->
+		            <form id="comFilter" method="post" action="/company/companyList.do">
+		            	<label>
+			            	<select id="comStatus-filter" name="comStatus-filter" class="custom-select custom-select-sm form-control form-control-sm">
+			                	<option value="all" ${filter == "all" ? "selected" : ""}>전체보기</option>
+			                    <option value="Y" ${filter == "Y" ? "selected" : ""}>활성</option>
+			                    <option value="N" ${filter == "N" ? "selected" : ""}>비활성</option>
+			            	</select>
+			            </label>
+			            <button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-search" aria-hidden="true"></i></button>                 
+		            </form>
                     <!-- 
                     은빈: 기업 목록 조회
                     기업 코드, 기업명 누르면 수정 modal
@@ -26,19 +52,13 @@
                     -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <div>
-                            	<h6 class="m-0 font-weight-bold text-primary">📢기업을 선택하면 수정 페이지로 이동합니다.</h6>
-                            	<a class="modal-link btn btn-primary btn-icon-split" href="../companyInsert" role="button" aria-haspopup="true" 
-		                        aria-expanded="false" data-toggle="modal" data-target="#CompanyInsertModal">
-		                          	<span class="text">기업 등록</span>
-		                        </a>
-                            </div>
+                            <h6 class="m-0 font-weight-bold text-primary">기업 목록</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
-                                        <tr>
+                                        <tr id="headrow">
 											<th>기업 코드</th>
 											<th>기업명</th>
 											<th>수수료 (%)</th>
@@ -55,7 +75,7 @@
                                     </tfoot>
                                     <tbody>
                                         <c:forEach items="${companyList}" var="company">
-											<tr>
+											<tr id="datarow">
 												<td>
 													<a data-company="${company}" class="modal-link" href="../companyDetail-id:${company.company_id}" role="button"
   				aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#CompanyModifyModal" >${company.company_id}</a>
@@ -126,6 +146,20 @@
 				}
 			}
 		});
+	</script>
+	<script>
+	/*
+	테이블 마우스 hover시 background 색 변경 (참고: balju.jsp)
+	*/
+	$("#headrow > th").hover(function(){
+		var index = $(this).index();
+		$(this).addClass('selected');
+		$("table tr>td:nth-child("+(index+1)+")").addClass('selected');
+	},function(){
+		var index = $(this).index();
+		$(this).removeClass('selected');
+		$("table tr>td:nth-child("+(index+1)+")").removeClass('selected');
+	});
 	</script>
 </body>
 </html>

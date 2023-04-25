@@ -7,7 +7,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>      
 <%
 CompanyService service = new CompanyService();
-pageContext.setAttribute("lookUpList", service.companyList());
+List<CompanyVO> companyList = service.companyList("all");
+pageContext.setAttribute("lookUpList", companyList);
 %>
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,9 @@ pageContext.setAttribute("lookUpList", service.companyList());
 		</button>
 		<!-- Topbar Navbar -->
 		<ul class="navbar-nav ml-auto">
-
+		
+		<c:if test="${managerUser != null && managerUser != ''}">
+		
 		<li class="nav-item no-arrow">
 			<div class="nav-link">
 				<i class="fas fa fa-user fa-0.5x activeColor" aria-hidden="true"></i></span>	
@@ -67,6 +70,9 @@ pageContext.setAttribute("lookUpList", service.companyList());
 
 			<!-- Nav Item - User Information -->
 			<div class="topbar-divider d-none d-sm-block"></div>
+			
+			</c:if>
+			
 			<li class="nav-item no-arrow"><a class="nav-link" href="#"
 				role="button" aria-haspopup="true" aria-expanded="false"
 				data-toggle="modal" data-target="#logoutModal"> <i
