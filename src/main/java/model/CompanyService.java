@@ -8,8 +8,8 @@ public class CompanyService {
 	CompanyDAO dao = new CompanyDAO();
 	
 	// 은빈: 전체 기업 조회
-	public List<CompanyVO> companyList() {
-		return dao.companyList();
+	public List<CompanyVO> companyList(String cond) {
+		return dao.companyList(cond);
 	}
 	
 	// 은빈: 기업 정보 수정

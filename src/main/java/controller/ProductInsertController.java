@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import frontcontroller.CommonInterface;
 import model.ProductService;
+import vo.ManagerVO;
 import vo.ProductVO;
 
 public class ProductInsertController implements CommonInterface{
@@ -37,7 +38,8 @@ public class ProductInsertController implements CommonInterface{
 		char product_status = request.getParameter("product_status").charAt(0);
 		Date date = new Date();
 		Timestamp product_regdate = new Timestamp(date.getTime());
-		String manager_id = (String) session.getAttribute("managerId");
+		ManagerVO manager = (ManagerVO) session.getAttribute("managerUser");
+		String manager_id = manager.getManager_id();
 		
 		product.setProduct_cost(product_cost);
 		product.setProduct_name(product_name);
