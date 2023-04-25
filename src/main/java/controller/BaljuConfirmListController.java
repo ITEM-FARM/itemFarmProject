@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -23,6 +24,7 @@ import org.json.simple.parser.ParseException;
 import frontcontroller.CommonInterface;
 import model.BaljuService;
 import vo.BaljuVO;
+import vo.ManagerVO;
 
 public class BaljuConfirmListController implements CommonInterface {
 
@@ -31,9 +33,17 @@ public class BaljuConfirmListController implements CommonInterface {
 		String page = "baljuConfirmList.jsp"; 
 		String method = (String)data.get("method");
 		HttpServletRequest request = (HttpServletRequest)data.get("request");
+		HttpSession session = request.getSession();
 		
 		if(method.equals("GET")) {
 			//조회 
+			BaljuService service = new BaljuService();
+			
+			int comId = (Integer)session.getAttribute("comId");
+			List<BaljuVO> baljulist = service.BaljuList(comId);
+			
+			request.setAttribute("baljulist", baljulist);
+			
 			return page;
 			
 		}else {
@@ -50,7 +60,9 @@ public class BaljuConfirmListController implements CommonInterface {
 			String code = "B";
 			
 			//셀렉한 기업 코드
-			String selected_company = "14";
+			String comId = String.valueOf(session.getAttribute("comId"));
+			System.out.println(comId);
+			String selected_company = comId;
 			
 			//날짜->시리얼 넘버 만들기
 			String formatedNow = now.format(DateTimeFormatter.ofPattern("yyMMddkmmss"));
@@ -60,13 +72,14 @@ public class BaljuConfirmListController implements CommonInterface {
 			//System.out.println("baljucode: " + baljucode); //baljucode: B14230421144441
 			
 			//매니저 아이디 - 추후 세션으로 가져올 예정
-			String manager_id = "ty";
+			ManagerVO m = (ManagerVO) session.getAttribute("managerUser");
+			String magID = m.getManager_id();
+			//System.out.println("mID" + magID);
+			String manager_id = magID;
 			
 			createBalju.setBalju_code(baljucode); //발주코드
 			createBalju.setManager_id(manager_id); //매니저 아이디
 			createBalju.setBalju_date(timestamp); //현재등록날짜
-			
-			
 			
 			////////////////////// String Buffer 영역 ///////////////////////
 			//baljuCheckList를 받기 위해서 StringBuffer를 사용해야 한다.
@@ -111,7 +124,7 @@ public class BaljuConfirmListController implements CommonInterface {
 					key = keys.next();
 					val = (String)obj2.get(key);
 					
-					System.out.println(key + "=>" + val);
+					//System.out.println(key + "=>" + val);
 					if(key.equals("balju_memo")) {
 						//System.out.println(val);
 						createBalju.setBalju_memo(val);
@@ -130,18 +143,18 @@ public class BaljuConfirmListController implements CommonInterface {
 			//////////////////////String Buffer 영역 end ///////////////////////
 
 			String BaljuBox = service.createBaljuBox(createBalju);
-			System.out.println(BaljuBox); //insert 성공여부
+			//System.out.println(BaljuBox); //insert 성공여부
 			
 			for(int i=0; i<ProductCode.size(); i++) {
 				BaljuVO createBaljuItem = new BaljuVO();
 				createBaljuItem.setBalju_code(baljucode); //balju_detail 발주코드
-				System.out.println(OrderQuantity);
-				System.out.println(ProductCode);
+				//System.out.println(OrderQuantity);
+				//System.out.println(ProductCode);
 				createBaljuItem.setProduct_code(ProductCode.get(i));
 				createBaljuItem.setBalju_quantity(OrderQuantity.get(i));
 				
 				String BaljuBoxItem = service.baljuIteminBaljuBox(createBaljuItem);
-				System.out.println(BaljuBoxItem);
+				//System.out.println(BaljuBoxItem);
 			}
 			
 			//어차피 ajax라 balju.jsp로 돌아간다. 그래서 responseBody를 보내주기

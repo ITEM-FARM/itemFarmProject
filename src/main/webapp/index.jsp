@@ -1,10 +1,6 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>    	
-<%
-session.setAttribute("comId", 10); 
-session.setAttribute("comName", "samsung");
-%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +17,7 @@ session.setAttribute("comName", "samsung");
 				<div class="container-fluid">
 					<h1>Welcome!</h1>
 						<hr>
-						각종 정보를 적는다
+						<a href="/auth/loginCheck.do">로그인 먼저 갔다와</a>
 				</div>
 			</div>
 			<%@ include file="../common/footer.jsp" %>

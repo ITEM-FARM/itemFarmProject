@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,6 +22,7 @@ public class UnstoringCancelOrderController implements CommonInterface {
 		// org.json.simple.* 라이브러리를 사용하는 경우
 
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
+		HttpSession session = request.getSession();
 		UnstoringService service = new UnstoringService();
 
 		/**** JSON 받는 방법 ****/
@@ -58,9 +60,10 @@ public class UnstoringCancelOrderController implements CommonInterface {
 			// 7. List에 담아 (왜냐면 List 형태로 DAO에 보내야 하거든)
 			listVO.add(vo);
 		}
-//		주문취소 버튼 누르면 그 주문번호에 해당하는 '주문상태'를 변경하게끔
-//		아마도 데이터 타입만 List<>로 바꿔주면 될 듯?
-//		service.cancelOrder(listVO); 
+		// 용희: 주문취소 버튼 누르면 그 주문번호에 해당하는 '주문상태'를 변경하게끔
+		// 아마도 데이터 타입만 List<>로 바꿔주면 될 듯?
+		int result = service.cancelOrder(listVO);  
+		session.setAttribute("result", result);
 
 		String page = "redirect:/unstoring/unstoringList.do";
 		return page;

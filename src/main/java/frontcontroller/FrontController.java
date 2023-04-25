@@ -11,25 +11,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controller.AuthController;
 import controller.BaljuCheckListController;
 import controller.BaljuConfirmListController;
-import controller.BaljuController;
-import controller.UnstoringCancelOrderController;
+import controller.CompanyInsertController;
 import controller.CompanyListController;
 import controller.CompanyModifyController;
+import controller.LoginCheckController;
+import controller.ProductInsertController;
 import controller.ProductListController;
 import controller.ProductModifyController;
 import controller.SessionController;
 import controller.StatisticsController;
 import controller.StoringInsertController;
-import controller.UnstoringTrackingNumberInputController;
-import controller.UnstoringDetailController;
 import controller.StoringListController;
+import controller.UnstoringCancelOrderController;
+import controller.UnstoringDetailController;
 import controller.UnstoringInsertController;
 import controller.UnstoringListController;
 import controller.UnstoringTestController;
 import controller.UnstoringTestReadController;
+import controller.UnstoringTrackingNumberInputController;
 import controller.WarehousingController;
 
 
@@ -48,13 +49,13 @@ public class FrontController extends HttpServlet {
 		data.put("response", response);
 		
 		switch (path) {
-		case "/auth/new.do":
-			controller = new AuthController();
+		case "/auth/loginCheck.do"://[태영] 로그인 
+			controller = new LoginCheckController();
 			break;
-		case "/balju/baljuCheckList.do":
+		case "/balju/baljuCheckList.do": //[태영]발주서 생성
 			controller = new BaljuCheckListController();
 			break;
-		case "/balju/baljuConfirmList.do":
+		case "/balju/baljuConfirmList.do"://[태영]발주 조회, 상세 조회
 			controller = new BaljuConfirmListController();
 			break;
 		case "/company/companyList.do":
@@ -63,11 +64,17 @@ public class FrontController extends HttpServlet {
 		case "/company/companyModify.do":
 			controller = new CompanyModifyController();
 			break;
+		case "/company/companyInsert.do":
+			controller = new CompanyInsertController();
+			break;
 		case "/product/productList.do":
 			controller = new ProductListController();
 			break;
 		case "/product/productModify.do":
 			controller = new ProductModifyController();
+			break;
+		case "/product/productInsert.do":
+			controller = new ProductInsertController();
 			break;
 		case "/statistics/new.do":
 			controller = new StatisticsController();

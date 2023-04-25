@@ -19,7 +19,7 @@ label {
 </style>
 </head>
 <body>
-	<!-- 은빈: 기업 정보 수정 modal -->
+	<!-- 은빈: post: 기업 정보 수정 modal -->
 	<div class="modal fade" id="ProductModifyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -31,7 +31,7 @@ label {
                     </button>
                 </div>
                 <div class="modal-body">
-                	<form action="/product/productModify.do" method="post" id="companyModifyForm">
+                	<form action="/product/productModify.do" method="post" id="productModifyForm">
 	                	<table>
 	                		<tr>
 	                			<th>상품 코드</th>
@@ -40,32 +40,32 @@ label {
 	                		</tr>
 	                		<tr>
 	                			<th>상품명</th>
-	                			<td><input type="text" id="product_name" name="product_name" 
+	                			<td><input type="text" id="product_name" name="product_name" required
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
 	                			<th>카테고리</th>
-	                			<td><input type="text" id="subcategory_name" name="subcategory_name" 
+	                			<td><input type="text" id="subcategory_name" name="subcategory_name" required
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
-	                			<th>원가</th>
-	                			<td><input type="number" id="product_cost" name="product_cost"
+	                			<th>원가 (원)</th>
+	                			<td><input type="number" id="product_cost" name="product_cost" required
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
-	                			<th>판매가</th>
-	                			<td><input type="number" id="product_price" name="product_price"
+	                			<th>판매가 (원)</th>
+	                			<td><input type="number" id="product_price" name="product_price" required
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
 	                			<th>재고</th>
-	                			<td><input type="number" id="product_stock" name="product_stock"
+	                			<td><input type="number" id="product_stock" name="product_stock" required
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
 	                			<th>안전재고</th>
-	                			<td><input type="number" id="product_safety" name="product_safety"
+	                			<td><input type="number" id="product_safety" name="product_safety" required
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
@@ -90,10 +90,19 @@ label {
 				</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">닫기</button>
-                    <button class="btn btn-primary" type="submit" form="companyModifyForm">수정</button>
+                    <button id="productModifyBtn" class="btn btn-primary" type="submit" form="productModifyForm">수정</button>
                 </div>
             </div>
         </div>
     </div>
+    <script>
+    $("#productModifyBtn").on("click", function() {
+    	if(confirm("정말 수정하시겠습니까?") === true) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    });
+    </script>
 </body>
 </html>

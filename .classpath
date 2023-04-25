@@ -20,6 +20,8 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
+
 	<classpathentry kind="lib" path="C:/itemFarm/lib/mysql-connector-java-8.0.25.jar"/>
+
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

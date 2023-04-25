@@ -10,7 +10,7 @@
 <head>
     <%@ include file="../common/commonCSS.jsp" %>
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-	<title>Insert title here</title>
+	<title>발주내역</title>
 	
 	<style>
 		/* [태영] 테이블 마우스 hover시 background 색 변경 */
@@ -67,13 +67,18 @@
 		                            	</tr>
 		                            </thead>
 		                            <tbody>
-		                            	<tr id="datarow">
-		                            		<td>a</td>
-		                            		<td>a</td>
-		                            		<td>a</td>
-		                            		<td>a</td>
-		                            		<td>a</td>
-		                            	</tr>
+		                            	<c:forEach items="${baljulist}" var="balist" varStatus="status">
+			                            	<tr id="datarow">
+			                            		<td>${status.count }</td>
+			                            		<td>
+			                            			<a data-toggle="modal" data-target="#CompanyModifyModal">
+			                            			${balist.balju_code}</a>
+			                            		</td>
+			                            		<td><fmt:formatDate value="${balist.balju_date}" pattern="yy-MM-dd HH:mm:ss" /></td>
+			                            		<td>${balist.manager_id}</td>
+			                            		<td>${balist.balju_memo}</td>
+			                            	</tr>
+		                            	</c:forEach>
 		                            </tbody>
 								</table>
 							</div>
@@ -86,6 +91,9 @@
 			<%@ include file="../common/footer.jsp" %>
 		</div>
 	</div>
+	
+	<%@ include file="baljuDetailModal.jsp" %>
+	
 	<%@ include file="../common/commonETC.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>
 	
@@ -95,5 +103,6 @@
 
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/js/demo/datatables-demo.js"></script>
+    
 </body>
 </html>
