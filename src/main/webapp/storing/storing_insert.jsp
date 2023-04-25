@@ -39,7 +39,7 @@
 								aria-label="Search input with dropdown button" name="selectValue2" placeholder="Search" />	
 							
 							<input
-								id="productSearch" class="btn my-2 my-sm-0 mx-2 bg-primary text-white"
+								id="searchProduct" class="btn my-2 my-sm-0 mx-2 bg-primary text-white"
 								type="button" id="form_submit" value="Search" /> 
 							<input
 								class="btn my-2 my-sm-0 mx-2 bg-success text-white"
@@ -62,7 +62,7 @@
 							<tr>
 								<th scope="col">
 									<div class="form-check px-0 mx-0 text-center">
-  										<input class="form-check-input" type="checkbox" value="" id="allChecking">
+  										<input class="form-check-input" type="checkbox" id="allChecking">
   										<label class="form-check-label" for="flexCheckDefault">
     										전체
   										</label>
@@ -79,7 +79,10 @@
 						<tbody id="storingList"></tbody>
 					</table>
 					<p id="emptyProductList" class="text-center">입고할 품목을 추가해주세요. </p>
-					
+					<div class="mb-3">
+  						<label for="storingMemo" class="form-label">입고 메모</label>
+  						<textarea class="form-control" id="storingMemo" rows="3"></textarea>
+					</div>
 
 				</div>
 			</div>
@@ -88,9 +91,12 @@
 	</div>
 	<%@ include file="../common/commonETC.jsp"%>
 	<%@ include file="../common/commonJS.jsp"%>
+	
 <script>
-var outputBody = '';
-var listCount = 0;
+var outputBody = ''; //outputBody(한 row)
+var listCount = 0; //
+var outputArr = []; //outputArr (현 시점 outputList)
+var outputCode = []; //outputCode (현 시점 outputCodeList)
 
 $(function(){
 	$('#numberForm').hide();
@@ -122,11 +128,11 @@ $(function(){
 	
 	});
 	
-	$('#productSearch').on("click", function(){
+	$('#searchProduct').on("click", function(){
 		$.ajax({
 			url: "../storing/storing_insert.do",
 			method: "POST",
-			data: {"valueType":$('#inputType').val(),"selectValue1":$('#textForm').val(),"selectValue2":$('#numberForm').val()},
+			data: {"mode":"searchProduct","valueType":$('#inputType').val(),"selectValue1":$('#textForm').val(),"selectValue2":$('#numberForm').val()},
 			success: function(r){
 				$('#showProduct').html(r);
 			},
@@ -138,47 +144,92 @@ $(function(){
 	
 	$("#textForm, #numberForm").on("keyup", function(key){
 		if(key.keyCode==13) {
-			$('#productSearch').trigger("click");
+			$('#searchProduct').trigger("click");
 		}
 	});
 	
 	
 	$("#allChecking").on("click",function(){
 		var checked = $('#allChecking').is(':checked');
-		$('#checkOne').prop('checked',checked);		
+		$('input:checkbox').prop('checked',checked);
 	});
 	
 	
 	$('#deleteProduct').on("click",function(){
-		console.log("여기?");
-		$('input[id=checkOne]:checked').each(function(){
-			console.log("ddd");
+		$($('input[name=checkOne]:checked').get().reverse()).each(function(){
 			var checkedTd = $(this).val();
 			var deleteTr = $("tr[id='" + checkedTd +"']");
+			var idx = $("#" + checkedTd).find(".listCount").text();
+			console.log(idx);
+			outputArr.splice(idx-1,1);
 			deleteTr.remove();
-			console.log(checkedTd);
-			
+			showStoringList();
 		});
+	});
+	
+	$('#confirmProduct').on("click",function(){
+		
+		var params = [];
+		
+		$('input[name=checkOne]:checked').each(function(){
+			var checkedTd = $(this).val();
+			var confirmTr = $("tr[id='" + checkedTd +"']");
+			var code = $("#" + checkedTd).find(".productCode").text();
+			var quantity = $("#" + checkedTd).find(".storingQuantity").val();
+			var param = {};
+			param.product_code = code;
+			param.storing_quantity = quantity;
+	
+			params.push(param);
+		});
+		
+		
+		/* $('.productCode').each(function(index,item){
+			$(this).text();
+		})
+		 */
+		
+		
+		 
+		/* $.ajax({
+			url: "../storing/storing_insert.do",
+			method: "POST",
+			data: {"mode":"confirmProduct","valueType":$('#inputType').val(),"selectValue1":$('#textForm').val(),"selectValue2":$('#numberForm').val()},
+			success: function(r){
+				$('#showProduct').html(r);
+			},
+			error: function(message){
+				alert(message);
+			}
+		});	 */
 	});
 	
 })
 
 function storingQuantity(code, name, obj, count){  
-	/* <input id="deleteProduct" class="btn btn-outline-success my-2 my-sm-0 mx-2 bg-danger text-white" type="button" value="삭제" />  */
+	
+		//이솔: 이미 존재하는 품목 수량 수정
+		if(outputCode.includes(code)){
+			alert('이미 입고 품목이 리스트에 존재합니다. 수량을 수정해주세요. ');
+			return false;
+		}
+		
+		outputCode.push(code);
+	
 		var quantity =  $("#quantity" + count).val();
 		listCount++;
 		var col = "chk" + listCount;
-		outputBody += `
-			<tr id="${'${listCount}'}">
+		var temp = `
+			<tr id="${'${code}'}">
 			    <td>
-				    <div class="form-check"><input class="form-check-input text-center mx-0 my-2"  id="checkOne" type="checkbox" value="${'${listCount}'}" onclick="checking('chk${"${listCount}"}')">
+				    <div class="form-check"><input class="form-check-input text-center mx-0 my-2"  name="checkOne" type="checkbox" value="${'${code}'}" >
 				    </div>
 			    </td>
-			    <td>${'${listCount}'}</td>
-			    <td>${'${code}'}</td>
+			    <td class="listCount"></td>
+			    <td class="productCode">${'${code}'}</td>
 			    <td>${'${name}'}</td>
 			    <td>
-			    	<input type="number" class="form-control-sm border-secondary" value="${'${quantity}'}">
+			    	<input type="number" class="storingQuantity" class="form-control-sm border-secondary" value="${'${quantity}'}">
 			    </td>
 			    <td>???</td>
 			    <td>???</td>
@@ -186,42 +237,24 @@ function storingQuantity(code, name, obj, count){
 		
 		`;
 		
-		$('#storingList').html(outputBody);
+		outputArr.push(temp);
+		showStoringList();
 };
 
-function checking(chk){
-	/* console.log(chk);
-	var checked = $(chk).is(':checked');
-	console.log(checked); */
-	//console.log($(obj).attr('checked'));
-	//var checked $(obj).is(':checked');
-	/* if($(obj).attr('checked')){
-		$(obj).attr('checked',false);
-	} else {
-		$(obj).attr('checked',true);
-	} */
+function showStoringList(){
+	outputBody = "";
+	$.each(outputArr, function(index, value){
+		var idx = value.indexOf('listCount');
+		value = value.substring(0,idx+11)+ (index+1) + value.substring(idx+11);		 
+		outputBody += value;
+	});
+	$('#storingList').html(outputBody);
 	
-	/* var checked = $('#allChecking').is(':checked');
-	$('#allChk input').prop('checked',checked);		 */
-	
-};
+}
+
+
 
 </script>
-<!--  <div id="template" >
-    <tr>
-    <td>
-	    <div class="form-check" id="allChk"><input class="form-check-input text-center mx-0 my-2" type="checkbox" value="" 
-	    id="chk1" onclick="checking('chk1')">
-	    </div>
-    </td>
-    <td>1</td><td>99999</td><td>Test_Sol</td>
-    <td>
-    	<input type="number" class="form-control-sm border-secondary" value="2">
-    </td><td>???</td>
-    <td>???</td>
-    </tr>
- 
- </div> -->
  
 </body>
 </html>
