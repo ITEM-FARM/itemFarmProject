@@ -45,6 +45,7 @@
 			            </label>
 			            <button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-search" aria-hidden="true"></i></button>                 
 		            </form>
+		            
                     <!-- 
                     은빈: 기업 목록 조회
                     기업 코드, 기업명 누르면 수정 modal
