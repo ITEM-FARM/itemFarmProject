@@ -62,8 +62,9 @@ public class UnstoringCancelOrderController implements CommonInterface {
 		}
 		// 용희: 주문취소 버튼 누르면 그 주문번호에 해당하는 '주문상태'를 변경하게끔
 		// 아마도 데이터 타입만 List<>로 바꿔주면 될 듯?
-		int result = service.cancelOrder(listVO);  
-		session.setAttribute("result", result);
+		int resultCancel = service.cancelOrder(listVO);  
+		System.out.println(resultCancel + " resultCancel 얘가 왜 안뜨냐고 ㅡㅡ");
+		session.setAttribute("resultCancel", resultCancel);
 
 		String page = "redirect:/unstoring/unstoringList.do";
 		return page;
