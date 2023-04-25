@@ -37,9 +37,6 @@
 						<!-- Page Heading -->
 						<h1 class="h3 mb-2 text-gray-800">주문건 등록</h1>
 						<p class="mb-4">
-							# 페이지 설명 <br>
-							(1) 주문건을 등록하는 페이지입니다. 일단 방법 1로 구현, 방법 2(엑셀파일 업로드 기능 + 데이터 DB insert)는 미루겠음 <br> 
-							(2) 통계 페이지 다 구축되고 여유가 있으면 하는 걸로?? <br>
 							<a target="_blank" href="https://chobopark.tistory.com/246">방법 2 관련 구글링 링크</a>.
 							<p><i class="fas fa-exclamation-triangle"></i> 모든 정보(성함/주소/주문일자/출고일자)를 입력해주세요.</p>
 						</p>
@@ -130,41 +127,12 @@
 	</div>
 	<%@ include file="../common/commonETC.jsp"%>
 	<%@ include file="../common/commonJS.jsp"%>
+	
 <script>
 	// 용희 : '주문건 등록' 성공하면 알림창 표시
-
-	/* //1. EmpInsert컨트롤러에서 set한 msg(입력성공/입력실패)를 여기서 받아서  
-	var msg = "${result}";
-	if (msg == 1) {
-		alert(msg); // 2. 화면에 출력
-		msg = null;
-	} */
-	
-	
 	$(document).ready(function(){
-		// 1. EmpInsert컨트롤러에서 set한 msg(입력성공/입력실패)를 여기서 받아서  
-		var msg = "${result}";
-		if (msg == 2) {
-			alert(msg); // 2. 화면에 출력
-			msg = null;
-		}else{
-			alert(msg);
-		}
 		
-		
-		// 2. 등록 버튼 누르면 => 확인창 뜨게끔 
-		$("#btnInsert").on("click", function(){
-			var result = confirm('등록하시겠습니까?');
-			
-			if(result){
-				// form 양식 action 주기 (예전에 했던 예제들 찾아보면 이거 있을 듯)
-			}else{
-				
-			}
-		});
-		
-		
-		// 용희 : 확정 버튼을 누르면 => form 양식 입력되게끔 (ref. 태영's balju.jsp) 
+		// 1. 용희 : 확정 버튼을 누르면 => form 양식 입력되게끔 (ref. 태영's balju.jsp) 
 		$('#ConfirmBT').on("click", ()=>{
 			var obj = {};
 			obj["balju_memo"] = $('#balju_memo').val()
@@ -184,6 +152,21 @@
 			});
 		});
 		
+		// 2. 용희 : 등록 버튼 누르면 => 확인창 & 등록결과 유무 보여주기 
+		$("#btnInsert").on("click", function(){
+			var result = confirm('등록하시겠습니까?');
+			
+			if(result){
+				var resultInsert = "${resultInsert}";
+				if(resultInsert == 0){
+					alert('주문 등록에 실패하였습니다.');
+				}else{
+					alert('주문이 등록됐습니다.');
+				}
+			}else{
+				
+			}
+		});
 	});
 </script>
 </body>

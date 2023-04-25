@@ -75,9 +75,9 @@ public class UnstoringTrackingNumberInputController implements CommonInterface {
 		String trkNum = createTrkNum();
 		
 		//송장입력 로직 처리하게끔
-		int result = service.trackingNumberInput(listVO, trkNum);
-		System.out.println("여러건이어도 1이 뜨나봐?? =>"+result);
-	    session.setAttribute("result", result);
+		int resultTrkNum = service.trackingNumberInput(listVO, trkNum);
+		System.out.println("resultTrkNum=>"+resultTrkNum);
+	    session.setAttribute("resultTrkNum", resultTrkNum);
 	    
 	    String page = "redirect:/unstoring/unstoringList.do"; 
 	    return page;

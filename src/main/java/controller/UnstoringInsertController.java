@@ -83,10 +83,8 @@ public class UnstoringInsertController implements CommonInterface {
 			
 
 			// 용희 : Insert 문장 2개라서 각각 실행하였음.  
-			int result = service.unstoringInsert(unstoringVO, unstoringDetailVO);
-//			int result2 = service.unstoringDeatilInsert(unstoringDetailVO);
-			if(result == 2) System.out.println("주문건 등록 완료");
-			session.setAttribute("result", result);
+			int resultInsert = service.unstoringInsert(unstoringVO, unstoringDetailVO);
+			session.setAttribute("resultInsert", resultInsert);
 
 			page = "redirect:/unstoring/unstoringInsert.do";
 		}

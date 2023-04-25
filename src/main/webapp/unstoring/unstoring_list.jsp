@@ -109,7 +109,6 @@
 									cellspacing="0">
 									<thead>
 										<tr id="headrow">
-											<th></th>
 											<th>Index</th>
 											<th>주문번호</th>
 											<th>주문자 성함</th>
@@ -129,15 +128,15 @@
 											<tr id="datarow">
 												<td>
 													<div class="form-check">
-													  <input class="form-check-input-${status.index }" 
-													         type="checkbox" 
-													         name="unstoringCheckBT" 
-													         data-code="${list.unstoring_code }"
-													         data-cancel="${list.unstoring_code }"
-													         disabled> <!-- 송장입력 / 주문취소 checked 요소들을 구분해주기 위해 data 속성이름을 2개 줌 -->
+														<input class="form-check-input-${status.index }"
+															type="checkbox" name="unstoringCheckBT"
+															data-code="${list.unstoring_code }"
+															data-cancel="${list.unstoring_code }" disabled>
+														<!-- 송장입력 / 주문취소 checked 요소들을 구분해주기 위해 data 속성이름을 2개 줌 -->
+														<label class="form-check-label text-secondary"
+															for="flexCheckDefault"><h6>${status.count }</h6></label>
 													</div>
                                         		</td>
-												<td>${status.count }</td>
 												<!-- 은빈 -->
 												<!-- 데이터 전송의 경우 VO의 toString을 data-tmp의 형태처럼 나오도록 수정해야 함 (companyVO 참고) -->
 												<!-- data-tmp로 임시로 적었는데 여기의 data-@@와 jQuery의 data(@@)의 이름이 같아야 함 -->
@@ -152,7 +151,7 @@
 												       data-target="#unstoringDetailModal">${list.unstoring_code }
 												</a>
 												</td> --%>
-												<td><a href="javascript:sendDataByRedirect(${list.unstoring_code })">${list.unstoring_code }</a></td>
+												<td><a href="javascript:sendDataByRedirect('${list.unstoring_code }')">${list.unstoring_code }</a></td>
 												<!-- data-target의 이름과 modal.jsp의 id가 같아야 함(현재 이름: connectModalName) -->
 												<td>${list.customer_name }</td>
 												<td>${list.customer_address }</td>
@@ -203,12 +202,14 @@
 	<script>
 		$(function() {
 			// 0. 용희 : 아무것도 체크 안하고 '저장버튼' 눌렀을 시 => alert 창 뜨는 기능.
+			// 0-1. 송장저장
 			$("#btnTrackingNumber").on("click", function() {
 				//체크된 행이 없을 경우.
 				if ($('table input:checkbox:checked').length == 0) {
 					alert("송장번호를 입력할 행을 먼저 선택하여 주십시오.");
 				}
 			});
+			// 0-2. 취소저장
 			$("#btnCancelOrder").on("click", function() {
 				//체크된 행이 없을 경우.
 				if ($('table input:checkbox:checked').length == 0) {
@@ -244,11 +245,14 @@
 				// 2-1. 송장번호 저장
 				$("#btnTrackingNumber").on("click", function() {
 					
+					// 체크된 게 있을 때만 실행하게끔
+					if ($('table input:checkbox:checked').length != 0) {
 					// 관리자 비밀번호 체크 (by 은빈)
 					var password = prompt("관리자 확인", "비밀번호를 입력하세요");
 					
 					if("${managerUser.manager_pw}" != password || password == ""){
 						alert("비밀번호가 올바르지 않습니다.");
+						return;
 					}else{
 					// 자바쪽으로 json 형태로 보내야 할 듯.
 					// 리스트 생성
@@ -286,7 +290,16 @@
 					var frm = $("#frm1");
 					frm.submit();
 					
-					}
+					var resultTrkNum = "${resultTrkNum}";
+						if(resultTrkNum == 0){
+							alert(resultTrkNum + '송장입력에 실패하였습니다.');
+						}else{
+							alert(resultTrkNum + '송장입력이 되었습니다.');
+						}
+					
+					
+					} // if else 끝
+					} // if 끝
 				}); 
 				
 			});
@@ -312,24 +325,6 @@
 					}
 				});
 				
-				
-				/* // by 은빈 : 비밀번호 입력해야만 송장번호 저장 가능하게끔
-				// ★ 근데 이거 위치가 여기 맞냐??? => 다시 조정  
-				$("#btnCancelOrder").on("click", function () {
-			    	var password = prompt("관리자 확인", "비밀번호를 입력하세요");
-			    	
-			    	if("${managerUser.manager_pw}" === password) {
-			    		return true;
-			    	} else if(password === null) {
-			    		
-			    	} else {
-			    		alert("비밀번호가 올바르지 않습니다.");
-			    	}
-
-			    	return false;
-			    });
-				 */
-				
 				// 2-2. 주문취소 저장
 				$("#btnCancelOrder").on("click", function() {
 					/* 이 자리에 alert를 두니까 => 주문취소 버튼 누르는 횟수만큼 alert 창이 뜨네... (지금 머리가 안 돌아가서 왜 그런질 모르겠네 ㅋㅋ)
@@ -338,10 +333,15 @@
 						alert("주문취소할 행을 먼저 선택하여 주십시오.");
 					}
 					*/
+					
+					
+					// 체크된 게 있을 때만 실행하게끔
+					if ($('table input:checkbox:checked').length != 0) {
 					var password = prompt("관리자 확인", "비밀번호를 입력하세요");
 					
 					if("${managerUser.manager_pw}" != password || password == ""){
 						alert("비밀번호가 올바르지 않습니다.");
+						return;
 					}else{
 					// 자바쪽으로 json 형태로 보내야 할 듯.
 					// 리스트 생성
@@ -379,14 +379,16 @@
 					var frm = $("#frm2");
 					frm.submit();
 					
-					var result = ${result};
-					console.log('저장한 결과값은..? ' + result);
-					}
-					if(result == 1){
-						alert(result + ' 주문취소에 성공하였습니다.');
-					}else{
-						alert(result + '주문취소에 실패하였습니다.');
-					}
+					var resultCancel = "${resultCancel}";
+						
+						if(resultCancel == 0){
+							alert('주문취소에 실패하였습니다.');
+						}else{
+							alert('주문취소에 성공하였습니다.');
+						}
+					
+					} // if, else 끝
+					} // if 끝
 					
 				});
 			});
@@ -397,8 +399,7 @@
 		// 3. 용희 : 주문건 상세조회 - 일단 redirect로 구현 (Modal 포기 ㅋㅋ)
 		function sendDataByRedirect(number) {
 			console.log('aa' + number);
-			location.href = "/unstoring/unstoringTest.do?unstoring_code="
-					+ number;
+			location.href = "/unstoring/unstoringTest.do?unstoring_code="+ number;
 		}
 		
 		
