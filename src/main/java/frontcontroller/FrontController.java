@@ -23,6 +23,7 @@ import controller.ProductInsertController;
 import controller.ProductListController;
 import controller.ProductModifyController;
 import controller.SessionController;
+import controller.StatDailyController;
 import controller.StatisticsController;
 import controller.StoringInsertController;
 import controller.StoringListController;
@@ -116,6 +117,9 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/warehousing/warehousingList.do":
 			controller = new WarehousingListController();
+			break;
+		case "/statistics/daily.do":
+			controller = new StatDailyController();
 			break;
 		case "/session.do":
 			controller = new SessionController();

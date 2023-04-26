@@ -163,7 +163,7 @@
 												<td>${list.order_register }</td>
 												<td>${list.unstoring_date }</td>
 												<td class="track">${list.tracking_number }</td>
-												<td class="state">${list.unstoring_state}</td>
+												<td class="state" style="color:#0d6efdDD;">${list.unstoring_state}</td>
 												<td>${list.manager_id }</td>
 												<td>${list.unstoring_memo }</td>
 											</tr>
@@ -219,7 +219,7 @@
 					}
 				});
         
-        // 0-2. 취소저장
+        		// 0-2. 취소저장
 				$("#btnCancelOrder").on("click", function() {
 					//체크된 행이 없을 경우.
 					if ($('table input:checkbox:checked').length == 0) {

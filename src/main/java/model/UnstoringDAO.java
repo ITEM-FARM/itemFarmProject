@@ -12,6 +12,7 @@ import java.util.List;
 
 import util.MysqlUtil;
 import vo.CompanyVO;
+import vo.ProductVO;
 import vo.UnstoringDetailVO;
 import vo.UnstoringVO;
 
@@ -239,13 +240,13 @@ public class UnstoringDAO {
 	
 	
 	// 주문건 등록 양식에 '상품코드' 가져오기 위한
-	public List<UnstoringDetailVO> selectProductCode(CompanyVO companyVO){
+	public List<ProductVO> selectProductCode(CompanyVO companyVO){
 		String sql = """
 				select distinct(product_code) '상품번호', product_name '상품명'
 				from product
 				where company_id = ?
 				""";
-		List<UnstoringDetailVO> detailList = new ArrayList<>();
+		List<ProductVO> productList = new ArrayList<>();
 		conn = MysqlUtil.getConnection();
 		try {
 			pst = conn.prepareStatement(sql);
@@ -253,10 +254,10 @@ public class UnstoringDAO {
 
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				UnstoringDetailVO detailVO = new UnstoringDetailVO();
-				detailVO.setProduct_code(rs.getInt("상품번호"));
-				detailVO.setProduct_name(rs.getString("상품명"));
-				detailList.add(detailVO);
+				ProductVO productVO = new ProductVO();
+				productVO.setProduct_code(rs.getInt("상품번호"));
+				productVO.setProduct_name(rs.getString("상품명"));
+				productList.add(productVO);
 			}
 		} catch (SQLException e) {
 			System.out.println("DAO - 상품코드 가져오는 부분에서 에러");
@@ -264,7 +265,7 @@ public class UnstoringDAO {
 		} finally {
 			MysqlUtil.dbDisconnect(rs, pst, conn);
 		}
-		return detailList;
+		return productList;
 	}
 	
 
@@ -326,7 +327,9 @@ public class UnstoringDAO {
 				 				 join product p on ud.product_code = p.product_code
 				             	 join company c on c.company_id = p.company_id
 				where p.company_id = ?
-				""";
+				order by tracking_number
+				"""; // [MySQL] order by의 이유 : 송장번호가 null인 '출고대기' 상태의 주문들을 먼저 보여주기 위해 이렇게 하였음. 
+		
 		List<UnstoringVO> unstoreList = new ArrayList<>();
 		conn = MysqlUtil.getConnection();
 		try {

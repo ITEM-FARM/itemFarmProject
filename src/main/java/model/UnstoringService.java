@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 
 import vo.CompanyVO;
+import vo.ProductVO;
 import vo.UnstoringDetailVO;
 import vo.UnstoringVO;
 
@@ -26,7 +27,7 @@ public class UnstoringService {
 	}
 	
 	// 주문건 등록 양식에 '상품코드' 가져오기 위한
-	public List<UnstoringDetailVO> selectProductCode(CompanyVO companyVO){
+	public List<ProductVO> selectProductCode(CompanyVO companyVO){
 		return dao.selectProductCode(companyVO);
 	}
 
