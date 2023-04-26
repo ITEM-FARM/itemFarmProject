@@ -16,6 +16,7 @@ import model.UnstoringService;
 import util.DateUtil;
 import vo.CompanyVO;
 import vo.ManagerVO;
+import vo.ProductVO;
 import vo.UnstoringDetailVO;
 import vo.UnstoringVO;
 
@@ -40,8 +41,8 @@ public class UnstoringInsertController implements CommonInterface {
 		
 		// 주문건 등록 양식에 '상품코드' 가져오기 위한
 		UnstoringService service = new UnstoringService();
-		List<UnstoringDetailVO> detailList = service.selectProductCode(companyVO);
-		request.setAttribute("detailList", detailList);
+		List<ProductVO> productList = service.selectProductCode(companyVO);
+		request.setAttribute("productList", productList);
 		
 		
 		if (method.equals("GET")) {

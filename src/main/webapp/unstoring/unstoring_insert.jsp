@@ -27,99 +27,119 @@
 					<!-- empInsert.jsp 보고 따라함 -->
 					<!-- 여기 안에 내용을 다 써야 한다는 소리구나 -->
 					<form method="post" action="/unstoring/unstoringInsert.do">
-							<!-- 
+						<!-- 
 							★ 우선 방법1, 방법2 확정된게 아니라 입력 패턴은 넣지 않았음.
 							★ 주문번호 : 자동생성 될 거라서 나중에 뺄 수도
 							★ 주문일자, 출고일자 : 클릭하면 달력이 나오게 해서 직접 날짜 정할 수 있게 해주고 싶은데
 							★ 관리자id : 로그인한 관리자 id 그대로 입력되게 할 거라서 나중엔 빼야할 듯 -->
 
 
-						<!-- Page Heading -->
-						<h1 class="h3 mb-2 text-gray-800">주문건 등록</h1>
-						<p class="mb-4">
-							<a target="_blank" href="https://chobopark.tistory.com/246">방법 2 관련 구글링 링크</a>.
-							<p><i class="fas fa-exclamation-triangle"></i> 모든 정보(성함/주소/주문일자/출고일자)를 입력해주세요.</p>
-						</p>
-						
-						<!-- DataTales Example -->
-						<div class="card shadow mb-4">
-							<div class="card-header py-3">
-								<h6 class="m-0 font-weight-bold text-primary">주문건 등록 양식</h6>
-							</div>
-							<div class="card-body">
-								<div class="table-responsive">
-									<table class="table table-bordered" id="dataTable" width="100%"
-										cellspacing="0">
-										<thead>
-											<tr>
-												<th>Title</th>
-												<th>Value</th>
-												<th>Memo - 비고 입력란</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td><label for="customer_name">주문자 성함</label></td>
-												<td><input name="customer_name" id="customer_name"
-													type="text" required placeholder="주문자 성함 입력" autofocus></td>
-												<td rowspan="7" style="text-align: center;">
-													<textarea class="form-control" aria-label="With textarea"
-														placeholder="내용을 입력해주세요" id="unstoring_memo" rows="15" ></textarea>
-												</td>
-											</tr>
-											<tr>
-												<td><label for="customer_address">주문자 주소</label></td>
-												<td><input name="customer_address"
-													id="customer_address" type="text" required
-													placeholder="주문자 주소 입력"></td>
-											</tr>
-											<tr>
-												<td><label for="product_code">상품코드</label></td>
-												<td><select name="product_code">
-														<!-- List니까 forEach를 돌려서 VO 하나 하나 얻는 형태로 -->
-														<c:forEach var="detail" items="${detailList}">
-															<option value="${detail.product_code}">${detail.product_code} - ${detail.product_name}</option>
-														</c:forEach>
-													</select>
-												</td>
-											</tr>
-											<tr>
-												<td><label for="unstoring_quantity">주문수량</label></td>
-												<td><input name="unstoring_quantity"
-													id="unstoring_quantity" type="number" min="0" required
-													placeholder="주문수량 입력"></td>
-											</tr>
-											<tr>
-												<td><label for="order_register">주문일자</label></td>
-												<td><input name="order_register" id="order_register"
-													type="date" required placeholder="주문일자"></td>
-											</tr>
-											<tr>
-												<td><label for="unstoring_date">출고일자</label></td>
-												<td><input name="unstoring_date" id="unstoring_date"
-													type="date" required placeholder="출고일자"></td>
-											</tr>
-											<tr>
-												<td><label for="manager_id">담당자 ID</label></td>
-												<td><input name="manager_id" id="manager_id"
-													type="text" required readonly value="${managerUser.manager_id }"></td>
-											</tr>
 
-										</tbody>
-									</table>
+						<!-- grid 시작 -->
+						<div class="row">
+							<div class="col-lg-1"></div>
+
+
+							<div class="col-lg-10">
+								<h1 class="h3 mb-2 text-gray-800">주문건 등록</h1>
+								<p class="mb-4">
+									<a target="_blank" href="https://chobopark.tistory.com/246">방법
+										2 관련 구글링 링크</a>.
+								<p>
+									<i class="fas fa-exclamation-triangle"></i> 모든
+									정보(성함/주소/주문일자/출고일자)를 입력해주세요.
+								</p>
+								</p>
+								<!-- DataTales Example -->
+								<div class="card shadow mb-4">
+									<div class="card-header py-3">
+										<h6 class="m-0 font-weight-bold text-primary">주문건 등록 양식</h6>
+									</div>
+
 									<div class="card-body">
-										<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-											<button class="btn btn-primary me-md-2" type="button"
-												id="ConfirmBT">확정</button>
+										<div class="table-responsive">
+											<table class="table table-bordered" id="dataTable"
+												width="100%" cellspacing="0">
+												<thead>
+													<tr>
+														<th>Title</th>
+														<th>Value</th>
+														<th>Memo - 비고 입력란</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td><label for="customer_name">주문자 성함</label></td>
+														<td><input name="customer_name" id="customer_name"
+															type="text" required placeholder="주문자 성함 입력" autofocus></td>
+														<td rowspan="7" style="text-align: center;"><textarea
+																class="form-control" aria-label="With textarea"
+																placeholder="내용을 입력해주세요" id="unstoring_memo" rows="13"></textarea>
+														</td>
+													</tr>
+													<tr>
+														<td><label for="customer_address">주문자 주소</label></td>
+														<td><input name="customer_address"
+															id="customer_address" type="text" required
+															placeholder="주문자 주소 입력"></td>
+													</tr>
+													<tr>
+														<td><label for="product_code">상품코드</label></td>
+														<td><select name="product_code">
+																<!-- List니까 forEach를 돌려서 VO 하나 하나 얻는 형태로 -->
+																<c:forEach var="product" items="${productList}">
+																	<option value="${product.product_code}">${product.product_code}
+																		- ${product.product_name}</option>
+																</c:forEach>
+														</select></td>
+													</tr>
+													<tr>
+														<td><label for="unstoring_quantity">주문수량</label></td>
+														<td><input name="unstoring_quantity"
+															id="unstoring_quantity" type="number" min="0" required
+															placeholder="주문수량 입력"></td>
+													</tr>
+													<tr>
+														<td><label for="order_register">주문일자</label></td>
+														<td><input name="order_register" id="order_register"
+															type="date" required placeholder="주문일자"></td>
+													</tr>
+													<!-- <tr>
+														<td><label for="unstoring_date">출고일자</label></td>
+														<td><input name="unstoring_date" id="unstoring_date"
+															type="date" required placeholder="출고일자"></td>
+													</tr> -->
+													<tr>
+														<td><label for="manager_id">담당자 ID</label></td>
+														<td><input name="manager_id" id="manager_id"
+															type="text" required readonly
+															value="${managerUser.manager_id }"></td>
+													</tr>
+
+												</tbody>
+											</table>
+											<div class="card-body">
+												<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+													<button class="btn btn-primary me-md-2" type="button"
+														id="ConfirmBT">확정</button>
+												</div>
+												<div>
+													<input id="btnInsert" type="submit" value="등록">
+												</div>
+											</div>
 										</div>
-										<div>
-											<input id="btnInsert" type="submit" value="등록">
-										</div>
+
+									</div>
+									<div class="col-lg-1">
 									</div>
 								</div>
 							</div>
+
 						</div>
+						<!-- grid 끝 -->
 					</form>
+					
+					
 				</div>
 			</div>
 			<%@ include file="../common/footer.jsp"%>
