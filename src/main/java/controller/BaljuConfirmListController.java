@@ -44,6 +44,14 @@ public class BaljuConfirmListController implements CommonInterface {
 			
 			request.setAttribute("baljulist", baljulist);
 			
+			
+			//이솔: 모달 발주 확정 리스트 불러오기
+			String storingModalBalju = request.getParameter("mode");
+			if(storingModalBalju!=null){
+				page = "/storing/baljuViewList.jsp";
+			}
+			
+			
 			return page;
 			
 		}else {

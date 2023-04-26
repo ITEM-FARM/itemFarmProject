@@ -30,8 +30,13 @@ public class BaljuService {
 		return baljudao.BaljuList(company_id);
 	}
 	
-	//[태영] 발주 내역 상세 조회(상품 포함)
+	//[태영] 발주 내역 상세 조회(상품 포함) --> row 한건
 	public List<BaljuVO> BaljuDeatailList(String balju_code){
 		return baljudao.BaljuDeatailList(balju_code);
+	}
+	
+	//[이솔] 발주 내역 상세 조회(상품 포함) --> row 여러개 (배열)
+	public List<BaljuVO> BaljuDetailLists(String []balju_code){
+		return baljudao.BaljuDetailLists(balju_code);
 	}
 }

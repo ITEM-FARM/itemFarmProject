@@ -40,7 +40,7 @@ public class LoginCheckController implements CommonInterface {
 				if(manager == null) {
 					page = "redirect:/auth/loginCheck.do";
 				} else {// 매니저 로그인 성공시
-					page = "/";
+					page = "redirect:/";
 
 					session.setAttribute("comId", company.getCompany_id()); 
 					session.setAttribute("comName", company.getCompany_name());
@@ -65,7 +65,7 @@ public class LoginCheckController implements CommonInterface {
 					}else { //기업 로그인 성공시
 						session.setAttribute("comId", company.getCompany_id()); 
 						session.setAttribute("comName", company.getCompany_name());
-						page = "/";
+						page = "redirect:/";
 					}
 					System.out.println("company 로그인:" + company);
 					session.setAttribute("companyUser", company==null?"FAIL":company);

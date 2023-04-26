@@ -106,18 +106,17 @@
 		
     	if(managerUser=="FAIL"){
     		alert("매니저 로그인에 실패하였습니다. 다시 시도해주세요.");
-    		<c:set var="managerUser" value="" scope="session"/>
+    		<c:set var="managerUser" value="${null}" scope="session"/>
     	}
     	
     	if(companyUser == "N"){
     		//alert("비활성화된 기업입니다. 관리자에게 문의하세요.")
     		$("#here").html("<i class='fas fa-exclamation-triangle'></i> 비활성화된 기업입니다. 관리자에게 문의하세요.");
-    		<c:set var="companyUser" value="" scope="session"/>
+    		<c:set var="companyUser" value="${null}" scope="session"/>
     	}else if(companyUser=="FAIL" ){
     		alert("기업 로그인에 실패하였습니다. 다시 시도해주세요.");
-    		<c:set var="companyUser" value="" scope="session"/> 
+    		<c:set var="companyUser" value="${null}" scope="session"/> 
     	}
-
     });
     </script>
 	<%@ include file="../common/commonETC.jsp" %>

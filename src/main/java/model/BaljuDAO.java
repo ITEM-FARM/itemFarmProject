@@ -127,6 +127,7 @@ public class BaljuDAO {
 				FROM balju b JOIN balju_detail d ON b.balju_code = d.balju_code 
 					JOIN product p ON d.product_code = p.product_code
 				WHERE company_id = ?
+				GROUP BY b.balju_code
 				""";
 		List<BaljuVO> baljulist = new ArrayList<>();
 		conn = MysqlUtil.getConnection();
@@ -186,6 +187,57 @@ public class BaljuDAO {
 		
 		return baljudetaillist;
 	}
+	
+	
+	public List<BaljuVO> BaljuDetailLists(String[] balju_codeArr) {
+		String sql = """
+				SELECT d.product_code, p.product_name, d.balju_quantity, d.balju_code
+				FROM balju b JOIN balju_detail d ON b.balju_code = d.balju_code 
+							JOIN product p ON d.product_code = p.product_code
+				WHERE 1=1 
+				""";
+		
+		for(int i=0; i<balju_codeArr.length;i++) {
+			if (i==0) {
+				sql += "and";
+			} else {
+				sql += "or";
+			}
+			sql +=  " b.balju_code = '" + balju_codeArr[i] + "'";	
+		}
+		
+		/*
+		 * for (String balju_code: balju_codeArr) {
+		 * 
+		 * sql += " or b.balju_code = '" + balju_code + "'";
+		 * 
+		 * }
+		 */
+		
+		System.out.println(sql);
+		
+		List<BaljuVO> baljuDetailList = new ArrayList<>();
+		conn = MysqlUtil.getConnection();
+		try {
+			
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			
+			while(rs.next()) {
+				BaljuVO balju = makeBaljuDetailList(rs);
+				baljuDetailList.add(balju);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(rs, st, conn);
+		}
+		
+		return baljuDetailList;
+	}
+
+	
+	
 
 	private BaljuVO makepbaljudetail(ResultSet rs) {
 		BaljuVO balju = new BaljuVO();
@@ -199,5 +251,18 @@ public class BaljuDAO {
 		}
 		return balju;
 	}
+	
+	private BaljuVO makeBaljuDetailList(ResultSet rs) throws SQLException {
+		BaljuVO balju = new BaljuVO();
+		
+		balju.setProduct_code(rs.getInt("product_code"));
+		balju.setProduct_name(rs.getString("product_name"));
+		balju.setBalju_quantity(rs.getInt("balju_quantity"));
+		balju.setBalju_code(rs.getString("balju_code"));
+		
+		return balju;
+	}
+
+	
 	
 }
