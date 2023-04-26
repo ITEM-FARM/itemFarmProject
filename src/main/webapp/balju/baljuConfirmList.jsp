@@ -71,7 +71,7 @@
 			                            	<tr id="datarow">
 			                            		<td>${status.count }</td>
 			                            		<td>
-			                            			<a data-toggle="modal" data-target="#CompanyModifyModal">
+			                            			<a href="#" data-toggle="modal" data-target="#detailModal">
 			                            			${balist.balju_code}</a>
 			                            		</td>
 			                            		<td><fmt:formatDate value="${balist.balju_date}" pattern="yy-MM-dd HH:mm:ss" /></td>
@@ -92,7 +92,7 @@
 		</div>
 	</div>
 	
-	<%@ include file="baljuDetailModal.jsp" %>
+	<%-- <%@ include file="baljuDetailModal.jsp" %> --%>
 	
 	<%@ include file="../common/commonETC.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>
@@ -104,5 +104,24 @@
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/js/demo/datatables-demo.js"></script>
     
+    <script>
+    	$(function(){
+    		$('a[data-target="#detailModal"]').click(function(){
+    			$.ajax({
+    				url:"baljuDetailList.do",
+    				data:{baljuCode: $(this).text().trim()},
+    				method:"get",
+    				success:(result,status,xhr)=>{
+						//console.log("textStatus", result);
+						$("#here").html(result);
+						$("#exampleModalLabel").html("<span class='text-primary'>"+ $(this).text().trim() + "</span> 발주서 상세 조회");
+					},
+					error:(jqXHR, textStatus, errorThrown)=>{
+						//console.log("textStatus", textStatus);
+					}
+    			});
+    		})
+    	});
+    </script>
 </body>
 </html>

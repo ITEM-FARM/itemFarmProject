@@ -13,10 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import controller.BaljuCheckListController;
 import controller.BaljuConfirmListController;
+import controller.BaljuDetailListController;
 import controller.CompanyInsertController;
 import controller.CompanyListController;
 import controller.CompanyModifyController;
 import controller.LoginCheckController;
+import controller.LogoutController;
 import controller.ProductInsertController;
 import controller.ProductListController;
 import controller.ProductModifyController;
@@ -52,11 +54,17 @@ public class FrontController extends HttpServlet {
 		case "/auth/loginCheck.do"://[태영] 로그인 
 			controller = new LoginCheckController();
 			break;
+		case "/auth/logout.do": //[태영] 로그아웃
+			controller = new LogoutController();
+			break;
 		case "/balju/baljuCheckList.do": //[태영]발주서 생성
 			controller = new BaljuCheckListController();
 			break;
-		case "/balju/baljuConfirmList.do"://[태영]발주 조회, 상세 조회
+		case "/balju/baljuConfirmList.do"://[태영]발주 조회
 			controller = new BaljuConfirmListController();
+			break;
+		case "/balju/baljuDetailList.do": //[태영]발주 상세 조회
+			controller = new BaljuDetailListController();
 			break;
 		case "/company/companyList.do":
 			controller = new CompanyListController();

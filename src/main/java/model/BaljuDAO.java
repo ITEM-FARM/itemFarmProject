@@ -160,4 +160,44 @@ public class BaljuDAO {
 		return balju;
 	}
 	
+	//[태영] 발주 내역 상세 조회(상품 포함)
+	public List<BaljuVO> BaljuDeatailList(String balju_code){
+		String sql = """
+				SELECT d.product_code, p.product_name, d.balju_quantity
+				FROM balju b JOIN balju_detail d ON b.balju_code = d.balju_code 
+							JOIN product p ON d.product_code = p.product_code
+				WHERE b.balju_code = ?
+				""";
+		List<BaljuVO> baljudetaillist = new ArrayList<>();
+		conn = MysqlUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, balju_code);
+			rs = pst.executeQuery();
+			while(rs.next()) {
+				BaljuVO balju = makepbaljudetail(rs);
+				baljudetaillist.add(balju);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(rs, pst, conn);
+		}
+		
+		return baljudetaillist;
+	}
+
+	private BaljuVO makepbaljudetail(ResultSet rs) {
+		BaljuVO balju = new BaljuVO();
+		
+		try {
+			balju.setProduct_code(rs.getInt("product_code"));
+			balju.setProduct_name(rs.getString("product_name"));
+			balju.setBalju_quantity(rs.getInt("balju_quantity"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return balju;
+	}
+	
 }

@@ -44,6 +44,8 @@ pageContext.setAttribute("lookUpList", companyList);
 		
 		<div class="topbar-divider d-none d-sm-block"></div>
 		
+		</c:if>
+		
 		<li class="nav-item no-arrow">
 			<div class="nav-link">	
 				<i class="fas fa fa-building fa-0.5x activeColor" aria-hidden="true"></i>
@@ -52,6 +54,8 @@ pageContext.setAttribute("lookUpList", companyList);
 		</li>
 			
 		<div class="topbar-divider d-none d-sm-block"></div>
+		
+		<c:if test="${managerUser != null && managerUser != ''}">
 			
 		<li class="nav-item no-arrow dropdown">
 				<a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
