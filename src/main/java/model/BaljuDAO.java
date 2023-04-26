@@ -127,6 +127,7 @@ public class BaljuDAO {
 				FROM balju b JOIN balju_detail d ON b.balju_code = d.balju_code 
 					JOIN product p ON d.product_code = p.product_code
 				WHERE company_id = ?
+				GROUP BY b.balju_code
 				""";
 		List<BaljuVO> baljulist = new ArrayList<>();
 		conn = MysqlUtil.getConnection();

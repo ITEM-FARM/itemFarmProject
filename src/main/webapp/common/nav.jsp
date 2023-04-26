@@ -114,7 +114,7 @@
 
              <!-- Nav Item - Dashboard -->
              <li class="nav-item">
-                <a class="nav-link" href="../statistics/new.do">
+                <a class="nav-link" href="/statistics/staticsHome.do">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>마케팅 리포트</span></a>
             </li>
