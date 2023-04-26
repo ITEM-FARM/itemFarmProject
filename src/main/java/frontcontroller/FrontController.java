@@ -85,7 +85,7 @@ public class FrontController extends HttpServlet {
 		case "/product/productInsert.do":
 			controller = new ProductInsertController();
 			break;
-		case "/statistics/new.do":
+		case "/statistics/staticsHome.do":
 			controller = new StatisticsController();
 			break;
 		case "/storing/storing_insert.do":
