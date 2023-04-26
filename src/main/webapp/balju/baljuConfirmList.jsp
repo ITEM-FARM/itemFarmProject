@@ -92,7 +92,7 @@
 		</div>
 	</div>
 	
-	<%-- <%@ include file="baljuDetailModal.jsp" %> --%>
+	<%@ include file="baljuDetailModal.jsp" %>
 	
 	<%@ include file="../common/commonETC.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>

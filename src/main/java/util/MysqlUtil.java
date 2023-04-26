@@ -1,25 +1,23 @@
 package util;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
 public class MysqlUtil {
-	
+	static DataSource ds=null;
 	//MySQL과 JDBC연결
 	public static Connection getConnection() {
 		Connection conn = null;
 		Context initContext;
+		
 		try {
 			initContext = new InitialContext();
 			Context envContext  = (Context)initContext.lookup("java:/comp/env");
-			DataSource ds = (DataSource)envContext.lookup("jdbc/itemfarm");
+			ds = (DataSource)envContext.lookup("jdbc/itemfarm");
 			conn = ds.getConnection();
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
@@ -39,6 +37,7 @@ public class MysqlUtil {
 				if(rs!=null) rs.close();
 				if(st!=null) st.close();
 				if(conn!=null) conn.close();
+				ds = null;
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

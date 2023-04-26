@@ -12,6 +12,18 @@
 	<!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
+			<!--  
+			은빈: 로그인 별 nav 기능 설정
+			1. 매니저 == null || 매니저 == ""
+				1) 상품 관리
+					- 상품 조회 (버튼 X)
+				2) 출고 관리
+					- 주문건 조회 (버튼 X)
+				3) 입출고 내역 조회
+				4) 마케팅 리포트
+			2. 매니저 존재
+				- 모든 기능 사용 가능
+			-->
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../">
                 <div class="sidebar-brand-icon">
@@ -19,8 +31,6 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">ITEM FARM</div>
             </a>
-
-            <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
@@ -29,56 +39,47 @@
                     <i class="fas fa-fw fa-briefcase"></i>
                     <span>상품관리</span></a>
             </li>
-            
-            <!-- Divider -->
             <hr class="sidebar-divider">
 
 			<c:if test="${managerUser != null && managerUser != ''}">
-			
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="../company/companyList.do">
-                    <i class="fas fa-fw fa-city"></i>
-                    <span>기업관리</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-barcode"></i>
-                    <span>발주관리</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="../balju/baljuCheckList.do">발주등록</a>
-                        <a class="collapse-item" href="../balju/baljuConfirmList.do">발주내역조회</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
-                    <i class="fas fa-fw fa-truck"></i>
-                    <span>입고관리</span></a>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="../storing/storing_insert.do">입고등록</a>
-                        <a class="collapse-item" href="../storing/storing_list.do">입고내역조회</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
+	            <!-- Nav Item - Dashboard -->
+	            <li class="nav-item">
+	                <a class="nav-link" href="../company/companyList.do">
+	                    <i class="fas fa-fw fa-city"></i>
+	                    <span>기업관리</span></a>
+	            </li>
+	            <hr class="sidebar-divider">
+	
+	            <!-- Nav Item - Pages Collapse Menu -->
+	            <li class="nav-item">
+	                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+	                    aria-expanded="true" aria-controls="collapseTwo">
+	                    <i class="fas fa-fw fa-barcode"></i>
+	                    <span>발주관리</span>
+	                </a>
+	                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+	                    <div class="bg-white py-2 collapse-inner rounded">
+	                        <a class="collapse-item" href="../balju/baljuCheckList.do">발주등록</a>
+	                        <a class="collapse-item" href="../balju/baljuConfirmList.do">발주내역조회</a>
+	                    </div>
+	                </div>
+	            </li>
+	            <hr class="sidebar-divider">
+	
+	            <!-- Nav Item - Dashboard -->
+	            <li class="nav-item">
+	                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
+	                    aria-expanded="true" aria-controls="collapseThree">
+	                    <i class="fas fa-fw fa-truck"></i>
+	                    <span>입고관리</span></a>
+	                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
+	                    <div class="bg-white py-2 collapse-inner rounded">
+	                        <a class="collapse-item" href="../storing/storing_insert.do">입고등록</a>
+	                        <a class="collapse-item" href="../storing/storing_list.do">입고내역조회</a>
+	                    </div>
+	                </div>
+	            </li>
+	            <hr class="sidebar-divider">
 			</c:if>
 
             <!-- Nav Item - Utilities Collapse Menu -->
@@ -98,18 +99,14 @@
                     </div>
                 </div>
             </li>
-
-            <!-- Divider -->
             <hr class="sidebar-divider">
 
              <!-- Nav Item - Dashboard -->
              <li class="nav-item">
-                <a class="nav-link" href="../warehousing/new.do">
+                <a class="nav-link" href="../warehousing/warehousingList.do">
                     <i class="fas fa-fw fa-table"></i>
                     <span>입출고 내역 조회</span></a>
             </li>
-
-             <!-- Divider -->
              <hr class="sidebar-divider">
 
              <!-- Nav Item - Dashboard -->
@@ -118,8 +115,6 @@
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>마케팅 리포트</span></a>
             </li>
-
-            <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
