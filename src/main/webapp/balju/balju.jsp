@@ -87,7 +87,7 @@
                                         	<tr id="datarow">
                                         		<td>
 													<div class="form-check">
-													  <input class="form-check-input" type="checkbox"  id="flexCheckDefault" name="baljuCheckBT">
+													  <input class="form-check-input" type="checkbox"  id="flexCheckDefault" name="baljuCheckBT" onchange="chkCall(this)">
 
 													  <label class="form-check-label text-primary" for="flexCheckDefault">
 													    <h6>${status.count }</h6>
@@ -136,19 +136,35 @@
 	
 	<!-- Page level plugins -->
     <script src="${pageContext.request.contextPath}/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="${pageContext.request.contextPath}/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
+    <script src="${pageContext.request.contextPath}/vendor/datatables/dataTables.bootstrap4.min.js"></script>  
     <!-- Page level custom scripts -->
     <script src="${pageContext.request.contextPath}/js/demo/datatables-demo.js"></script>
 	
 	<script>
 		//[태영] 확정 버튼을 누르면 ajax를 이용해 check된 데이터만 넘기는 로직
-		
+		var arr = [];
+		function chkCall(obj){
+				if($(obj).is(':checked')){
+					console.log("체크");
+					arr.push(clickEvent(event));
+				}else{
+					console.log("체크해제");
+					obj = clickEvent(event);
+					console.log(obj["product_code"]);
+					
+					arr = arr.filter((element) => {
+						console.log("pp",element["product_code"]);
+						return element["product_code"] != obj["product_code"];
+					});
+				}
+				console.log(arr);
+			}
 		$(function(){ 
-			var arr = [];
+			//var arr = [];
 			//[태영] 1. checkbox 클릭시 clickEvent가 작동하도록 한다.
+			 
 			
-			$('input:checkbox[name="baljuCheckBT"]').click(function(){
+			/* $('input:checkbox[name="baljuCheckBT"]').click(function(){
 				//체크되었는지 여부 확인
 				if($(this).is(':checked')){
 					console.log("체크");
@@ -156,15 +172,15 @@
 				}else{
 					console.log("체크해제");
 					obj = clickEvent(event);
-					//console.log(obj["product_code"]);
+					console.log(obj["product_code"]);
 					
 					arr = arr.filter((element) => {
-						//console.log("pp",element["product_code"]);
+						console.log("pp",element["product_code"]);
 						return element["product_code"] != obj["product_code"];
 					});
 				}
-				//console.log(arr);
-			});
+				console.log(arr);
+			}); */
 		
 			$('#ConfirmBT').on("click", ()=>{
 				var obj = {};
@@ -189,7 +205,7 @@
 		
 		function clickEvent(event){
 			
-			//console.log("target:",$(event.target)); //checkbox target 확인
+			console.log("target:",$(event.target)); //checkbox target 확인
 			//target과 가까운 tr 태그 찾기
 			var row = $(event.target).closest('tr');
 			//td태그 찾기
