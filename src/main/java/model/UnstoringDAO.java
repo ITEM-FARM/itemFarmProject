@@ -242,7 +242,7 @@ public class UnstoringDAO {
 	public List<UnstoringDetailVO> selectProductCode(CompanyVO companyVO){
 		String sql = """
 				select distinct(product_code) '상품번호', product_name '상품명'
-				from unstoring_detail join product using(product_code)
+				from product
 				where company_id = ?
 				""";
 		List<UnstoringDetailVO> detailList = new ArrayList<>();

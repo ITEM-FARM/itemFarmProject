@@ -1,6 +1,12 @@
+<%@page import="model.CategoryService"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    	
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%
+CategoryService categoryService = new CategoryService();
+pageContext.setAttribute("categoryList", categoryService.categoryList());
+pageContext.setAttribute("subcategoryList", categoryService.subcategoryList());
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +71,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr id="headrow">
+											<th>Index</th>
 											<th>상품 코드</th>
 											<th>상품명</th>
 											<th>카테고리</th>
@@ -79,6 +86,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                        	<th>Index</th>
 											<th>상품 코드</th>
 											<th>상품명</th>
 											<th>카테고리</th>
@@ -92,8 +100,9 @@
 										</tr>
                                     </tfoot>
                                     <tbody>
-                                        <c:forEach items="${productList}" var="product">
+                                        <c:forEach items="${productList}" var="product" varStatus="status">
 											<tr id="datarow">
+												<td>${status.count}</td>
 												<td>
 													<a data-product="${product}" class="modal-link" href="../productDetail-code:${product.product_code}" role="button"
   				aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#ProductModifyModal" >${product.product_code}</a></td>
@@ -154,7 +163,10 @@
 			for(let key in json) {
 				var id = "#"+key.replaceAll("'", "");
 				
-				if(!id.includes("status")) {
+				if(id.includes("category")) {
+					$("#selectedModifyCategory").attr("value", json[key]);
+				}
+				else if(!id.includes("status")) {
 					$(id).attr("value", json[key]);
 				} 
 				else {

@@ -44,7 +44,7 @@ label {
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
 	                		<tr>
-	                			<th>수수료 (%)</th>
+	                			<th>수수료</th>
 	                			<td><input type="number" id="company_commission" name="company_commission" step="0.01" required
 	                			class="form-control bg-light border-0 small" aria-describedby="basic-addon2" data-siid="si_input_0"></td>
 	                		</tr>
