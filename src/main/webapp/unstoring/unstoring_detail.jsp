@@ -32,7 +32,8 @@
 		<div id="content-wrapper" class="d-flex flex-column">
 			<div id="content">
 			    <!-- 용희 : 출고 상세조회 페이지는 헤더에 Logout 아이콘만 있어야 해서 새로운 jsp 파일 만들었음 -->
-				<%@ include file="../common/header_2.jsp"%>
+				<%-- <%@ include file="../common/header_2.jsp"%> --%>
+				
 
 
 

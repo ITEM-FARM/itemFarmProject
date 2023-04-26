@@ -142,7 +142,7 @@ public class ProductDAO {
 			  sql+=" cast(" + product.getKey() + " as char(10)) like '%" + product.getValue() + "%'";  
 		  }
 		  
-		  System.out.println(sql);
+		  
 		List<ProductVO> productList = new ArrayList<>();
 		conn = MysqlUtil.getConnection();
 		
