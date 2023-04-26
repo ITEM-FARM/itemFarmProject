@@ -205,15 +205,16 @@ $(function(){
 			params.push(param);
 		});
 		
-		console.log(params);
+		
 		if(params.length == 0){
 			alert('입고 품목을 한 개 이상 체크해주세요. ');
 			return false;
 		}
 		
+		
 		$.ajax({
 			url:"/storing/storing_insert.do",
-			data:{"mode":"storeProduct","storingList":JSON.stringify(params)},
+			data:{"mode":"storeProduct","storingList":JSON.stringify(params),"storingMemo":$('#storingMemo').val()},
 			method:"post",
 			success:(result,status,xhr)=>{
 				

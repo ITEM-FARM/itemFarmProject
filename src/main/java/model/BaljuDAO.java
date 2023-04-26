@@ -206,15 +206,6 @@ public class BaljuDAO {
 			sql +=  " b.balju_code = '" + balju_codeArr[i] + "'";	
 		}
 		
-		/*
-		 * for (String balju_code: balju_codeArr) {
-		 * 
-		 * sql += " or b.balju_code = '" + balju_code + "'";
-		 * 
-		 * }
-		 */
-		
-		System.out.println(sql);
 		
 		List<BaljuVO> baljuDetailList = new ArrayList<>();
 		conn = MysqlUtil.getConnection();
