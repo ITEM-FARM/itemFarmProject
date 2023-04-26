@@ -45,6 +45,7 @@
 			            </label>
 			            <button class="btn btn-primary btn-circle btn-sm"><i class="fa fa-search" aria-hidden="true"></i></button>                 
 		            </form>
+		            
                     <!-- 
                     은빈: 기업 목록 조회
                     기업 코드, 기업명 누르면 수정 modal
@@ -59,6 +60,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr id="headrow">
+                                        	<th>Index</th>
 											<th>기업 코드</th>
 											<th>기업명</th>
 											<th>수수료 (%)</th>
@@ -67,6 +69,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                        	<th>Index</th>
 											<th>기업 코드</th>
 											<th>기업명</th>
 											<th>수수료 (%)</th>
@@ -74,8 +77,9 @@
 										</tr>
                                     </tfoot>
                                     <tbody>
-                                        <c:forEach items="${companyList}" var="company">
+                                        <c:forEach items="${companyList}" var="company" varStatus="status">
 											<tr id="datarow">
+												<td>${status.count}</td>
 												<td>
 													<a data-company="${company}" class="modal-link" href="../companyDetail-id:${company.company_id}" role="button"
   				aria-haspopup="true" aria-expanded="false" data-toggle="modal" data-target="#CompanyModifyModal" >${company.company_id}</a>

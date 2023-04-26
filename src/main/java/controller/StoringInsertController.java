@@ -20,8 +20,8 @@ public class StoringInsertController implements CommonInterface {
 		String method = (String) data.get("method");
 
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
-
-		if (method.equals("POST")) {
+		String mode = request.getParameter("mode");
+		if (method.equals("POST") && mode.equals("searchProduct")) {
 
 			String valueType = request.getParameter("valueType");
 
@@ -59,7 +59,7 @@ public class StoringInsertController implements CommonInterface {
 //			productsObj.put("productList",arr);
 //			
 //			return "responseBody:" + productsObj.toJSONString();
-		}
+		} 
 		return page;
 
 	}

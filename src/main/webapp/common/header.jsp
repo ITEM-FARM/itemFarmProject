@@ -30,60 +30,81 @@ pageContext.setAttribute("lookUpList", companyList);
  		<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
   			<i class="fa fa-bars"></i>
 		</button>
+		
 		<!-- Topbar Navbar -->
 		<ul class="navbar-nav ml-auto">
-		
-		<c:if test="${managerUser != null && managerUser != ''}">
-		
-		<li class="nav-item no-arrow">
-			<div class="nav-link">
-				<i class="fas fa fa-user fa-0.5x activeColor" aria-hidden="true"></i></span>	
-				<span class="mr-2 d-none d-lg-inline text-gray-600 small">&nbsp ${managerUser.manager_name}</span>
-			</div>
-		</li>
-		
-		<div class="topbar-divider d-none d-sm-block"></div>
-		
-		<li class="nav-item no-arrow">
-			<div class="nav-link">	
-				<i class="fas fa fa-building fa-0.5x activeColor" aria-hidden="true"></i>
-				<span class="mr-2 d-none d-lg-inline text-gray-600 small">&nbsp ${comName}</span>
-			</div>
-		</li>
+			<!-- 
+			은빈: 로그인별 header 아이콘 설정
+			1. comId != null
+				1) 매니저 로그인인 경우
+					- 매니저 로그인 정보
+					- 기업 정보
+					- 조회 기업 변경
+					- 로그아웃
+				2) 기업 로그인인 경우
+					- 기업 정보
+					- 로그아웃
+			2. comId == null
+				- 로그인
+			-->
+			<c:if test="${comId != null}">
+				<c:if test="${managerUser != null && managerUser != ''}">
+					<li class="nav-item no-arrow">
+						<div class="nav-link">
+							<i class="fas fa fa-user fa-0.5x activeColor" aria-hidden="true"></i>	
+							<span class="mr-2 d-none d-lg-inline text-gray-600 small">&nbsp ${managerUser.manager_name}</span>
+						</div>
+					</li>
+					<div class="topbar-divider d-none d-sm-block"></div>
+				</c:if>
 			
-		<div class="topbar-divider d-none d-sm-block"></div>
+				<li class="nav-item no-arrow">
+					<div class="nav-link">	
+						<i class="fas fa fa-building fa-0.5x activeColor" aria-hidden="true"></i>
+						<span class="mr-2 d-none d-lg-inline text-gray-600 small">&nbsp ${comName}</span>
+					</div>
+				</li>	
+				<div class="topbar-divider d-none d-sm-block"></div>
 			
-		<li class="nav-item no-arrow dropdown">
-				<a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-  				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
- 					<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-        	        <span class="mr-2 d-none d-lg-inline text-gray-600 small">조회 기업 변경</span>
-       	     	</a>
-       	     	<div id="select-box" class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-					<div class="dropdown-header">기업 목록</div>
-					<c:forEach items="${lookUpList}" var="look" varStatus="status">
-						<a class="dropdown-item" data-comId="${look.company_id}" 
-						data-comName="${look.company_name}">${look.company_id}: ${look.company_name}</a>
-					</c:forEach>
-				</div>
-			</li>
-
-
-			<!-- Nav Item - User Information -->
-			<div class="topbar-divider d-none d-sm-block"></div>
-			
+				<c:if test="${managerUser != null && managerUser != ''}">
+					<li class="nav-item no-arrow dropdown">
+						<a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+		  				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+		 					<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+		        	        <span class="mr-2 d-none d-lg-inline text-gray-600 small">조회 기업 변경</span>
+		       	     	</a>
+		       	     	<div id="select-box" class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+							<div class="dropdown-header">기업 목록</div>
+							<c:forEach items="${lookUpList}" var="look" varStatus="status">
+								<a class="dropdown-item company-list-item" data-comId="${look.company_id}" 
+								data-comName="${look.company_name}">${look.company_id}: ${look.company_name}</a>
+							</c:forEach>
+						</div>
+					</li>
+					<div class="topbar-divider d-none d-sm-block"></div>
+				</c:if>
+				
+				<li class="nav-item no-arrow">
+					<a class="nav-link" href="#" role="button" aria-haspopup="true" aria-expanded="false"
+						data-toggle="modal" data-target="#logoutModal"> 
+						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> 
+						<span class="mr-2 d-none d-lg-inline text-gray-600 small">Logout</span>
+					</a>
+				</li>
 			</c:if>
 			
-			<li class="nav-item no-arrow"><a class="nav-link" href="#"
-				role="button" aria-haspopup="true" aria-expanded="false"
-				data-toggle="modal" data-target="#logoutModal"> <i
-					class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> <span
-					class="mr-2 d-none d-lg-inline text-gray-600 small">Logout</span>
-			</a>
+			<c:if test="${comId == null}">
+				<li class="nav-item no-arrow">
+					<a class="nav-link" href="/auth/LoginCheck.do"> 
+						<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> 
+						<span class="mr-2 d-none d-lg-inline text-gray-600 small">Login</span>
+					</a>
+				</li>
+			</c:if>
 		</ul>
 	</nav>
 	<script>
-		$(".dropdown-item").on("click", function() {
+		$(".company-list-item").on("click", function() {
 			var comId = $(this).attr("data-comId");
 			var comName = $(this).attr("data-comName");
 

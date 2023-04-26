@@ -23,6 +23,7 @@ import controller.ProductInsertController;
 import controller.ProductListController;
 import controller.ProductModifyController;
 import controller.SessionController;
+import controller.StatDailyController;
 import controller.StatisticsController;
 import controller.StoringInsertController;
 import controller.StoringListController;
@@ -33,7 +34,7 @@ import controller.UnstoringListController;
 import controller.UnstoringTestController;
 import controller.UnstoringTestReadController;
 import controller.UnstoringTrackingNumberInputController;
-import controller.WarehousingController;
+import controller.WarehousingListController;
 
 
 @WebServlet("*.do")
@@ -114,8 +115,11 @@ public class FrontController extends HttpServlet {
 		case "/unstoring/unstoringTestRead.do": // 주문건 상세조회 (리디렉트)
 			controller = new UnstoringTestReadController();
 			break;
-		case "/warehousing/new.do":
-			controller = new WarehousingController();
+		case "/warehousing/warehousingList.do":
+			controller = new WarehousingListController();
+			break;
+		case "/statistics/daily.do":
+			controller = new StatDailyController();
 			break;
 		case "/session.do":
 			controller = new SessionController();
