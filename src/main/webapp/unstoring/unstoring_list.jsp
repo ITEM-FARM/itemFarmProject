@@ -250,7 +250,7 @@
 					// 관리자 비밀번호 체크 (by 은빈)
 					var password = prompt("관리자 확인", "비밀번호를 입력하세요");
 					
-					if("${managerUser.manager_pw}" != password || password == ""){
+					if("${managerUser.manager_pw}" != password || password == null){ // null 조건은 '취소'버튼을 눌렀을 때를 대비한 것
 						alert("비밀번호가 올바르지 않습니다.");
 						return;
 					}else{
@@ -291,12 +291,11 @@
 					frm.submit();
 					
 					var resultTrkNum = "${resultTrkNum}";
-						if(resultTrkNum == 0){
-							alert(resultTrkNum + '송장입력에 실패하였습니다.');
-						}else{
+						if(resultTrkNum > 0){ // update된 row의 수가 
 							alert(resultTrkNum + '송장입력이 되었습니다.');
+						}else{
+							alert(resultTrkNum + '송장입력에 실패하였습니다.');
 						}
-					
 					
 					} // if else 끝
 					} // if 끝
@@ -339,7 +338,7 @@
 					if ($('table input:checkbox:checked').length != 0) {
 					var password = prompt("관리자 확인", "비밀번호를 입력하세요");
 					
-					if("${managerUser.manager_pw}" != password || password == ""){
+					if("${managerUser.manager_pw}" != password || password == null){
 						alert("비밀번호가 올바르지 않습니다.");
 						return;
 					}else{
@@ -381,10 +380,10 @@
 					
 					var resultCancel = "${resultCancel}";
 						
-						if(resultCancel == 0){
-							alert('주문취소에 실패하였습니다.');
+						if(resultCancel > 0){
+							alert(resultCancel+'주문취소에 성공하였습니다.');
 						}else{
-							alert('주문취소에 성공하였습니다.');
+							alert(resultCancel+'주문취소에 실패하였습니다.');
 						}
 					
 					} // if, else 끝
