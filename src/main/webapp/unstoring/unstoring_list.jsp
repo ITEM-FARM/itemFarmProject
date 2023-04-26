@@ -125,7 +125,7 @@
 											<th>출고담당자</th>
 											<th>비고</th>
 										</tr>
-									</thead>
+									</thead> 
 									<tbody>
 										<%-- 용희: UnstoringListController에서 set한 걸 get한 데이터 --%>
 										<c:forEach var="list" items="${unstoringList }" 
@@ -218,14 +218,17 @@
 						alert("송장번호를 입력할 행을 먼저 선택하여 주십시오.");
 					}
 				});
-				// 0-2. 취소저장
+        
+        // 0-2. 취소저장
 				$("#btnCancelOrder").on("click", function() {
 					//체크된 행이 없을 경우.
 					if ($('table input:checkbox:checked').length == 0) {
 						alert("주문취소할 행을 먼저 선택하여 주십시오.");
 					}
 				});
-				
+
+
+
 				// 1. 용희 : 송장번호, 주문취소 라디오 버튼 클릭시 => 조건에 충족되는 놈들만 enabled 되게끔 하는 기능
 				// 1-1. 송장번호 라디오 버튼
 				$("#btnInput").on("click", function() {
@@ -247,6 +250,7 @@
 						}
 					});
 				    
+            
 					// 2. 용희 : 송장입력 및 주문취소 체크박스로 체크한 놈들 DB에 저장하기
 					// 2-1. 송장번호 저장
 					$("#btnTrackingNumber").on("click", function() {
@@ -256,7 +260,7 @@
 						// 관리자 비밀번호 체크 (by 은빈)
 						var password = prompt("관리자 확인", "비밀번호를 입력하세요");
 						
-						if(m != password || password == ""){
+						if(m != password || password == null){
 							alert("비밀번호가 올바르지 않습니다.");
 							return;
 						}else{
@@ -297,12 +301,11 @@
 						frm.submit();
 						
 						var resultTrkNum = "${resultTrkNum}";
-							if(resultTrkNum == 0){
-								alert(resultTrkNum + '송장입력에 실패하였습니다.');
-							}else{
-								alert(resultTrkNum + '송장입력이 되었습니다.');
-							}
-						
+						  if(resultTrkNum > 0){ // update된 row의 수가 
+							alert(resultTrkNum + '송장입력이 되었습니다.');
+					  	}else{
+							alert(resultTrkNum + '송장입력에 실패하였습니다.');
+					  	}
 						
 						} // if else 끝
 						} // if 끝
@@ -310,7 +313,7 @@
 					
 				});
 
-				
+
 				
 				
 				// 1-2. 주문취소 라디오 버튼
@@ -322,14 +325,15 @@
 						var selector = ".form-check-input-" + index;
 						console.log(selector);
 
-						if (state == "출고대기") {
-							$(selector).prop("disabled", false);
-							console.log('if');
-						} else {
-							$(selector).prop("disabled", true);
-							console.log('else');
-						}
-					});
+					if (state == "출고대기") {
+						$(selector).prop("disabled", false);
+						console.log('if');
+					} else {
+						$(selector).prop("disabled", true);
+						console.log('else');
+					}
+				});
+				
 					
 					// 2-2. 주문취소 저장
 					$("#btnCancelOrder").on("click", function() {
@@ -345,7 +349,7 @@
 						if ($('table input:checkbox:checked').length != 0) {
 						var password = prompt("관리자 확인", "비밀번호를 입력하세요");
 						
-						if(m != password || password == ""){
+						if(m != password || password == null){
 							alert("비밀번호가 올바르지 않습니다.");
 							return;
 						}else{
@@ -387,14 +391,14 @@
 						
 						var resultCancel = "${resultCancel}";
 							
-							if(resultCancel == 0){
-								alert('주문취소에 실패하였습니다.');
-							}else{
-								alert('주문취소에 성공하였습니다.');
-							}
-						
-						} // if, else 끝
-						} // if 끝
+							if(resultCancel > 0){
+							alert(resultCancel+'주문취소에 성공하였습니다.');
+						}else{
+							alert(resultCancel+'주문취소에 실패하였습니다.');
+						}
+					
+					} // if, else 끝
+					} // if 끝
 						
 					});
 				});

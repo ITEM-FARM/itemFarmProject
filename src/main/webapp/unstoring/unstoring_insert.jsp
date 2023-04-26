@@ -102,7 +102,7 @@
 											<tr>
 												<td><label for="manager_id">담당자 ID</label></td>
 												<td><input name="manager_id" id="manager_id"
-													type="text" required readonly value="${magID }"></td>
+													type="text" required readonly value="${managerUser.manager_id }"></td>
 											</tr>
 
 										</tbody>
@@ -147,7 +147,7 @@
 					console.log("textStatus", status);
 				},
 				error:(jqXHR, textStatus, errorThrown)=>{
-					console.log("textStatus", textStatus);
+					console.log("textStatus", textStatus); 
 				}
 			});
 		});
@@ -158,10 +158,11 @@
 			
 			if(result){
 				var resultInsert = "${resultInsert}";
-				if(resultInsert == 0){
-					alert('주문 등록에 실패하였습니다.');
+				if(resultInsert == 0){ // executeUpdate한 SQL문이 2개라서 1+1=2가 돼야 완전히 성공한 것
+					                   // 하나라도 안되면 1-1=0이 됨.
+					alert(resultInsert+' 주문 등록에 실패하였습니다.');
 				}else{
-					alert('주문이 등록됐습니다.');
+					alert(resultInsert+' 주문이 등록됐습니다.');
 				}
 			}else{
 				

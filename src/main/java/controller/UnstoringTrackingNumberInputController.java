@@ -18,6 +18,7 @@ import org.json.simple.parser.JSONParser;
 import frontcontroller.CommonInterface;
 import model.UnstoringService;
 import vo.CompanyVO;
+import vo.UnstoringDetailVO;
 import vo.UnstoringVO;
 
 public class UnstoringTrackingNumberInputController implements CommonInterface {
@@ -33,8 +34,8 @@ public class UnstoringTrackingNumberInputController implements CommonInterface {
 		int company_id = (int) session.getAttribute("comId"); // ★나중에 로그인 및 세션-setAttribute 전부 되면 그때 사용
 		companyVO.setCompany_id(company_id);
 
-		// 세션으로부터 Manager 정보 받기 (참조: LoginCheckController)
-		String magID = (String) session.getAttribute("magID");
+//		세션으로부터 Manager 정보 받기 (참조: LoginCheckController)
+//		String magID = (String) session.getAttribute("magID");
 		
 		
 		// org.json.simple.* 라이브러리를 사용하는 경우
@@ -54,7 +55,7 @@ public class UnstoringTrackingNumberInputController implements CommonInterface {
 		System.out.println("arr : " + arr);
 		
 		// 4. 벗긴 그 JSONArray를 loop 
-		List<UnstoringVO> listVO = new ArrayList<>();
+		List<UnstoringVO> list = new ArrayList<>();
 		for(int i=0; i<arr.size(); i++) {
 			// 각각이 {"number" : 1} , {"number" : 2} 이런 식으로 되고
 			// 다시 JSON오브젝트 타입에 담고
@@ -70,18 +71,20 @@ public class UnstoringTrackingNumberInputController implements CommonInterface {
 			vo.setUnstoring_code(unstoring_code);
 			
 			// 7. List에 담아 (왜냐면 List 형태로 DAO에 보내야 하거든)
-			listVO.add(vo);
+			list.add(vo);
 		}
-		String trkNum = createTrkNum();
+		String trkNum = createTrkNum(); // A. 송장번호 생성
+		List<UnstoringDetailVO> detailList = makeDetail(list, service);
 		
 		//송장입력 로직 처리하게끔
-		int resultTrkNum = service.trackingNumberInput(listVO, trkNum);
+		int resultTrkNum = service.trackingNumberInput(list, trkNum, detailList);
 		System.out.println("resultTrkNum=>"+resultTrkNum);
 	    session.setAttribute("resultTrkNum", resultTrkNum);
 	    
 	    String page = "redirect:/unstoring/unstoringList.do"; 
 	    return page;
 	}
+	
 	
 	
 	// 송장번호 생성
@@ -100,6 +103,14 @@ public class UnstoringTrackingNumberInputController implements CommonInterface {
 		String trkNum = code + formatedNow;
 
 		return trkNum;
+	}
+	
+	
+	
+	// 송장번호 List => for문 => 각 송장번호에 해당하는 detailVO를 가져와서 다시 detailList에 담아주기??
+	public List<UnstoringDetailVO> makeDetail(List<UnstoringVO> listVO, UnstoringService service) {
+		System.out.println("makeDetail에서의 "+listVO);
+		return service.selectDetailByTrkNum(listVO);
 	}
 	
 
