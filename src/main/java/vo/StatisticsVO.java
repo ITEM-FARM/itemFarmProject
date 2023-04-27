@@ -1,5 +1,6 @@
 package vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class StatisticsVO {
+public class StatisticsVO implements Serializable{ 
 	
 	// for 카테고리별
 	private String order_subcategory_name; 
