@@ -24,7 +24,7 @@
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">조회 결과 - 총 ${dailyList_size }건</h6>
+							<h6 class="m-0 font-weight-bold text-primary">조회 결과</h6>
 							
 						</div>
 
@@ -37,7 +37,7 @@
 									<thead>
 										<tr id="headrow">
 											<th>Index</th>
-											<th>주문일자</th>
+											<th>카테고리</th>
 											<th>주문수량</th>
 											<th>주문금액 (원)</th>
 											<th>취소수량</th>
@@ -49,18 +49,18 @@
 										</tr>
 									</thead> 
 									<tbody>
-										<c:forEach var="daily" items="${dailyList }" varStatus="status">
+										<c:forEach var="list" items="${statList }" varStatus="status">
 											<tr>
 												<td>${status.count }</td>
-												<td style="color:#000000DD;">${daily.order_register }</td>
-												<td style="color:#0d6efdDD;">${daily.order_count }</td>
-												<td style="color:#0d6efdDD;"><fmt:formatNumber value="${daily.order_amount}"></fmt:formatNumber></td>
-												<td style="color:#dc3545DD;">${daily.cancel_count }</td>
-												<td style="color:#dc3545DD;"><fmt:formatNumber value="${daily.cancel_amount}"></fmt:formatNumber></td>
-												<td style="color:#000000DD;">${daily.revenue_count }</td>
-												<td style="color:#000000DD;"><fmt:formatNumber value="${daily.revenue_amount}"></fmt:formatNumber></td>
-												<td style="color:#000000DD;"><fmt:formatNumber value="${daily.net_profit}"></fmt:formatNumber></td>
-												<td style="color:#000000DD;"><fmt:formatNumber value="${dailylist.net_profit_margin}" type="percent" pattern="0.0%"></fmt:formatNumber></td>
+												<td style="color:#000000DD;">${list.order_register }</td>
+												<td style="color:#0d6efdDD;">${list.order_count }</td>
+												<td style="color:#0d6efdDD;"><fmt:formatNumber value="${list.order_amount}"></fmt:formatNumber></td>
+												<td style="color:#dc3545DD;">${list.cancel_count }</td>
+												<td style="color:#dc3545DD;"><fmt:formatNumber value="${list.cancel_amount}"></fmt:formatNumber></td>
+												<td style="color:#000000DD;">${list.revenue_count }</td>
+												<td style="color:#000000DD;"><fmt:formatNumber value="${list.revenue_amount}"></fmt:formatNumber></td>
+												<td style="color:#000000DD;"><fmt:formatNumber value="${list.net_profit}"></fmt:formatNumber></td>
+												<td style="color:#000000DD;"><fmt:formatNumber value="${list.net_profit_margin}" type="percent" pattern="0.0%"></fmt:formatNumber></td>
 											</tr>
 											
 										</c:forEach>
