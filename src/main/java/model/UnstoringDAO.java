@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -79,10 +80,10 @@ public class UnstoringDAO {
 	// 송장입력 버튼 
 	// => (1) 입력한 송장번호로 update
 	// => (2) 재고(product_stock) (-)되게끔 : 이건 트리거?? 아니면 update문을 2번?? (addBatch? or statement 2개?) 
-	public int trackingNumberInput(List<UnstoringVO> list, String trkNum, List<UnstoringDetailVO> detailList) {
+	public int trackingNumberInput(List<UnstoringVO> list, String trkNum, List<UnstoringDetailVO> detailList, Timestamp timestamp) {
 		String sql_track = """
 				update unstoring
-				set tracking_number = ?, unstoring_state = '출고완료'
+				set tracking_number = ?, unstoring_state = '출고완료', unstoring_date = ?
 				where unstoring_code = ?
 				""";
 		String sql_stock = """
@@ -104,14 +105,12 @@ public class UnstoringDAO {
 			for(int i=0; i<list.size(); i++) {
 				// sql_track
 				pst.setString(1, trkNum);
-				
 				unstoring = list.get(i);
-//				System.out.println("unstoring : "+unstoring);
-				pst.setString(2, unstoring.getUnstoring_code());
+				pst.setTimestamp(2, timestamp);
+				pst.setString(3, unstoring.getUnstoring_code());
 				
 				// sql_stock
 				detailVO = detailList.get(i);
-//				System.out.println("detailVO : "+detailVO);
 				pst2.setInt(1, detailVO.getProduct_code());
 				System.out.println("detailVO.getProduct_code() : "+detailVO.getProduct_code());
 				pst2.setString(2, detailVO.getUnstoring_code());
@@ -144,7 +143,9 @@ public class UnstoringDAO {
 	// 송장번호에 해당하는 출고상세(상품코드/주문수량) 정보를 불러오기 위한
 	public List<UnstoringDetailVO> selectDetailByTrkNum(List<UnstoringVO> list) {
 		String sql = """
-				select * from unstoring_detail where unstoring_code = ?
+				select unstoring_code, product_code, unstoring_quantity, unstoring_date
+				from unstoring_detail join unstoring using(unstoring_code)
+				where unstoring_code = ?
 				""";
 		conn = MysqlUtil.getConnection();
 		List<UnstoringDetailVO> detailList = new ArrayList<>();
@@ -162,9 +163,9 @@ public class UnstoringDAO {
 					UnstoringDetailVO detailVO = new UnstoringDetailVO();
 					detailVO.setUnstoring_code(rs.getString("unstoring_code"));
 					detailVO.setProduct_code(rs.getInt("product_code"));
-					System.out.println("rs.getInt(\"product_code\") : " + rs.getInt("product_code"));
 					detailVO.setUnstoring_quantity(rs.getInt("unstoring_quantity"));
-					System.out.println("rs.getInt(\"unstoring_quantity\")" + rs.getInt("unstoring_quantity"));
+//					detailVO.setUnstoring_date(rs.getTimestamp("unstoring_date"));
+					System.out.println(rs.getTimestamp("unstoring_date"));
 					detailList.add(detailVO);
 				}
 			}
@@ -243,7 +244,7 @@ public class UnstoringDAO {
 	public List<ProductVO> selectProductCode(CompanyVO companyVO){
 		String sql = """
 				select distinct(product_code) '상품번호', product_name '상품명'
-				from product
+				from product 
 				where company_id = ?
 				""";
 		List<ProductVO> productList = new ArrayList<>();
