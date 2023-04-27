@@ -23,66 +23,66 @@
                     	<div class="col-xl-9 mb-4">
                     		<div class="row">
                     		
-                    			<div class="col-lg-4 " id="daily">
-		                    		<div class="card shadow mb-4">
+                    			<div class="col-lg-4 " >
+		                    		<div id="daily" class="card mb-4">
 		                                
 		                                	<a href="#dailyreport" class="d-block card-header py-3" data-toggle="collapse"
-		                                    role="button">
-		                                    	<h6 class="m-0 font-weight-bold text-primary">DAILY REPORT</h6>
+		                                    role="button" style="background:#198754">
+		                                    	<h6 class="m-0 font-weight-bold" style="color:white">DAILY REPORT</h6>
 		                                    </a>
 		                                
-		                                <div class="collapse" id="dailyreport">
+		                                <div class="collapse show" id="dailyreport">
 		                                <div class="card-body">
 		                                    <div class="text-center">
-		                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-		                                            src="/img/undraw_growth_analytics_re_pyxf.svg" alt="...">
+		                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 270px; height: 150px;"
+		                                            src="/img/undraw_schedule_re_2vro.svg" alt="...">
 		                                    </div>
 		                                </div>
-		                                <div class="card-footer">
-		                                	일별 매출현황 보러가기→→
+		                                <div class="card-footer text-secondary" style="background:#A3CFBB; color:#051B11">
+		                                	일별 매출현황 보러가기→
 		                                </div>
 		                                </div>
 		                            </div>			
                     			</div>
                     			
-                    			<div class="col-lg-4" id="category">
-		                    		<div class="card shadow mb-4">
+                    			<div class="col-lg-4" >
+		                    		<div id="category" class="card mb-4">
 		                                
 		                                	<a href="#categoryreport" class="d-block card-header py-3" data-toggle="collapse"
-		                                    role="button">
-		                                    	<h6 class="m-0 font-weight-bold text-primary">CATEGORY REPORT</h6>
+		                                    role="button" style="background:#ffc107">
+		                                    	<h6 class="m-0 font-weight-bold text-dark" >CATEGORY REPORT</h6>
 		                                    </a>
 		                                
-		                                <div class="collapse" id="categoryreport">
+		                                <div class="collapse show" id="categoryreport">
 		                                <div class="card-body">
 		                                    <div class="text-center">
-		                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-		                                            src="/img/undraw_growth_analytics_re_pyxf.svg" alt="...">
+		                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 270px; height: 150px;"
+		                                            src="/img/undraw_web_shopping_re_owap.svg" alt="...">
 		                                    </div>
 		                                </div>
-		                                <div class="card-footer">
-		                                	카테고리별 매출현황 보러가기→→
+		                                <div class="card-footer text-secondary" style="background:#FFE69C;">
+		                                	카테고리별 매출현황 보러가기→
 		                                </div>
 		                                </div>
 		                            </div>			
                     			</div>
                     			
-                    			<div class="col-lg-4" id="product">
-		                    		<div class="card shadow mb-4" >
+                    			<div class="col-lg-4" >
+		                    		<div id="product" class="card mb-4" >
 		                                
 		                                	<a href="#productreport" class="d-block card-header py-3" data-toggle="collapse"
-		                                    role="button">
-		                                    	<h6 class="m-0 font-weight-bold text-primary">PRODUCT REPORT</h6>
+		                                    role="button" style="background:#d63384">
+		                                    	<h6 class="m-0 font-weight-bold text-light">PRODUCT REPORT</h6>
 		                                    </a>
 		                                
-		                                <div class="collapse" id="productreport">
+		                                <div class="collapse show" id="productreport">
 		                                <div class="card-body">
 		                                    <div class="text-center">
-		                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-		                                            src="/img/undraw_growth_analytics_re_pyxf.svg" alt="...">
+		                                        <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 270px; height: 150px;"
+		                                            src="/img/undraw_gift_re_qr17.svg" alt="...">
 		                                    </div>
 		                                </div>
-		                                <div class="card-footer">
+		                                <div class="card-footer" style="background:#EFADCE">
 		                                	상품별 매출현황 보러가기→
 		                                </div>
 		                                </div>
@@ -127,12 +127,26 @@
 	<%@ include file="../common/commonETC.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>
 	
+	
 	<script>
 		$(function(){
+			
 			$("#daily").hover(function(){
-				console.log("hover");
+				$(this).addClass("shadow");
 			},function(){
-				console.log("hover 빠짐");
+				$(this).removeClass("shadow");
+			});
+			
+			$("#product").hover(function(){
+				$(this).addClass("shadow");
+			},function(){
+				$(this).removeClass("shadow");
+			});
+			
+			$("#category").hover(function(){
+				$(this).addClass("shadow");
+			},function(){
+				$(this).removeClass("shadow");
 			});
 		});
 	</script>
