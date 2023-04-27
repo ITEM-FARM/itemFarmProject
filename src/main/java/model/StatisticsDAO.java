@@ -41,7 +41,7 @@ public class StatisticsDAO {
 			rs = pst.executeQuery();
 			while(rs.next()) {
 				company.setCompany_commission(rs.getDouble("company_commission"));
-				company.setCompany_status(rs.getString("company_status").charAt(0)); // status가 char(1)라서
+//				company.setCompany_status(rs.getString("company_status").charAt(0)); // status가 char(1)라서
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -103,6 +103,7 @@ public class StatisticsDAO {
 		int oc, oa, cc, ca;
 		int total_cost; // 판매원가 (=총 원가)
 		int revenue; // 순매출액
+		double net_margin_profit; // 순이익률
 		
 		stat.setOrder_register(rs.getString("주문일자"));
 		stat.setCancel_register(rs.getString("취소일자"));
@@ -124,8 +125,16 @@ public class StatisticsDAO {
 		comm = company.getCompany_commission();
 		System.out.println(comm + " : comm");
 		stat.setTotal_cost(total_cost); // 판매원가
-		stat.setNet_profit((revenue-total_cost)*comm); // 순이익 = (순매출 - 총 원가) * 커미션
-		System.out.println((revenue-total_cost)*comm + " : 순이익 double 소수점 몇째자리까지??");
+		stat.setNet_profit((revenue-total_cost)*(1-comm)); // 순이익 = (순매출 - 총 원가) * 커미션
+		System.out.println((revenue-total_cost)*(1-comm) + " : 순이익 double 소수점 몇째자리까지??");
+		
+		// 순이익률
+		net_margin_profit = (((revenue-total_cost)*(1-comm))/revenue)*100;
+		System.out.println("순이익률: "+net_margin_profit);
+		if(Double.isNaN(net_margin_profit)) {
+			net_margin_profit = 0;
+		}
+		stat.setNet_profit_margin(net_margin_profit);
 		
 		return stat;
 	}

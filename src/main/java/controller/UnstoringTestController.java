@@ -42,6 +42,7 @@ public class UnstoringTestController implements CommonInterface {
 		
 		// redirect 방식이니까 session에 저장함
 		session.setAttribute("detailVO", detailVO);
+		System.out.println(detailVO);
 		
 		String page = "redirect:/unstoring/unstoringTestRead.do";
 		return page;
