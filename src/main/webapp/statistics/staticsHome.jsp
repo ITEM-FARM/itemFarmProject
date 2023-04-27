@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    	
 <!DOCTYPE html>
@@ -16,7 +17,7 @@
 				<div class="container-fluid">
 					<!-- Page Heading -->
                     <div class="align-items-center mb-4 ">
-                        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-chart-area"></i>마케팅 리포트 홈</h1>
+                        <h1 class="h3 mb-0 text-gray-800"><i class="fas fa-fw fa-chart-pie"></i>마케팅 리포트 홈</h1>
                     </div>
                     
                     <div class="row justify-content-center align-items-center">
@@ -38,8 +39,8 @@
 		                                            src="/img/undraw_schedule_re_2vro.svg" alt="...">
 		                                    </div>
 		                                </div>
-		                                <div class="card-footer text-secondary" style="background:#A3CFBB; color:#051B11">
-		                                	<a href="/statistics/daily.do">일별 매출현황 보러가기→→</a>
+		                                <div class="card-footer " style="background:#A3CFBB; color:#051B11">
+		                                	<a href="/statistics/daily.do" class="text-secondary">일별 매출현황 보러가기→</a>
 		                                </div>
 		                                </div>
 		                            </div>			
@@ -61,7 +62,7 @@
 		                                    </div>
 		                                </div>
 		                                <div class="card-footer text-secondary" style="background:#FFE69C;">
-		                                	<a href="/statistics/category.do">카테고리별 매출현황 보러가기→→</a>
+		                                	<a href="/statistics/category.do" class="text-secondary">카테고리별 매출현황 보러가기→</a>
 		                                </div>
 		                                </div>
 		                            </div>			
@@ -83,7 +84,7 @@
 		                                    </div>
 		                                </div>
 		                                <div class="card-footer" style="background:#EFADCE">
-		                                	<a href="/statistics/byProduct.do">상품별 매출현황 보러가기→</a>
+		                                	<a href="/statistics/byProduct.do" class="text-secondary">상품별 매출현황 보러가기→</a>
 		                                </div>
 		                                </div>
 		                            </div>			
