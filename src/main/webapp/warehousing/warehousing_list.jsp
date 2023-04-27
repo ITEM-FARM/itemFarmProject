@@ -1,6 +1,6 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>    	
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +29,7 @@
 				<div class="container-fluid">
 					<h1 class="h3 mb-2 text-gray-800">'${comName}' 입출고 내역 조회</h1>
 
-                    <p>📢상품을 선택하면 수정 페이지로 이동합니다.</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> 기업의 입/출고 내역을 조회할 수 있습니다.</p>
 		            
 		            <!-- 은빈: post: 입출고 구분에 따른 필터링 -->
 		            <form id="warehousingFilter" method="post" action="/warehousing/warehousingList.do">
@@ -53,24 +53,24 @@
                                         <tr id="headrow">
 											<th>Index</th>
 											<th>입/출고</th>
-											<th>상품 코드</th>
+											<th>상품코드</th>
 											<th>상품명</th>
-											<th>발주서 연동</th>
-											<th>발주서 번호</th>
-											<th>입/출고 날짜</th>
-											<th>입/출고 수량</th>
+											<th>발주서연동</th>
+											<th>발주서번호</th>
+											<th>입/출고날짜</th>
+											<th>입/출고수량</th>
 										</tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
 											<th>Index</th>
 											<th>입/출고</th>
-											<th>상품 코드</th>
+											<th>상품코드</th>
 											<th>상품명</th>
-											<th>발주서 연동</th>
-											<th>발주서 번호</th>
-											<th>입/출고 날짜</th>
-											<th>입/출고 수량</th>
+											<th>발주서연동</th>
+											<th>발주서번호</th>
+											<th>입/출고날짜</th>
+											<th>입/출고수량</th>
 										</tr>
                                     </tfoot>
                                     <tbody>
@@ -82,7 +82,7 @@
 												<td>${warehousing.product_name}</td>
 												<td>${warehousing.warehousing_state == "출고" ? "-" : warehousing.balju_code != null ? "O" : "X"}</td>
 												<td>${warehousing.balju_code == null ? "-" : warehousing.balju_code}</td>
-												<td>${warehousing.warehousing_date}</td>
+												<td><fmt:formatDate value="${warehousing.warehousing_date}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 												<td>${warehousing.warehousing_quantity}</td>
 											</tr>
 										 </c:forEach>
@@ -107,11 +107,6 @@
 	/*
 	테이블 마우스 hover시 background 색 변경 (참고: balju.jsp)
 	*/
-	var m = "${managerUser}";
-	console.log(m);
-	if(m != null && m != "") {
-		console.log("매니저 있어");
-	}
 	$("#headrow > th").hover(function(){
 		var index = $(this).index();
 		$(this).addClass('selected');

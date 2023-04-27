@@ -55,7 +55,8 @@ label {
 				                		<a class="nav-link dropdown-toggle" href="#" role="button" id="categoryModifyDropdown"
 						  				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
 						 					<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-						        	        <input name="subcategory_name" id="selectedModifyCategory" class="mr-2 d-none d-lg-inline text-gray-600 small" value="카테고리 선택">
+						        	        <input name="subcategory_name" id="selectedModifyCategory" 
+						        	        class="mr-2 d-none d-lg-inline text-gray-600 small categiry-input" value="카테고리 선택" readonly>
 						       	     	</a>
 						       	     	<div id="category-select-modify" class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="categoryModifyDropdown">
 											<c:forEach items="${categoryList}" var="category">

@@ -24,6 +24,9 @@ pageContext.setAttribute("subcategoryList", categoryService.subcategoryList());
 	.selected {
 		background-color: #dddfeb;
 	}
+	.categiry-input {
+		border: none;
+	}
 	</style>
 </head>
 <body>
@@ -38,7 +41,7 @@ pageContext.setAttribute("subcategoryList", categoryService.subcategoryList());
 					
 					<c:if test="${managerUser != null && managerUser != ''}">
 					
-                    <p>📢상품을 선택하면 수정 페이지로 이동합니다.</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> 상품코드, 상품명을 누르면 수정 페이지로 이동합니다.</p>
                     <a class="modal-link btn btn-primary btn-icon-split btn-sm" href="../productInsert" role="button" aria-haspopup="true" 
 		            	aria-expanded="false" data-toggle="modal" data-target="#ProductInsertModal">
 		                <span class="text">상품 등록</span>
@@ -72,7 +75,7 @@ pageContext.setAttribute("subcategoryList", categoryService.subcategoryList());
                                     <thead>
                                         <tr id="headrow">
 											<th>Index</th>
-											<th>상품 코드</th>
+											<th>상품코드</th>
 											<th>상품명</th>
 											<th>카테고리</th>
 											<th>원가 (원)</th>
@@ -81,13 +84,13 @@ pageContext.setAttribute("subcategoryList", categoryService.subcategoryList());
 											<th>안전재고</th>
 											<th>등록일</th>
 											<th>상태</th>
-											<th>상품 담당자</th>
+											<th>상품담당자</th>
 										</tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                         	<th>Index</th>
-											<th>상품 코드</th>
+											<th>상품코드</th>
 											<th>상품명</th>
 											<th>카테고리</th>
 											<th>원가 (원)</th>
@@ -96,7 +99,7 @@ pageContext.setAttribute("subcategoryList", categoryService.subcategoryList());
 											<th>안전재고</th>
 											<th>등록일</th>
 											<th>상태</th>
-											<th>상품 담당자</th>
+											<th>상품담당자</th>
 										</tr>
                                     </tfoot>
                                     <tbody>
@@ -151,45 +154,40 @@ pageContext.setAttribute("subcategoryList", categoryService.subcategoryList());
 	- for(let key in json): 각 input에 데이터 부여
 	- $.each($(".company_status"): 데이터에 따라 체크 상태 변화
 	*/
-		$("#ProductModifyModal").on("show.bs.modal", function (event) {
-			var str = $(event.relatedTarget).data('product').split(",");
+	$("#ProductModifyModal").on("show.bs.modal", function (event) {
+		var str = $(event.relatedTarget).data('product').split(",");
 			
-			var json = {};
-			$.each(str, function (idx, item) {
-				var value = item.split(" : ");
-				json[value[0]] = value[1];
-			});
+		var json = {};
+		$.each(str, function (idx, item) {
+			var value = item.split(" : ");
+			json[value[0]] = value[1];
+		});
 			
-			for(let key in json) {
-				var id = "#"+key.replaceAll("'", "");
+		for(let key in json) {
+			var id = "#"+key.replaceAll("'", "");
 				
-				if(id.includes("category")) {
-					$("#selectedModifyCategory").attr("value", json[key]);
-				}
-				else if(!id.includes("status")) {
-					$(id).attr("value", json[key]);
-				} 
-				else {
-					if(json[key] == "Y") {
-						$("#product_statusN").removeAttr("checked");
-						$("#product_statusY").attr("checked", "");
-					} else {
-						$("#product_statusY").removeAttr("checked");
-						$("#product_statusN").attr("checked", "");
-					}
+			if(id.includes("category")) {
+				$("#selectedModifyCategory").attr("value", json[key]);
+			}
+			else if(!id.includes("status")) {
+				$(id).attr("value", json[key]);
+			} 
+			else {
+				if(json[key] == "Y") {
+					$("#product_statusN").removeAttr("checked");
+					$("#product_statusY").attr("checked", "");
+				} else {
+					$("#product_statusY").removeAttr("checked");
+					$("#product_statusN").attr("checked", "");
 				}
 			}
-		});
+		}
+	});
 	</script>
 	<script>
 	/*
 	테이블 마우스 hover시 background 색 변경 (참고: balju.jsp)
 	*/
-	var m = "${managerUser}";
-	console.log(m);
-	if(m != null && m != "") {
-		console.log("매니저 있어");
-	}
 	$("#headrow > th").hover(function(){
 		var index = $(this).index();
 		$(this).addClass('selected');

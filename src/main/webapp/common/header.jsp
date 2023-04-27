@@ -104,24 +104,24 @@ pageContext.setAttribute("lookUpList", companyList);
 		</ul>
 	</nav>
 	<script>
-		$(".company-list-item").on("click", function() {
-			var comId = $(this).attr("data-comId");
-			var comName = $(this).attr("data-comName");
+	$(".company-list-item").on("click", function() {
+		var comId = $(this).attr("data-comId");
+		var comName = $(this).attr("data-comName");
 
-			$.ajax({
-				url : "/session.do",
-				data : {
-					"comId" : comId,
-					"comName" : comName
-				},
-				success : function(result) {
-					$(location).attr("href", $(location).attr("pathname"));
-				},
-				error : function(message) {
-					alert(message);
-				}
-			});
+		$.ajax({
+			url : "/session.do",
+			data : {
+				"comId" : comId,
+				"comName" : comName
+			},
+			success : function(result) {
+				$(location).attr("href", $(location).attr("pathname"));
+			},
+			error : function(message) {
+				alert(message);
+			}
 		});
+	});
 	</script>
 </body>
 </html>

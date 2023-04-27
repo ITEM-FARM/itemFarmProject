@@ -16,7 +16,6 @@ public class ProductListController implements CommonInterface {
 	public String execute(Map<String, Object> data) throws Exception {
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
 		String method = (String) data.get("method");
-		//String page = null;
 
 		HttpSession session = request.getSession();
 		int comId = (int) session.getAttribute("comId"); 
@@ -24,15 +23,15 @@ public class ProductListController implements CommonInterface {
 		ProductService service = new ProductService();
 		List<ProductVO> productList = null;
 		
+		// get: 처음 페이지 로드
 		if(method.equals("GET")) {
 			productList = service.productList(comId, "all");
 			request.setAttribute("filter", "all");
-			//page = "/product/product_list.jsp";
 		} else {
+			// post: 전체/활성/비활성 필터
 			String cond = request.getParameter("prodStatus-filter");
 			productList = service.productList(comId, cond);
 			request.setAttribute("filter", cond);
-			//page = "/product/product_list.jsp";
 		}
 		
 		request.setAttribute("productList", productList);

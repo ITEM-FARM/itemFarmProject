@@ -67,22 +67,22 @@ public class FrontController extends HttpServlet {
 		case "/balju/baljuDetailList.do": //[태영]발주 상세 조회
 			controller = new BaljuDetailListController();
 			break;
-		case "/company/companyList.do":
+		case "/company/companyList.do": // 은빈: 기업 리스트 조회
 			controller = new CompanyListController();
 			break;
-		case "/company/companyModify.do":
+		case "/company/companyModify.do": // 은빈: 기업 정보 수정
 			controller = new CompanyModifyController();
 			break;
-		case "/company/companyInsert.do":
+		case "/company/companyInsert.do": // 은빈: 기업 등록
 			controller = new CompanyInsertController();
 			break;
-		case "/product/productList.do":
+		case "/product/productList.do": // 은빈: 상품 리스트 조회
 			controller = new ProductListController();
 			break;
-		case "/product/productModify.do":
+		case "/product/productModify.do": // 은빈: 상품 정보 수정
 			controller = new ProductModifyController();
 			break;
-		case "/product/productInsert.do":
+		case "/product/productInsert.do": // 은빈: 상품 등록
 			controller = new ProductInsertController();
 			break;
 		case "/statistics/staticsHome.do":
@@ -115,13 +115,13 @@ public class FrontController extends HttpServlet {
 		case "/unstoring/unstoringTestRead.do": // 주문건 상세조회 (리디렉트)
 			controller = new UnstoringTestReadController();
 			break;
-		case "/warehousing/warehousingList.do":
+		case "/warehousing/warehousingList.do": // 은빈: 입출고 내역 조회
 			controller = new WarehousingListController();
 			break;
 		case "/statistics/daily.do":
 			controller = new StatDailyController();
 			break;
-		case "/session.do":
+		case "/session.do": // 은빈: 조회 기업 변경
 			controller = new SessionController();
 			break;	
 		default:
