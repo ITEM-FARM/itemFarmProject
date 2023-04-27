@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -81,18 +82,18 @@ public class WarehousingDAO {
 		String product_name = rs.getString("product_name");
 		String warehousing_state;
 		String balju_code;
-		Date warehousing_date;
+		Timestamp warehousing_date;
 		int warehousing_quantity;		
 		
 		if(mode.equals("unstoring")) {
 			warehousing_state = "출고";
 			balju_code = null;
-			warehousing_date = rs.getDate("unstoring_date");
+			warehousing_date = rs.getTimestamp("unstoring_date");
 			warehousing_quantity = rs.getInt("unstoring_quantity");
 		} else {
 			warehousing_state = "입고";
 			balju_code = rs.getString("balju_code");
-			warehousing_date = rs.getDate("storing_date");
+			warehousing_date = rs.getTimestamp("storing_date");
 			warehousing_quantity = rs.getInt("storing_quantity");
 		}
 		

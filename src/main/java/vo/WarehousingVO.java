@@ -1,6 +1,6 @@
 package vo;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +16,7 @@ public class WarehousingVO implements Comparable<WarehousingVO>{
 	private int product_code;
 	private String product_name;
 	private String balju_code;
-	private Date warehousing_date;
+	private Timestamp warehousing_date;
 	private int warehousing_quantity;
 	
 	@Override

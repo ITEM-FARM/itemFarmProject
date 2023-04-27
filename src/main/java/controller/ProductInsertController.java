@@ -13,7 +13,7 @@ import vo.ManagerVO;
 import vo.ProductVO;
 
 public class ProductInsertController implements CommonInterface{
-
+	// post 요청: 상품 정보 등록
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {
 		HttpServletRequest request = (HttpServletRequest) data.get("request");

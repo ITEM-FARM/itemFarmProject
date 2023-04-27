@@ -23,10 +23,12 @@ public class WarehousingListController implements CommonInterface {
 		WarehousingService service = new WarehousingService();
 		List<WarehousingVO> warehousingList = null;
 		
+		// get: 처음 페이지 로드
 		if(method.equals("GET")) {
 			warehousingList = service.warehousingList(comId, "all");
 			request.setAttribute("filter", "all");
 		} else {
+			// post: 전체/입고/출고 필터
 			String cond = request.getParameter("warehousing-filter");
 			warehousingList = service.warehousingList(comId, cond);
 			request.setAttribute("filter", cond);

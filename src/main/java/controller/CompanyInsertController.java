@@ -9,7 +9,7 @@ import model.CompanyService;
 import vo.CompanyVO;
 
 public class CompanyInsertController implements CommonInterface{
-
+	// post 요청: 기업 등록
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {
 		HttpServletRequest request = (HttpServletRequest) data.get("request");

@@ -16,15 +16,33 @@
 				
 				<div class="container-fluid">
 					<h1>Welcome!</h1>
-						<hr>
-						<a href="/auth/loginCheck.do">로그인 먼저 갔다와</a>
-						<hr>
-						<h2>manager: ${managerUser}</h2>
-						<h2>null?: ${managerUser == null}</h2>
-						<h2>""?: ${managerUser == ""}</h2>
-						<h2>company: ${companyUser}</h2>
-						<h2>comId: ${comId}</h2>
-						<h2>comName: ${comName}</h2>
+					<hr>
+					<div>이미지 슬라이드</div>
+					
+					<div>
+						<ul>
+							<li>상품</li>
+							<li>발주</li>
+							<li>입고</li>
+							<li>출고</li>
+						</ul>
+					</div>
+					
+					<div>
+						<img src="img.png">
+						<a href="#">마케팅 페이지로 이동</a>
+					</div>
+					
+					<hr>
+					
+					<div>
+						<ul>
+							<li>강태영</li>
+							<li>김용희</li>
+							<li>오은빈</li>
+							<li>이솔</li>
+						</ul>
+					</div>
 				</div>
 			</div>
 			<%@ include file="../common/footer.jsp" %>

@@ -29,7 +29,7 @@
 				
 				<div class="container-fluid">
 					<h1 class="h3 mb-2 text-gray-800"><i class="fas fa-fw fa-city"></i>&nbsp;ITEM FARM에 등록된 기업 목록</h1>
-                    <p>📢기업을 선택하면 수정 페이지로 이동합니다.</p>
+                    <p><i class="fas fa-exclamation-triangle"></i> 기업코드, 기업명을 누르면 수정 페이지로 이동합니다.</p>
                     <a class="modal-link btn btn-primary btn-icon-split btn-sm" href="../companyInsert" role="button" aria-haspopup="true" 
 		            	aria-expanded="false" data-toggle="modal" data-target="#CompanyInsertModal">
 		                <span class="text">기업 등록</span>
@@ -61,7 +61,7 @@
                                     <thead>
                                         <tr id="headrow">
                                         	<th>Index</th>
-											<th>기업 코드</th>
+											<th>기업코드</th>
 											<th>기업명</th>
 											<th>수수료 (%)</th>
 											<th>상태</th>
@@ -70,7 +70,7 @@
                                     <tfoot>
                                         <tr>
                                         	<th>Index</th>
-											<th>기업 코드</th>
+											<th>기업코드</th>
 											<th>기업명</th>
 											<th>수수료 (%)</th>
 											<th>상태</th>

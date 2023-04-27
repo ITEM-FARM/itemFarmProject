@@ -21,10 +21,12 @@ public class CompanyListController implements CommonInterface {
 		CompanyService service = new CompanyService();
 		List<CompanyVO> companyList = null;
 		
+		// get: 처음 페이지 로드
 		if(method.equals("GET")) {
 			companyList = service.companyList("all");
 			request.setAttribute("filter", "all");
 		} else {
+			// post: 전체/활성/비활성 필터
 			String cond = request.getParameter("comStatus-filter");
 			companyList = service.companyList(cond);
 			request.setAttribute("filter", cond);

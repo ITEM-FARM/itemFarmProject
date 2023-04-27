@@ -49,7 +49,8 @@ label {
 				                		<a class="nav-link dropdown-toggle" href="#" role="button" id="categoryInsertDropdown"
 						  				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
 						 					<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-						        	        <input name="subcategory_name" id="selectedInsertCategory" class="mr-2 d-none d-lg-inline text-gray-600 small" value="카테고리 선택">
+						        	        <input name="subcategory_name" id="selectedInsertCategory" 
+						        	        class="mr-2 d-none d-lg-inline text-gray-600 small categiry-input" value="카테고리 선택" readonly>
 						       	     	</a>
 						       	     	<div id="category-select-insert" class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="categoryInsertDropdown">
 											<c:forEach items="${categoryList}" var="category">
@@ -104,10 +105,13 @@ label {
     <script>
     $("#productInsertBtn").on("click", function() {
     	if(confirm("정말 등록하시겠습니까?") === true) {
-    		return true;
-    	} else {
-    		return false;
-    	}
+    		if($("#selectedInsertCategory").attr("value") != "카테고리 선택") {
+    			return true;
+    		} else {
+    			alert("카테고리를 선택해주세요.");
+    		}
+    	} 
+    	return false;
     });
     
     $(".category-insert-item").on("click", function () {
