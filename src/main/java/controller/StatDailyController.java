@@ -29,9 +29,9 @@ public class StatDailyController implements CommonInterface {
 		companyFromDB = service.commission(companySession);
 		
 		// 위에서 얻은 기업별 수수료를 바탕으로, DB에서 얻은 매출액에 곱해서 순이익을 계산해야 함.
-		List<StatisticsVO> statList = service.daily_order(companyFromDB);
-		session.setAttribute("statList", statList);
-		session.setAttribute("statList_size", statList.size());
+		List<StatisticsVO> dailyList = service.daily_order(companyFromDB);
+		session.setAttribute("dailyList", dailyList);
+		session.setAttribute("dailyList_size", dailyList.size());
 		
 		return page;
 	}
