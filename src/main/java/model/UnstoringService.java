@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import vo.CompanyVO;
@@ -12,8 +13,8 @@ public class UnstoringService {
 	UnstoringDAO dao = new UnstoringDAO();
 
 	// 송장입력 버튼 => 입력한 송장번호로 update
-	public int trackingNumberInput(List<UnstoringVO> list, String trkNum, List<UnstoringDetailVO> detailList) {
-		return dao.trackingNumberInput(list, trkNum, detailList);
+	public int trackingNumberInput(List<UnstoringVO> list, String trkNum, List<UnstoringDetailVO> detailList, Timestamp timestamp) {
+		return dao.trackingNumberInput(list, trkNum, detailList, timestamp);
 	}
 	
 	// 송장번호에 해당하는 출고상세(상품코드/주문수량) 정보를 불러오기 위한

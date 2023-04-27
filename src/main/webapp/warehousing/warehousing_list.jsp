@@ -27,7 +27,7 @@
 				<%@ include file="../common/header.jsp" %>
 				
 				<div class="container-fluid">
-					<h1 class="h3 mb-2 text-gray-800">'${comName}' 입출고 내역 조회</h1>
+					<h1 class="h3 mb-2 text-gray-800"><i class="fas fa-fw fa-table"></i>&nbsp;'${comName}' 입출고 내역 조회</h1>
 
                     <p><i class="fas fa-exclamation-triangle"></i> 기업의 입/출고 내역을 조회할 수 있습니다.</p>
 		            

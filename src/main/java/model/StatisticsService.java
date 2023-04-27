@@ -14,6 +14,16 @@ public class StatisticsService {
 		return dao.commission(company);
 	}
 	
+	// 상품별 매출통계
+	public List<StatisticsVO> byProduct_order(CompanyVO company) {
+		return dao.byProduct_order(company);
+	}
+	
+	// 카테고리별 매출통계
+	public List<StatisticsVO> category_order(CompanyVO company) {
+		return dao.category_order(company);
+	}
+	
 	// 일별 매출통계
 	public List<StatisticsVO> daily_order(CompanyVO company) {
 		return dao.daily_order(company);

@@ -163,7 +163,18 @@
 												<td>${list.order_register }</td>
 												<td>${list.unstoring_date }</td>
 												<td class="track">${list.tracking_number }</td>
-												<td class="state" style="color:#0d6efdDD;">${list.unstoring_state}</td>
+												<%-- <td class="state" style="color:#0d6efdDD;">${list.unstoring_state}</td> --%>
+												<c:choose>
+													<c:when test="${list.unstoring_state == '출고완료' }">
+														<td class="state" style="color: #0d6efdDD;">${list.unstoring_state}</td>
+													</c:when>
+													<c:when test="${list.unstoring_state == '주문취소' }">
+														<td class="state" style="color: #dc3545DD;">${list.unstoring_state}</td>
+													</c:when>
+													<c:otherwise>
+														<td class="state" style="color: #333333DD;">${list.unstoring_state}</td>
+													</c:otherwise>
+												</c:choose>
 												<td>${list.manager_id }</td>
 												<td>${list.unstoring_memo }</td>
 											</tr>

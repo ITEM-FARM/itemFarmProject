@@ -37,7 +37,7 @@ pageContext.setAttribute("subcategoryList", categoryService.subcategoryList());
 				<%@ include file="../common/header.jsp" %>
 				
 				<div class="container-fluid">
-					<h1 class="h3 mb-2 text-gray-800">'${comName}' 상품 목록</h1>
+					<h1 class="h3 mb-2 text-gray-800"><i class="fas fa-fw fa-briefcase"></i>&nbsp;'${comName}' 상품 목록</h1>
 					
 					<c:if test="${managerUser != null && managerUser != ''}">
 					

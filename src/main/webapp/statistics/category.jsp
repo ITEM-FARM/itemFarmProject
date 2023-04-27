@@ -19,24 +19,25 @@
 
 				<!-- 시작 -->
 				<div class="container-fluid">
-					<h1 class="h3 mb-2 text-gray-800"><i class="fas fa-fw fa-chart-area"></i>일별 매출현황</h1>
-						<p><i class="fas fa-exclamation-triangle"></i>&nbsp; 수수료율 : <fmt:formatNumber value="${dailyList[0].commission}" type="percent" pattern="0.0%"></fmt:formatNumber></p> 
+					<h1 class="h3 mb-2 text-gray-800"><i class="fas fa-fw fa-chart-area"></i>카테고리별 매출현황</h1>	
+						<p><i class="fas fa-exclamation-triangle"></i>&nbsp; 수수료율 : <fmt:formatNumber value="${categoryList[0].commission}" type="percent" pattern="0.0%"></fmt:formatNumber></p> 
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">조회 결과 - 총 ${dailyList_size }건</h6>
+							<h6 class="m-0 font-weight-bold text-primary">조회 결과 - 총 ${categoryList_size }건</h6>
 							
 						</div>
 
 
 						<div class="card-body">
 							<div class="table-responsive">
+
 								<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0">
 									<thead>
 										<tr id="headrow">
 											<th>Index</th>
-											<th>주문일자</th>
+											<th>카테고리</th>
 											<th>주문수량</th>
 											<th>주문금액 (원)</th>
 											<th>취소수량</th>
@@ -49,19 +50,19 @@
 										</tr>
 									</thead> 
 									<tbody>
-										<c:forEach var="daily" items="${dailyList }" varStatus="status">
+										<c:forEach var="category" items="${categoryList }" varStatus="status">
 											<tr>
 												<td>${status.count }</td>
-												<td style="color:#000000DD;">${daily.order_register }</td>
-												<td style="color:#0d6efdDD;">${daily.order_count }</td>
-												<td style="color:#0d6efdDD;"><fmt:formatNumber value="${daily.order_amount}"></fmt:formatNumber></td>
-												<td style="color:#dc3545DD;">${daily.cancel_count }</td>
-												<td style="color:#dc3545DD;"><fmt:formatNumber value="${daily.cancel_amount}"></fmt:formatNumber></td>
-												<td style="color:#000000DD;">${daily.revenue_count }</td>
-												<td style="color:#000000DD;"><fmt:formatNumber value="${daily.revenue_amount}"></fmt:formatNumber></td>
-												<td style="color:#000000DD;"><fmt:formatNumber value="${daily.total_cost}"></fmt:formatNumber></td>
-												<td style="color:#000000DD;"><fmt:formatNumber value="${daily.net_profit}"></fmt:formatNumber></td>
-												<td style="color:#000000DD;"><fmt:formatNumber value="${daily.net_profit_margin}" type="percent" pattern="0.0%"></fmt:formatNumber></td>
+												<td style="color:#000000DD;">${category.order_subcategory_name }</td>
+												<td style="color:#0d6efdDD;">${category.order_count }</td>
+												<td style="color:#0d6efdDD;"><fmt:formatNumber value="${category.order_amount}"></fmt:formatNumber></td>
+												<td style="color:#dc3545DD;">${category.cancel_count }</td>
+												<td style="color:#dc3545DD;"><fmt:formatNumber value="${category.cancel_amount}"></fmt:formatNumber></td>
+												<td style="color:#000000DD;">${category.revenue_count }</td>
+												<td style="color:#000000DD;"><fmt:formatNumber value="${category.revenue_amount}"></fmt:formatNumber></td>
+												<td style="color:#000000DD;"><fmt:formatNumber value="${category.total_cost}"></fmt:formatNumber></td>
+												<td style="color:#000000DD;"><fmt:formatNumber value="${category.net_profit}"></fmt:formatNumber></td>
+												<td style="color:#000000DD;"><fmt:formatNumber value="${category.net_profit_margin}" type="percent" pattern="0.0%"></fmt:formatNumber></td>
 											</tr>
 											
 										</c:forEach>

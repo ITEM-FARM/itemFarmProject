@@ -23,6 +23,8 @@ import controller.ProductInsertController;
 import controller.ProductListController;
 import controller.ProductModifyController;
 import controller.SessionController;
+import controller.StatByProductController;
+import controller.StatCategoryController;
 import controller.StatDailyController;
 import controller.StatisticsController;
 import controller.StoringInsertController;
@@ -120,6 +122,12 @@ public class FrontController extends HttpServlet {
 			break;
 		case "/statistics/daily.do":
 			controller = new StatDailyController();
+			break;
+		case "/statistics/category.do":
+			controller = new StatCategoryController();
+			break;
+		case "/statistics/byProduct.do":
+			controller = new StatByProductController();
 			break;
 		case "/session.do": // 은빈: 조회 기업 변경
 			controller = new SessionController();

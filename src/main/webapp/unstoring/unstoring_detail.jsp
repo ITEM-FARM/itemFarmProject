@@ -50,7 +50,7 @@
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary"><strong>조회 중인 주문번호</strong><br>: ${detailCode }</h6>
+							<h6 class="m-0 font-weight-bold text-primary"><strong>조회 중인 주문번호</strong>- &nbsp;  ${detailCode }</h6>
 						</div>
 
 

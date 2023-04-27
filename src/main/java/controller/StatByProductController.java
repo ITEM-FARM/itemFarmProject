@@ -11,7 +11,7 @@ import model.StatisticsService;
 import vo.CompanyVO;
 import vo.StatisticsVO;
 
-public class StatDailyController implements CommonInterface {
+public class StatByProductController implements CommonInterface {
 
 	@Override
 	public String execute(Map<String, Object> data) throws Exception {
@@ -22,17 +22,17 @@ public class StatDailyController implements CommonInterface {
 		CompanyVO companySession = new CompanyVO();
 		CompanyVO companyFromDB = new CompanyVO();
 		
-		// 세션으로부터 Company 정보 받기 (여기 모듈화 마렵네)
+		// 세션으로부터 Company 정보 받기
 		int company_id = (int) session.getAttribute("comId"); // ★나중에 로그인 및 세션-setAttribute 전부 되면 그때 사용
 		companySession.setCompany_id(company_id);
 		companyFromDB = service.commission(companySession);
 		
-		// 위에서 얻은 기업별 수수료를 바탕으로, DB에서 얻은 매출액에 곱해서 순이익을 계산해야 함.
-		List<StatisticsVO> dailyList = service.daily_order(companyFromDB);
-		session.setAttribute("dailyList", dailyList);
-		session.setAttribute("dailyList_size", dailyList.size());
+		// Jsp로 넘기기
+		List<StatisticsVO> byProductList = service.byProduct_order(companyFromDB);
+		session.setAttribute("byProductList", byProductList);
+		session.setAttribute("byProductList_size", byProductList.size());
 		
-		String page = "/statistics/daily.jsp";
+		String page = "/statistics/byProduct.jsp";
 		return page;
 	}
 	
