@@ -101,7 +101,6 @@ public class UnstoringInsertController implements CommonInterface {
 		String customer_name = request.getParameter("customer_name");
 		String customer_address = request.getParameter("customer_address");
 		Date order_register = DateUtil.convertToDate(request.getParameter("order_register"));
-		Date unstoring_date = DateUtil.convertToDate(request.getParameter("unstoring_date"));
 		String unstoring_memo = request.getParameter("unstoring_memo");
 
 		// VO 객체에 넣어주기 (객체 형태로 데이터 전송해야 하니까)
@@ -109,7 +108,6 @@ public class UnstoringInsertController implements CommonInterface {
 		unstoringVO.setCustomer_name(customer_name);
 		unstoringVO.setCustomer_address(customer_address);
 		unstoringVO.setOrder_register(order_register);
-		unstoringVO.setUnstoring_date(unstoring_date);
 		unstoringVO.setUnstoring_memo(unstoring_memo);
 		
 		return unstoringVO;

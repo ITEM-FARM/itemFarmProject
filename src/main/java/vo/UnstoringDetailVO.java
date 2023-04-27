@@ -1,6 +1,8 @@
 package vo;
 
+import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +15,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UnstoringDetailVO {
+public class UnstoringDetailVO implements Serializable{
 	
 	private String unstoring_code; // 주문번호
 	private int product_code; // 상품번호
@@ -25,5 +27,6 @@ public class UnstoringDetailVO {
 	private String customer_address; // 주문자 주소
 	private String tracking_number; // 송장번호 (일단 String으로 할까?? 나중에 long이나 double, 맞는 거롤 바꾸고)
 	private String unstoring_state; // 출고상태
+	private Timestamp unstoring_date;
 
 }

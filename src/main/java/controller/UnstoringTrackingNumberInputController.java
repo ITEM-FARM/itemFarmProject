@@ -29,6 +29,10 @@ public class UnstoringTrackingNumberInputController implements CommonInterface {
 		HttpSession session = request.getSession();
 		UnstoringService service = new UnstoringService();
 		
+		// (1)송장입력, (2)출고일자 입력을 위한 현재 날짜 가져오기 => DB에 DATETIME 타입
+		LocalDateTime now = LocalDateTime.now();
+		Timestamp timestamp = Timestamp.valueOf(now);
+		
 		// 세션으로부터 Company 정보 받기
 		CompanyVO companyVO = new CompanyVO();
 		int company_id = (int) session.getAttribute("comId"); // ★나중에 로그인 및 세션-setAttribute 전부 되면 그때 사용
@@ -73,11 +77,11 @@ public class UnstoringTrackingNumberInputController implements CommonInterface {
 			// 7. List에 담아 (왜냐면 List 형태로 DAO에 보내야 하거든)
 			list.add(vo);
 		}
-		String trkNum = createTrkNum(); // A. 송장번호 생성
+		String trkNum = createTrkNum(now); // A. 송장번호 생성
 		List<UnstoringDetailVO> detailList = makeDetail(list, service);
 		
 		//송장입력 로직 처리하게끔
-		int resultTrkNum = service.trackingNumberInput(list, trkNum, detailList);
+		int resultTrkNum = service.trackingNumberInput(list, trkNum, detailList, timestamp);
 		System.out.println("resultTrkNum=>"+resultTrkNum);
 	    session.setAttribute("resultTrkNum", resultTrkNum);
 	    
@@ -88,11 +92,7 @@ public class UnstoringTrackingNumberInputController implements CommonInterface {
 	
 	
 	// 송장번호 생성
-	public String createTrkNum() {
-		// 등록일을 위한 현재 날짜 가져오기
-		LocalDateTime now = LocalDateTime.now();
-		Timestamp timestamp = Timestamp.valueOf(now);
-
+	public String createTrkNum(LocalDateTime now) {
 		// 현재 작업 중인 코드 (발주(B), 입고(I), 출고(O), 송장(T))
 		String code = "T-";
 

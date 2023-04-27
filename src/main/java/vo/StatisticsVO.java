@@ -32,7 +32,9 @@ public class StatisticsVO {
 	private int total_cost; // 판매원가 (=총 원가)
 	
 	private double net_profit; // d1. 순이익금액 = c2 * (1-e)
-	private double net_profit_margin; // d2. 순이익률 = ??
+	
+	// String.format 메소드를 써야돼서 String 타입으로 지정하였음. => (정정) 
+	private double net_profit_margin; // d2. 순이익률 = (순이익/순매출) * 100(%)
 
 	// e. 커미션??
 }
