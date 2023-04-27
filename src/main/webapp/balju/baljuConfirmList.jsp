@@ -47,7 +47,7 @@
 				<%@ include file="../common/header.jsp" %>
 				
 				<div class="container-fluid">
-					<h1 class="h3 mb-2 text-gray-800">신한 DS 확정 발주 내역 조회</h1>
+					<h1 class="h3 mb-2 text-gray-800"><i class="fas fa-fw fa-barcode"></i>&nbsp;신한 DS 확정 발주 내역 조회</h1>
 					<p><i class="fas fa-exclamation-triangle"></i> 발주서 번호를 누르면 상세 조회가 가능합니다.</p>
 					
 					<div class="card shadow mb-4">
