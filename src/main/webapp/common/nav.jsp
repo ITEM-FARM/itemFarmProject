@@ -70,7 +70,7 @@
 	            <li class="nav-item">
 	                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
 	                    aria-expanded="true" aria-controls="collapseThree">
-	                    <i class="fas fa-fw fa-truck"></i>
+	                    <i class="fas fa-fw fa-industry"></i>
 	                    <span>입고관리</span></a>
 	                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionSidebar">
 	                    <div class="bg-white py-2 collapse-inner rounded">
@@ -112,7 +112,7 @@
              <!-- Nav Item - Dashboard -->
              <li class="nav-item">
                 <a class="nav-link" href="/statistics/staticsHome.do">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-fw fa-chart-pie"></i>
                     <span>마케팅 리포트</span></a>
             </li>
             <hr class="sidebar-divider d-none d-md-block">

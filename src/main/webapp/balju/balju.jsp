@@ -56,7 +56,7 @@
 				
 				<div class="container-fluid">
 				<!-- [태영] Start : Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">신한 DS 발주 등록</h1>
+                    <h1 class="h3 mb-2 text-gray-800"><i class="fas fa-fw fa-barcode"></i>신한 DS 발주 등록</h1>
                     <p><i class="fas fa-exclamation-triangle"></i> 발주 수량은 안전재고와 비교하여 자동 계산된 수량입니다.</p>
           		<!-- [태영] End : Page Heading  -->
           		
