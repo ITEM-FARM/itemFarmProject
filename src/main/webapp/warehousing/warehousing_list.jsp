@@ -27,7 +27,7 @@
 				<%@ include file="../common/header.jsp" %>
 				
 				<div class="container-fluid">
-					<h1 class="h3 mb-2 text-gray-800">'${comName}' 입출고 내역 조회</h1>
+					<h1 class="h3 mb-2 text-gray-800"><i class="fas fa-fw fa-table"></i>&nbsp;'${comName}' 입출고 내역 조회</h1>
 
                     <p>📢상품을 선택하면 수정 페이지로 이동합니다.</p>
 		            

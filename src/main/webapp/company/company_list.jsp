@@ -28,7 +28,7 @@
 				<%@ include file="../common/header.jsp" %>
 				
 				<div class="container-fluid">
-					<h1 class="h3 mb-2 text-gray-800">ITEM FARM에 등록된 기업 목록</h1>
+					<h1 class="h3 mb-2 text-gray-800"><i class="fas fa-fw fa-city"></i>&nbsp;ITEM FARM에 등록된 기업 목록</h1>
                     <p>📢기업을 선택하면 수정 페이지로 이동합니다.</p>
                     <a class="modal-link btn btn-primary btn-icon-split btn-sm" href="../companyInsert" role="button" aria-haspopup="true" 
 		            	aria-expanded="false" data-toggle="modal" data-target="#CompanyInsertModal">

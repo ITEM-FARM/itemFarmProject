@@ -39,7 +39,7 @@
 		                                    </div>
 		                                </div>
 		                                <div class="card-footer text-secondary" style="background:#A3CFBB; color:#051B11">
-		                                	일별 매출현황 보러가기→
+		                                	<a href="/statistics/daily.do">일별 매출현황 보러가기→→</a>
 		                                </div>
 		                                </div>
 		                            </div>			
@@ -61,7 +61,7 @@
 		                                    </div>
 		                                </div>
 		                                <div class="card-footer text-secondary" style="background:#FFE69C;">
-		                                	카테고리별 매출현황 보러가기→
+		                                	<a href="/statistics/category.do">카테고리별 매출현황 보러가기→→</a>
 		                                </div>
 		                                </div>
 		                            </div>			
@@ -83,7 +83,7 @@
 		                                    </div>
 		                                </div>
 		                                <div class="card-footer" style="background:#EFADCE">
-		                                	상품별 매출현황 보러가기→
+		                                	<a href="/statistics/byProduct.do">상품별 매출현황 보러가기→</a>
 		                                </div>
 		                                </div>
 		                            </div>			
