@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="../common/commonCSS.jsp"%>
-<title>Insert title here</title>
+<title>주문건 등록</title>
 <style>
 #unstoring_memo {
 	width: 100%;

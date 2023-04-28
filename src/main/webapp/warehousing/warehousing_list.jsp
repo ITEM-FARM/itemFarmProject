@@ -6,7 +6,7 @@
 <head>
     <%@ include file="../common/commonCSS.jsp" %>
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-	<title>입출고내역조회</title>
+	<title>입출고 내역 조회</title>
 	<style>
 	#warehousingFilter {
 		display: inline-block;

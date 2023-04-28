@@ -12,7 +12,7 @@ pageContext.setAttribute("subcategoryList", categoryService.subcategoryList());
 <head>
     <%@ include file="../common/commonCSS.jsp" %>
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-	<title>상품조회</title>
+	<title>상품 조회</title>
 	<style>
 	#prodFilter {
 		display: inline-block;
@@ -63,7 +63,7 @@ pageContext.setAttribute("subcategoryList", categoryService.subcategoryList());
                     <!-- 
                     은빈: 상품 목록 조회
                     상품 코드, 상품명 누르면 수정 modal
-                    상품 등록 modal(구현중)	
+                    상품 등록 modal
                     -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
