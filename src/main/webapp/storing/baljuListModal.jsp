@@ -31,7 +31,7 @@
   									</label>
 								</div>
 							</th>
-					  		<th>Index</th>
+					  		<th>#</th>
 		                    <th>발주서번호</th>
 		                    <th>발주날짜</th>
 		                    <th>발주담당자</th>

@@ -107,7 +107,6 @@
     <script src="${pageContext.request.contextPath}/js/demo/datatables-demo.js"></script>
     
     <script>
-    	$(function(){
     		$('a[data-target="#detailModal"]').click(function(){
     			$.ajax({
     				url:"/storing/storing_list.do",
@@ -122,7 +121,6 @@
 					}
     			});
     		})
-    	});
     </script>
 </body>
 </html>

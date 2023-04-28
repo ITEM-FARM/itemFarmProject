@@ -118,9 +118,9 @@ public class ProductDAO {
 	}
 
 	//이솔: product 상품명, 상품코드 톻합검색
-	public List<ProductVO> productSelect(String selectValue, String valueType) {
+	public List<ProductVO> productSelect(String selectValue, String valueType, int comId) {
 		Map<String, String> map = new HashMap<>();
-		String sql = "select * from product  where 1=1 ";
+		String sql = "select * from product  where company_id = " + comId;
 		
 		if (valueType.equals("searchTotal")) {	 
 			map.put("product_code", selectValue);
@@ -134,14 +134,17 @@ public class ProductDAO {
 		int count = 0;
 		  for(Map.Entry<String, String> product: map.entrySet()) { 
 			  if (count ==0) {
-				  sql += "and";
+				  sql += " and (";
 				  count++;
 			  } else {
-				  sql += "or";
+				  sql += " or";
 			  }
 			  sql+=" cast(" + product.getKey() + " as char(10)) like '%" + product.getValue() + "%'";  
 		  }
 		  
+		sql += ")";
+				
+		System.out.println(sql);
 		  
 		List<ProductVO> productList = new ArrayList<>();
 		conn = MysqlUtil.getConnection();
