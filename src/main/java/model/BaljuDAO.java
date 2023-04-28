@@ -161,7 +161,7 @@ public class BaljuDAO {
 		return balju;
 	}
 	
-	//[태영] 발주 내역 상세 조회(상품 포함)
+	//[태영] 발주 내역 상세 조회(상품 포함) --> row한건
 	public List<BaljuVO> BaljuDeatailList(String balju_code){
 		String sql = """
 				SELECT d.product_code, p.product_name, d.balju_quantity
@@ -187,6 +187,106 @@ public class BaljuDAO {
 		
 		return baljudetaillist;
 	}
+	
+	//[이솔] 발주 내역 상세 조회(상품 포함) --> row여러건
+	public List<BaljuVO> BaljuDetailLists(String[] balju_codeArr) {
+		String sql = """
+				SELECT d.product_code, p.product_name, d.balju_quantity, d.balju_code
+				FROM balju b JOIN balju_detail d ON b.balju_code = d.balju_code 
+							JOIN product p ON d.product_code = p.product_code
+				WHERE 1=1 
+				""";
+		
+		for(int i=0; i<balju_codeArr.length;i++) {
+			if (i==0) {
+				sql += "and";
+			} else {
+				sql += "or";
+			}
+			sql +=  " b.balju_code = '" + balju_codeArr[i] + "'";	
+		}
+		
+		
+		List<BaljuVO> baljuDetailList = new ArrayList<>();
+		conn = MysqlUtil.getConnection();
+		try {
+			
+			st = conn.createStatement();
+			rs = st.executeQuery(sql);
+			
+			while(rs.next()) {
+				BaljuVO balju = makeBaljuDetailList(rs);
+				baljuDetailList.add(balju);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(rs, st, conn);
+		}
+		
+		return baljuDetailList;
+	}
+	
+	
+	//[이솔] 입고페이지에서 발주 테이블 조회(발주 불러오기) --> status='Y'인 것만
+	public List<BaljuVO> StoringBaljuList(int company_id){
+		String sql = """
+				SELECT b.balju_code, b.balju_date, b.manager_id, b.balju_memo
+				FROM balju b JOIN balju_detail d ON b.balju_code = d.balju_code 
+					JOIN product p ON d.product_code = p.product_code
+                where p.company_id = ? and b.balju_status='Y'
+				GROUP BY b.balju_code
+				""";
+		List<BaljuVO> baljulist = new ArrayList<>();
+		conn = MysqlUtil.getConnection();
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, company_id);
+			rs = pst.executeQuery();
+			while(rs.next()) {
+				BaljuVO balju = makepbalju(rs);
+				baljulist.add(balju);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(rs, pst, conn);
+		}
+		
+		return baljulist;
+	}
+
+	//[이솔] 입고페이지에서 확정 시, 확정된 발주 코드 status 값 'D'로 변경
+	public int BaljuStatusList(String[] balju_status) {
+		String sql = """
+				
+				update balju
+				set balju_status = 'D'
+				where 1=1
+				
+				""";
+		
+		
+		for(int i=0; i<balju_status.length;i++) {
+			sql +=  " and balju_code = '" + balju_status[i] + "'";	
+		}
+		
+		System.out.println(sql);
+		conn = MysqlUtil.getConnection();
+		try {
+			
+			st = conn.createStatement();
+			resultCount = st.executeUpdate(sql);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			MysqlUtil.dbDisconnect(rs, st, conn);
+		}
+		
+		return resultCount;
+	}
+	
 
 	private BaljuVO makepbaljudetail(ResultSet rs) {
 		BaljuVO balju = new BaljuVO();
@@ -200,5 +300,18 @@ public class BaljuDAO {
 		}
 		return balju;
 	}
+	
+	private BaljuVO makeBaljuDetailList(ResultSet rs) throws SQLException {
+		BaljuVO balju = new BaljuVO();
+		
+		balju.setProduct_code(rs.getInt("product_code"));
+		balju.setProduct_name(rs.getString("product_name"));
+		balju.setBalju_quantity(rs.getInt("balju_quantity"));
+		balju.setBalju_code(rs.getString("balju_code"));
+		
+		return balju;
+	}
+
+	
 	
 }

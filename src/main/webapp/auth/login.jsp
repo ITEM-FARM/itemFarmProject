@@ -1,4 +1,5 @@
 <%@page import="util.MysqlUtil"%>
+
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -117,7 +118,6 @@
     		alert("기업 로그인에 실패하였습니다. 다시 시도해주세요.");
     		<c:set var="companyUser" value="${null}" scope="session"/> 
     	}
-
     });
     </script>
 	<%@ include file="../common/commonETC.jsp" %>
