@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,10 +23,19 @@
                 	<table class="table table-bordered table-sm table-hover" id="dataTable" width="100%" cellspacing="0">
 					  <thead>
 					  	<tr>
+					  		<th scope="col">
+								<div class="form-check px-0 mx-0 text-center">
+  									<input class="form-check-input allChecking" type="checkbox" id="modalAllChecking">
+  									<label class="form-check-label" for="flexCheckDefault">
+    									전체
+  									</label>
+								</div>
+							</th>
 					  		<th>Index</th>
-					  		<th>상품코드</th>
-					  		<th>상품명</th>
-					  		<th>발주수량</th>
+		                    <th>발주서번호</th>
+		                    <th>발주날짜</th>
+		                    <th>발주담당자</th>
+		                    <th>비고</th>
 					  	</tr>
 					  </thead>
 					  <tbody id="here">
@@ -36,12 +44,16 @@
 					  		<td>test</td>
 					  		<td>test</td>
 					  		<td>test</td>
+					  		<td>test</td>
 					  	</tr>
 					  </tbody>
 					</table>
+					<div id="showBaljuProducts"></div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" data-dismiss="modal">확인</button>
+                	<button id="" class="btn btn-success" type="button" 
+                	onclick="$('input[name=checkBaljuOne]:checked').length==0?alert('발주서를 한 개 이상 체크해주세요. '):storeQuantity()" data-dismiss="modal">등록</button>
+                    <button class="btn btn-primary" type="button" data-dismiss="modal">닫기</button>
                 </div>
             </div>
         </div>

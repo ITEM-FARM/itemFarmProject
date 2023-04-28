@@ -24,7 +24,7 @@
 			<div class="d-flex flex-row bd-highlight mb-3">
 				<input id="quantity${status.count}" type="number" class="form-control" aria-label="quantity input with dropdown button"  placeholder="수량입력" /> 
 				<input class="btn my-2 my-sm-0 mx-2 bg-primary text-white" type="button"  
-				onclick="$(this).prev().val()==''?alert('수량을 입력해주세요'):storingQuantity(${product.product_code},'${product.product_name}', this, ${status.count});$(this).prev().val('')"
+				onclick="$(this).prev().val()==''?alert('수량을 입력해주세요'):pushStoringList(${product.product_code},'${product.product_name}',${status.count},null);showStoringList();$(this).prev().val('')"
 				value="입고" />
 			</div>
 		</div>,

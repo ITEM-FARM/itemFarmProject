@@ -7,7 +7,7 @@
     <%@ include file="../common/commonCSS.jsp" %>
     <!--  chart.js cdn -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<title>Insert title here</title>
+	<title>상품별 매출현황</title>
 </head>
 <body>
 	<div id="wrapper">

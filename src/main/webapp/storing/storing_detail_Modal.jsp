@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>발주 아이템 상세 보기</title>
+<title>입고 아이템 상세 보기</title>
 
 </head>
 <body>
@@ -15,7 +15,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">발주서 상세 조회</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">입고서 상세 조회</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -27,7 +27,7 @@
 					  		<th>Index</th>
 					  		<th>상품코드</th>
 					  		<th>상품명</th>
-					  		<th>발주수량</th>
+					  		<th>입고수량</th>
 					  	</tr>
 					  </thead>
 					  <tbody id="here">
