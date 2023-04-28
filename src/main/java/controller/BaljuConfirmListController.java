@@ -40,16 +40,21 @@ public class BaljuConfirmListController implements CommonInterface {
 			BaljuService service = new BaljuService();
 			
 			int comId = (Integer)session.getAttribute("comId");
+			
+			//이솔: 모달 발주 확정 리스트 불러오기
+			String storingModalBalju = request.getParameter("mode");
+			if(storingModalBalju!=null){
+				List<BaljuVO> baljulist = service.StoringBaljuList(comId);
+				request.setAttribute("baljulist", baljulist);
+				return "/storing/baljuViewList.jsp";
+			}
+			
 			List<BaljuVO> baljulist = service.BaljuList(comId);
 			
 			request.setAttribute("baljulist", baljulist);
 			
 			
-			//이솔: 모달 발주 확정 리스트 불러오기
-			String storingModalBalju = request.getParameter("mode");
-			if(storingModalBalju!=null){
-				page = "/storing/baljuViewList.jsp";
-			}
+			
 			
 			
 			return page;

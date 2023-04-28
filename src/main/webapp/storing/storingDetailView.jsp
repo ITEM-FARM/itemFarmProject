@@ -2,12 +2,12 @@
 	pageEncoding="UTF-8"%>
     
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:forEach items="${baljuList}" var="balju" varStatus="status">
+<c:forEach items="${storingDetail}" var="detail" varStatus="status">
 	<tr>
 		<td>${status.count }</td>
-		<td>${balju.product_code}</td>
-		<td>${balju.product_name}</td>
-		<td>${balju.balju_quantity}</td>
+		<td>${detail.product_code}</td>
+		<td>${detail.product_name}</td>
+		<td>${detail.storing_quantity}</td>
 	</tr>
 </c:forEach>
 					

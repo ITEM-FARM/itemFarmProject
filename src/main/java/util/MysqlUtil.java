@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 public class MysqlUtil {
 	static DataSource ds=null;
 	//MySQL과 JDBC연결
+	 
 	public static Connection getConnection() {
 		Connection conn = null;
 		Context initContext;
@@ -31,8 +32,28 @@ public class MysqlUtil {
 		}
 		
 		return conn;
+		
+	 
 	}
+	 
 	
+	
+//	public static Connection getConnection() {
+//	Connection conn = null;
+//	String url="jdbc:mysql://192.168.0.97:3306/itemfarm";
+//	String userid="itemfarm", password="1234";
+//	try {
+//		Class.forName("com.mysql.cj.jdbc.Driver");
+//		conn = DriverManager.getConnection(url, userid, password);
+//	} catch (ClassNotFoundException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	} catch (SQLException e) {
+//		// TODO Auto-generated catch block
+//		e.printStackTrace();
+//	}
+//	return conn;
+//}
 	
 	//자원반납
 		public static void dbDisconnect(ResultSet rs, Statement st, Connection conn) {

@@ -16,7 +16,7 @@
 				
 				<div class="container-fluid">
 					
-					<h2 class="text-center">입고등록</h2>
+					<h2 class="text-center"><i class="fas fa-fw fa-industry"></i>입고등록</h2>
 					<!-- 이솔: search form  -->
 					<form class="form-inline justify-content-center my-5">
 
@@ -54,8 +54,8 @@
 					
 					<div class="d-flex flex-row bd-highlight mb-3">
 						<h4 class="mx-2">입고품목 리스트</h4>
-						<input id="deleteProduct" class="btn  my-2 my-sm-0 mx-2 bg-danger text-white" type="button" value="삭제" />
-						<input id="confirmProduct" class="btn my-2 my-sm-0 mx-2 bg-primary text-white" type="button" value="확정" />
+						<input id="deleteProduct" class="btn  my-2 my-sm-0 mx-2 bg-danger text-white first-load" type="button" value="삭제" />
+						<input id="confirmProduct" class="btn my-2 my-sm-0 mx-2 bg-primary text-white first-load" type="button" value="확정" />
 					</div>
 					<table class="table table-hover">
 						<thead>
@@ -78,8 +78,8 @@
 						</thead>
 						<tbody id="storingList"></tbody>
 					</table>
-					<p id="emptyProductList" class="text-center">입고할 품목을 추가해주세요. </p>
-					<div class="mb-3">
+					<p id="emptyProductList" class="text-center after-load">입고할 품목을 추가해주세요. </p>
+					<div class="mb-3  first-load">
   						<label for="storingMemo" class="form-label">입고 메모</label>
   						<textarea class="form-control" id="storingMemo" rows="3"></textarea>
 					</div>
@@ -105,14 +105,8 @@ $(function(){
 	$('#numberForm').hide();
 	var valueType = "searchTotal";
 	$('#inputType').attr('value',valueType);
+	$('.first-load').hide();
 	
-	//var outputBody = '<tr class="text-center"><td colspan="6">입고할 품목을 추가해주세요. </td></tr>'
-	//$('#storingList').html(outputBody);
-	//console.log($('#storingList tr td').text());
-	//$('#deleteProduct').hide();
-	//if($('#storingList tr td').text()){
-	//	$('#deleteProduct').show();
-	//}
 	
 	//이솔: product 상품명, 상품코드 톻합검색
 	$('#mytype a').on('click', function(){
@@ -191,6 +185,7 @@ $(function(){
 		}
 		
 		var params = [];
+		var baljuStatus = [];
 		
 		$('input[name=checkOne]:checked').each(function(){
 			var checkedProduct = $(this).val();
@@ -201,7 +196,12 @@ $(function(){
 			param.product_code = productCode;
 			param.storing_quantity = quantity;
 			param.balju_code = baljuCode;
-	
+			
+			if((!baljuStatus.includes(baljuCode)) && (baljuCode!="-")){
+				baljuStatus.push(baljuCode);
+			}
+			
+			
 			params.push(param);
 		});
 		
@@ -211,15 +211,17 @@ $(function(){
 			return false;
 		}
 		
-		
 		$.ajax({
 			url:"/storing/storing_insert.do",
-			data:{"mode":"storeProduct","storingList":JSON.stringify(params),"storingMemo":$('#storingMemo').val()},
+			data:{"mode":"storeProduct","storingList":JSON.stringify(params),"storingMemo":$('#storingMemo').val(),"baljuStatus":baljuStatus.toString()},
 			method:"post",
 			success:(result,status,xhr)=>{
-				
-				//$("#here").html(result);
-				//$("#exampleModalLabel").html("<span class='text-primary'>"+ $(this).text().trim() + "</span> 발주서 상세 조회");
+				if(result == "성공"){
+					alert('입고 성공했습니다');
+					location.reload();
+					return true;
+				}
+				alert(result);
 			},
 			error:(jqXHR, textStatus, errorThrown)=>{
 				
@@ -301,7 +303,7 @@ function pushStoringList(productCode, productName, baljuAmount, baljuCode){
 		return false;
 	}
 	
-	
+	var totalCode = productCode + baljuCode;
 	var sudongAmount =  $("#quantity" + baljuAmount).val();
 	var quantity=``;
 	var isForm = ``;
@@ -319,9 +321,9 @@ function pushStoringList(productCode, productName, baljuAmount, baljuCode){
 	
 	
 	var temp = `
-		<tr id="${'${productCode}'}">
+		<tr id="${'${totalCode}'}">
 		    <td>
-			    <div class="form-check"><input class="form-check-input text-center mx-0 my-2"  name="checkOne" type="checkbox" value="${'${productCode}'}" >
+			    <div class="form-check"><input class="form-check-input text-center mx-0 my-2"  name="checkOne" type="checkbox" value="${'${totalCode}'}" >
 			    </div>
 		    </td>
 		    <td class="listCount"></td>
@@ -335,9 +337,9 @@ function pushStoringList(productCode, productName, baljuAmount, baljuCode){
 		    `</td>
 		    <td class="baljuCode">${'${baljuCode}'}</td>
 	    </tr>
-	
 	`;
 	
+
 	outputArr.push(temp);
 }
 
@@ -345,6 +347,14 @@ function pushStoringList(productCode, productName, baljuAmount, baljuCode){
 //이솔: 입고 품목 리스트(확정 전) 그리기->수동입고 + 발주서연동 입고
 function showStoringList(){
 
+	if(outputArr.length==0){
+		$('.first-load').hide();
+		$('.after-load').show();
+	} else {
+		$('.first-load').show();
+		$('.after-load').hide();
+	}
+	
 	outputBody = "";
 	$.each(outputArr, function(index, value){
 		var idx = value.indexOf('listCount');
