@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <style>
 table {
 	margin: 0px auto;
@@ -109,7 +110,7 @@ label {
     			return true;
     		} else {
     			alert("카테고리를 선택해주세요.");
-    		}
+    		}	
     	} 
     	return false;
     });

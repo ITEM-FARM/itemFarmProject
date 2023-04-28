@@ -153,7 +153,7 @@
 							<h1>Contributors</h1>
 							<div class="container text-center">
 
-								<p>각 아이콘을 누르면 github, velog 페이지로 이동합니다.</p>
+								<p><i class="fa fa-user" aria-hidden="true"></i> 각 아이콘을 누르면 github, velog 페이지로 이동합니다.</p>
 
 								<div class="row align-items-center">
 							    	<div class="col service-list">

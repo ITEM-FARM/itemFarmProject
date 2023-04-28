@@ -21,7 +21,7 @@
     	}
     	
     	.bg-login-image {
-    		background-image: url("/img/love.jpg") !important;
+    		background-image: url("/img/login.png") !important;
     		background-size: 
     	}
     	
