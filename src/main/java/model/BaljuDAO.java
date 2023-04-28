@@ -70,7 +70,7 @@ public class BaljuDAO {
 	//[태영] 기업별 발주 넣기 in balju 테이블
 	public int createBaljuBox(BaljuVO balju) {
 		String sql = """
-			insert into balju values ( ?, ?, ?, ?)
+			insert into balju(Balju_code, Manager_id, Balju_date, Balju_memo) values ( ?, ?, ?, ?)
 		""";
 		
 		conn = MysqlUtil.getConnection();

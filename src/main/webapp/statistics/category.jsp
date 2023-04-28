@@ -5,7 +5,7 @@
 <html>
 <head>
     <%@ include file="../common/commonCSS.jsp" %>
-	<title>Insert title here</title>
+	<title>카테고리별 매출현황</title>
 </head>
 <body>
 	<div id="wrapper">

@@ -39,7 +39,7 @@
 		});
 		
 	</script>	
-<title>Insert title here</title>
+<title>주문건 조회</title>
 </head>
 <body>
 	<div id="wrapper">
