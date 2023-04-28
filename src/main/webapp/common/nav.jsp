@@ -35,6 +35,16 @@
             </a>
             <hr class="sidebar-divider my-0">
 
+			<c:if test="${managerUser != null && managerUser != ''}">
+	            <!-- Nav Item - Dashboard -->
+	            <li class="nav-item">
+	                <a class="nav-link" href="../company/companyList.do">
+	                    <i class="fas fa-fw fa-city"></i>
+	                    <span>기업관리</span></a>
+	            </li>
+	            <hr class="sidebar-divider">
+			</c:if>
+				            
             <!-- Nav Item - Dashboard -->
             <li class="nav-item ">
                 <a class="nav-link" href="../product/productList.do">
@@ -44,14 +54,6 @@
             <hr class="sidebar-divider">
 
 			<c:if test="${managerUser != null && managerUser != ''}">
-	            <!-- Nav Item - Dashboard -->
-	            <li class="nav-item">
-	                <a class="nav-link" href="../company/companyList.do">
-	                    <i class="fas fa-fw fa-city"></i>
-	                    <span>기업관리</span></a>
-	            </li>
-	            <hr class="sidebar-divider">
-	
 	            <!-- Nav Item - Pages Collapse Menu -->
 	            <li class="nav-item">
 	                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
