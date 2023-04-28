@@ -53,6 +53,7 @@ public class UnstoringInsertController implements CommonInterface {
 			// 2. form 양식
 			UnstoringVO unstoringVO = makeUnstoringVO(request);
 			UnstoringDetailVO unstoringDetailVO = makeUnstoringDetailVO(request);
+			int resultInsert = 0;
 			
 			
 			//////////////////////////// 주문번호 만들기 ////////////////////////////
@@ -85,11 +86,14 @@ public class UnstoringInsertController implements CommonInterface {
 			
 
 			// 용희 : Insert 문장 2개라서 각각 실행하였음.  
-			int resultInsert = service.unstoringInsert(unstoringVO, unstoringDetailVO);
+			resultInsert = service.unstoringInsert(unstoringVO, unstoringDetailVO);
 			System.out.println("Insert 컨트롤러: "+resultInsert);
-			session.setAttribute("resultInsert", resultInsert);
+			session.setAttribute("resultInsert", resultInsert); 
+//			request.setAttribute("resultInsert", resultInsert);
 
-			page = "redirect:/unstoring/unstoringInsert.do";
+//			page = "redirect:/unstoring/unstoringInsert.do";
+//			page = "/unstoring/unstoringInsert.do";
+			page = "/unstoring/unstoring_insert.jsp";
 		}
 
 		return page;
