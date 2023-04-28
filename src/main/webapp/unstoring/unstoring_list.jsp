@@ -368,14 +368,19 @@
 															var frm = $("#frm1");
 															frm.submit();
 
-															var resultTrkNum = "${resultTrkNum}";
+															
+															
+															// 에러나서 잠시 블락
+															/* var resultTrkNum = "${resultTrkNum}";
 															if (resultTrkNum > 0) { // update된 row의 수가 
 																alert(resultTrkNum
 																		+ '송장입력이 되었습니다.');
 															} else {
 																alert(resultTrkNum
 																		+ '송장입력에 실패하였습니다.');
-															}
+															} */
+															
+															
 
 														} // if else 끝
 													} // if 끝
@@ -487,15 +492,17 @@
 															var frm = $("#frm2");
 															frm.submit();
 
-															var resultCancel = "${resultCancel}";
-
+															
+															// 에러나서 잠시 블락
+															/* var resultCancel = "${resultCancel}";
 															if (resultCancel > 0) {
 																alert(resultCancel
 																		+ '주문취소에 성공하였습니다.');
 															} else {
 																alert(resultCancel
 																		+ '주문취소에 실패하였습니다.');
-															}
+															} */
+															
 
 														} // if, else 끝
 													} // if 끝
