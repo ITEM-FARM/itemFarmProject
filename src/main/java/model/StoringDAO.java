@@ -100,7 +100,8 @@ public class StoringDAO {
 				FROM storing s JOIN storing_detail d ON s.storing_code = d.storing_code 
 					JOIN product p ON d.product_code = p.product_code
 				WHERE company_id = ?
-				GROUP BY s.storing_code
+				GROUP BY s.storing_code 
+				ORDER bY s.storing_date desc 
 				""";
 		List<StoringVO> storingList = new ArrayList<>();
 		conn = MysqlUtil.getConnection();

@@ -32,14 +32,18 @@ public class StoringInsertController implements CommonInterface {
 	public String execute(Map<String, Object> data) throws Exception {
 		String page = "/storing/storing_insert.jsp";
 		String method = (String) data.get("method");
-
+		
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
+		HttpSession session = request.getSession();
 		String mode = request.getParameter("mode");
+		int comId = (Integer)session.getAttribute("comId");
+		
 		if (method.equals("POST")) {
 			if(mode.equals("searchProduct")) {
 				String valueType = request.getParameter("valueType");
 
 				ProductService p_service = new ProductService();
+				
 
 				// 이솔: product 상품명, 상품코드 톻합검색
 				String selectValue = "";
@@ -49,7 +53,7 @@ public class StoringInsertController implements CommonInterface {
 					selectValue = request.getParameter("selectValue1");
 				}
 
-				List<ProductVO> productList = p_service.productSelect(selectValue, valueType);
+				List<ProductVO> productList = p_service.productSelect(selectValue, valueType, comId);
 
 				request.setAttribute("productList", productList);
 				

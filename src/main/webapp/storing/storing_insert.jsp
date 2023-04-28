@@ -4,6 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 <%@ include file="../common/commonCSS.jsp"%>
 <title>입고 등록</title>
 </head>
@@ -180,53 +183,85 @@ $(function(){
 	//입고 품목 최종 확정 AJAX --> 상품 재고 증가
 	$('#confirmProduct').on("click",function(){
 		
-		if(confirm("입고를 확정하시겠습니까? 확정된 입고 품목들은 수정할 수 없습니다. ")==false){
-			return false;
-		}
+	
 		
-		var params = [];
-		var baljuStatus = [];
+		swal({
+			  title: "정말 입고를 확정하시겠습니까?",
+			  text: "확정된 입고 품목들은 수정할 수 없습니다.",
+			  icon: "warning",
+			  buttons: ["닫기" , "확정하기"],
+			  dangerMode: true
 		
-		$('input[name=checkOne]:checked').each(function(){
-			var checkedProduct = $(this).val();
-			var productCode = $("#" + checkedProduct).find(".productCode").text();
-			var quantity = $("#" + checkedProduct).find(".storingQuantity").val();
-			var baljuCode = $("#" + checkedProduct).find(".baljuCode").text();
-			var param = {};
-			param.product_code = productCode;
-			param.storing_quantity = quantity;
-			param.balju_code = baljuCode;
-			
-			if((!baljuStatus.includes(baljuCode)) && (baljuCode!="-")){
-				baljuStatus.push(baljuCode);
-			}
-			
-			
-			params.push(param);
-		});
-		
-		
-		if(params.length == 0){
-			alert('입고 품목을 한 개 이상 체크해주세요. ');
-			return false;
-		}
-		
-		$.ajax({
-			url:"/storing/storing_insert.do",
-			data:{"mode":"storeProduct","storingList":JSON.stringify(params),"storingMemo":$('#storingMemo').val(),"baljuStatus":baljuStatus.toString()},
-			method:"post",
-			success:(result,status,xhr)=>{
-				if(result == "성공"){
-					alert('입고 성공했습니다');
-					location.reload();
-					return true;
-				}
-				alert(result);
-			},
-			error:(jqXHR, textStatus, errorThrown)=>{
+		})
+		.then((confirmList) => {
+		  if (confirmList) {
+			  var params = [];
+				var baljuStatus = [];
 				
-			}
+				$('input[name=checkOne]:checked').each(function(){
+					var checkedProduct = $(this).val();
+					var productCode = $("#" + checkedProduct).find(".productCode").text();
+					var quantity = $("#" + checkedProduct).find(".storingQuantity").val();
+					var baljuCode = $("#" + checkedProduct).find(".baljuCode").text();
+					var param = {};
+					param.product_code = productCode;
+					param.storing_quantity = quantity;
+					param.balju_code = baljuCode;
+					
+					if((!baljuStatus.includes(baljuCode)) && (baljuCode!="-")){
+						baljuStatus.push(baljuCode);
+					}
+					
+					
+					params.push(param);
+				});
+				
+				
+				if(params.length == 0){
+					alert('입고 품목을 한 개 이상 체크해주세요. ');
+					return false;
+				}
+				
+
+				
+
+				
+				$.ajax({
+					url:"/storing/storing_insert.do",
+					data:{"mode":"storeProduct","storingList":JSON.stringify(params),"storingMemo":$('#storingMemo').val(),"baljuStatus":baljuStatus.toString()},
+					method:"post",
+					success:(result,status,xhr)=>{		 
+						if(result == "성공"){
+							
+							swal({
+								  title: "입고 성공!",
+								  text: "입고 내역을 확인하시겠습니다?",
+								  icon: "success",
+								  buttons: ["닫기" , "내역확인"]
+							
+							})
+							.then((showList) => {
+							  if (showList) {
+								  window.location = "/storing/storing_list.do";
+							  } else {
+								  location.reload();
+							  }
+							});
+							return true;
+						}
+						alert(result);
+					},
+					error:(jqXHR, textStatus, errorThrown)=>{
+						
+					}
+				});
+		  } else {
+			  return false;
+		  }
 		});
+		
+		
+		
 		
 		
 	});

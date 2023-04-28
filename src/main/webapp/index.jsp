@@ -141,13 +141,9 @@
 						
 						<!-- special service -->
 						<h1>ITEM FARM's Special</h1>
-						<div class="d-flex">
-							<div class="p-2 w-50 text-center"><img src="/img/statistic.png" width="300"></div>
-						  	<div class="p-2 w-50 text-left align-self-center">
-						  		<p>일별 매출 통계</p>
-						  		<p>카테고리별 매출 통계</p>
-						  		<p>상품별 매출 통계</p>
-						  	</div>
+							<p>ITEM FARM만의 특별한 마케팅 리포트 서비스를 사용해보세요!</p>
+						<div>
+							<div class="text-center"><img src="/img/statistic.png" width="300"></div>
 						</div>
 						
 						<hr>
@@ -156,7 +152,9 @@
 						<div class="circle-container">
 							<h1>Contributors</h1>
 							<div class="container text-center">
-								<p><i class="fas fa-exclamation-triangle"></i> 각 아이콘을 누르면 github, velog 페이지로 이동합니다.</p>
+
+								<p>각 아이콘을 누르면 github, velog 페이지로 이동합니다.</p>
+
 								<div class="row align-items-center">
 							    	<div class="col service-list">
 							      		<div class="circle" id="ty-img"></div>

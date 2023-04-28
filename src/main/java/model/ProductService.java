@@ -8,8 +8,8 @@ public class ProductService {
 	ProductDAO dao = new ProductDAO();
 	
 	//이솔: product 상품명, 상품코드 톻합검색
-	public List<ProductVO> productSelect(String selectValue,String valueType){
-		return dao.productSelect(selectValue, valueType);	
+	public List<ProductVO> productSelect(String selectValue,String valueType, int comId){
+		return dao.productSelect(selectValue, valueType, comId);	
 	}
 	
 	// 은빈: 특정 기업의 전체 상품 조회
