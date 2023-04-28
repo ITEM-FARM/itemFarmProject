@@ -32,7 +32,7 @@ public class UnstoringInsertController implements CommonInterface {
 		
 		// 세션으로부터 Company 정보 받기
 		CompanyVO companyVO = new CompanyVO();
-		int company_id = (int) session.getAttribute("comId"); // ★나중에 로그인 및 세션-setAttribute 전부 되면 그때 사용
+		int company_id = (int) session.getAttribute("comId");
 		companyVO.setCompany_id(company_id); 
 		
 		// 세션으로부터 Manager 정보 받기 (참조: LoginCheckController)

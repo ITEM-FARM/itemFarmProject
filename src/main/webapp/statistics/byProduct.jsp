@@ -5,7 +5,9 @@
 <html>
 <head>
     <%@ include file="../common/commonCSS.jsp" %>
-	<title>Insert title here</title>
+    <!--  chart.js cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<title>상품별 매출현황</title>
 </head>
 <body>
 	<div id="wrapper">
@@ -20,7 +22,29 @@
 				<!-- 시작 -->
 				<div class="container-fluid">
 					<h1 class="h3 mb-2 text-gray-800"><i class="fas fa-fw fa-chart-area"></i>상품별 매출현황</h1>	
-						<p><i class="fas fa-exclamation-triangle"></i>&nbsp; 수수료율 : <fmt:formatNumber value="${byProductList[0].commission}" type="percent" pattern="0.0%"></fmt:formatNumber></p> 
+						<p><i class="fas fa-coins"></i>&nbsp; 수수료율 : <fmt:formatNumber value="${byProductList[0].commission}" type="percent" pattern="0.0%"></fmt:formatNumber></p> 
+					
+					<div class="row justify-content-center">
+						<div class="col-6">
+							<div class="card shadow mb-4">
+								<div class="card-body">
+									<canvas id="myChart"></canvas>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-6">
+							<div class="card shadow mb-4">
+								<div class="card-body">
+									<canvas id="myChart2"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row justify-content-center">
+					<div class="col"> 
 					<!-- DataTales Example -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
@@ -50,7 +74,7 @@
 											<th>순이익률 (%)</th>
 										</tr>
 									</thead> 
-									<tbody>
+									<tbody id="productTbody">
 										<c:forEach var="byProduct" items="${byProductList }" varStatus="status">
 											<tr>
 												<td>${status.count }</td>
@@ -86,6 +110,8 @@
 						</div>
 					</div>
 				</div>
+				</div>
+				</div>
 				<!-- 끝 -->
 				
 				
@@ -95,5 +121,124 @@
 	</div>
 	<%@ include file="../common/commonETC.jsp" %>
 	<%@ include file="../common/commonJS.jsp" %>
+	
+	<script>
+	
+	//데이터 가져오기
+	$(function(){
+		var labels2 = [];
+		var data2 = [];
+		
+		var data3 = [];
+		var data4 = [];
+		
+		$("#productTbody > tr").each(function(index, tr){
+			
+			if(index<=7){
+				$(this).find("td").each(function(i,td){
+					if(i==1){
+						labels2.push(td.innerHTML);
+					}else if(i==8){
+						data2.push(Number((td.innerHTML).replace(/,/gi,'')));
+					}else if(i==10){
+						data3.push(Number((td.innerHTML).replace(/,/gi,'')));
+					}else if(i==11){
+						console.log(td.innerHTML);
+						data4.push(Number((td.innerHTML).replace(/%/gi,'')));
+					}
+				});
+			}
+		});
+		
+		console.log(labels2);
+		console.log(data2);
+		console.log(data3);
+		console.log(data4);
+	
+	
+	//첫 번째 차트 만들기	
+	  const ctx = document.getElementById('myChart');
+	
+	  new Chart(ctx, {
+	    type: 'bar',
+	    options: {
+	        plugins: {
+	            title: {
+	                display: true,
+	                text: '매출액 현황'
+	            }
+	        }
+	    },
+	    data: {
+	      labels: labels2,
+	      datasets: [{
+	        label: '매출액',
+	        data: data2,
+	        borderWidth: 1
+	      }]
+	    },
+
+
+	  });
+	  
+	  //두 번째 차트 만들기
+	  const ctx2 = document.getElementById('myChart2');
+	  
+	  //const labels = ['1','2','3','4','5','6','7'];
+	  const data = {
+	    labels: labels2,
+	    datasets: [
+	      {
+	        label: '순이익금액',
+	        data: data3,
+	        yAxisID: 'y',
+	      },
+	      {
+	        label: '순이익률',
+	        data: data4,
+	        yAxisID: 'y1',
+	        type:'line',
+	      }
+	    ]
+	  };
+	  
+	  new Chart(ctx2, {
+		  type: 'bar',
+		  data: data,
+		  options: {
+		    responsive: true,
+		    interaction: {
+		      mode: 'index',
+		      intersect: false,
+		    },
+		    stacked: false,
+		    plugins: {
+		      title: {
+		        display: true,
+		        text: '순이익 현황'
+		      }
+		    },
+		    scales: {
+		      y: {
+		        type: 'linear',
+		        display: true,
+		        position: 'left',
+		      },
+		      y1: {
+		        type: 'linear',
+		        display: true,
+		        position: 'right',
+
+		        // grid line settings
+		        grid: {
+		          drawOnChartArea: false, // only want the grid lines for one axis to show up
+		        },
+		      },
+		    }
+		  },
+	  });
+	  
+	});
+	</script>
 </body>
 </html>

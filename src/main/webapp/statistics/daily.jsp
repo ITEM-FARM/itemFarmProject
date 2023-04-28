@@ -7,7 +7,7 @@
     <%@ include file="../common/commonCSS.jsp" %>
     <!--  chart.js cdn -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<title>Insert title here</title>
+	<title>일별 매출현황</title>
 </head>
 <body>
 	<div id="wrapper">
@@ -129,23 +129,28 @@
 		var labels2 = [];
 		var data2 = [];
 		
-		var labels_1 = [];
-		var data_1 = [];
+		var data3 = [];
+		var data4 = [];
 		
 		$("#dailyTbody > tr").each(function(index, tr){
 			
-			$(this).find("td").each(function(i,td){
-				if(i==1){
-					labels2.push(((td.innerHTML).substring(5)).replace('-','/'));
-				}else if(i==7){
-					data2.push((td.innerHTML).replace(/,/gi,''));
-				}
-			});
-			
+			if(index<=7){
+				$(this).find("td").each(function(i,td){
+					if(i==1){
+						labels2.push(((td.innerHTML).substring(5)).replace('-','/'));
+					}else if(i==7){
+						data2.push(Number((td.innerHTML).replace(/,/gi,'')));
+					}else if(i==9){
+						data3.push(Number((td.innerHTML).replace(/,/gi,'')));
+					}else if(i==10){
+						data4.push(Number((td.innerHTML).replace(/%/gi,'')))
+					}
+				});
+			}
 		});
 		
-		//console.log(labels);
-		//console.log(data);
+		console.log(data3);
+		console.log(data4);
 	
 	
 	//첫 번째 차트 만들기	
@@ -176,18 +181,18 @@
 	  //두 번째 차트 만들기
 	  const ctx2 = document.getElementById('myChart2');
 	  
-	  const labels = ['1','2','3','4','5','6','7'];
+	  //const labels = ['1','2','3','4','5','6','7'];
 	  const data = {
-	    labels: labels,
+	    labels: labels2,
 	    datasets: [
 	      {
-	        label: 'Dataset 1',
-	        data: [1,2,3,4,5,6,7],
+	        label: '순이익금액',
+	        data: data3,
 	        yAxisID: 'y',
 	      },
 	      {
-	        label: 'Dataset 2',
-	        data: [7,6,5,4,3,2,1],
+	        label: '순이익률',
+	        data: data4,
 	        yAxisID: 'y1',
 	        type:'line',
 	      }

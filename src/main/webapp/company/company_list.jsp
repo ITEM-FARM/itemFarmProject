@@ -7,7 +7,7 @@
 <head>
     <%@ include file="../common/commonCSS.jsp" %>
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-	<title>전체기업조회</title>
+	<title>전체 기업 조회</title>
 	<style>
 	#comFilter {
 		display: inline-block;
@@ -49,7 +49,7 @@
                     <!-- 
                     은빈: 기업 목록 조회
                     기업 코드, 기업명 누르면 수정 modal
-                    기업 등록 modal(구현중)	
+                    기업 등록 modal
                     -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">

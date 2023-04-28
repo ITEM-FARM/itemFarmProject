@@ -8,7 +8,7 @@
 
 
 <%@ include file="../common/commonCSS.jsp"%>
-<title>Insert title here</title>
+<title>입고 등록</title>
 </head>
 <body>
 	<div id="wrapper">
