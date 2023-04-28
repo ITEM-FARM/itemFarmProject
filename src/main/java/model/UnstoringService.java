@@ -11,6 +11,11 @@ import vo.UnstoringVO;
 public class UnstoringService {
 
 	UnstoringDAO dao = new UnstoringDAO();
+	
+	// 엑셀 업로드 파일 => insert into DB
+	public int ordersInsert(List<UnstoringDetailVO> list, UnstoringVO vo1, String magID) { 
+		return dao.ordersInsert(list, vo1, magID);
+	}
 
 	// 송장입력 버튼 => 입력한 송장번호로 update
 	public int trackingNumberInput(List<UnstoringVO> list, String trkNum, List<UnstoringDetailVO> detailList, Timestamp timestamp) {

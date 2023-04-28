@@ -19,6 +19,7 @@ import controller.CompanyListController;
 import controller.CompanyModifyController;
 import controller.LoginCheckController;
 import controller.LogoutController;
+import controller.OrderUploadController;
 import controller.ProductInsertController;
 import controller.ProductListController;
 import controller.ProductModifyController;
@@ -117,13 +118,16 @@ public class FrontController extends HttpServlet {
 		case "/unstoring/unstoringTestRead.do": // 주문건 상세조회 (리디렉트)
 			controller = new UnstoringTestReadController();
 			break;
+		case "/unstoring/upload.do": // (주문건) 엑셀 파일 업로드
+			controller = new OrderUploadController();
+			break;
 		case "/warehousing/warehousingList.do": // 은빈: 입출고 내역 조회
 			controller = new WarehousingListController();
 			break;
 		case "/statistics/daily.do":
 			controller = new StatDailyController();
 			break;
-		case "/statistics/category.do":
+		case "/statistics/category.do": 
 			controller = new StatCategoryController();
 			break;
 		case "/statistics/byProduct.do":

@@ -15,11 +15,22 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/ItemFarm Tomcat v9.0 Server">
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/itemFarm/lib/commons-dbcp2-2.9.0.jar"/>
+	<classpathentry kind="lib" path="C:/itemFarm/lib/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/itemFarm/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/itemFarm/lib/geronimo-stax-api_1.0_spec-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/itemFarm/lib/junit-3.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/itemFarm/lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="C:/itemFarm/lib/poi-3.7-20101029.jar"/>
+	<classpathentry kind="lib" path="C:/itemFarm/lib/poi-examples-3.7-20101029.jar"/>
+	<classpathentry kind="lib" path="C:/itemFarm/lib/poi-ooxml-3.7-20101029.jar"/>
+	<classpathentry kind="lib" path="C:/itemFarm/lib/poi-ooxml-schemas-3.7-20101029.jar"/>
+	<classpathentry kind="lib" path="C:/itemFarm/lib/poi-scratchpad-3.7-20101029.jar"/>
+	<classpathentry kind="lib" path="C:/itemFarm/lib/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

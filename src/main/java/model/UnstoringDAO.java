@@ -29,6 +29,56 @@ public class UnstoringDAO {
 	int result; // executeBatch의 리턴값들을 담기 위한 변수
 	
 	
+	// 엑셀 파일 업로드 => insert into DB
+	public int ordersInsert(List<UnstoringDetailVO> list, UnstoringVO vo1, String magID) {
+		String sql_1 = """
+				insert into unstoring(unstoring_code, customer_name, customer_address, order_register, manager_id)
+				values(?, ?, ?, ?, ?)
+				""";
+		String sql_2 = """
+				insert into unstoring_detail
+				values(?, ?, ?)
+				""";
+		System.out.println("magID "+magID);
+		conn = MysqlUtil.getConnection();
+		try {
+			// 1번만 해야 하는 '출고'
+			pst = conn.prepareStatement(sql_1);
+			pst.setString(1, vo1.getUnstoring_code());
+			pst.setString(2, vo1.getCustomer_name());
+			pst.setString(3, vo1.getCustomer_address());
+			pst.setDate(4, vo1.getOrder_register());
+			pst.setString(5, magID);
+			int result1 = pst.executeUpdate(); // 얘는 외래키 때문에 먼저 해줘야되서 일단 먼저 executeUpdate
+			System.out.println("result1 "+result1);
+			
+			// 여러번 실행해야 하는 '출고 디테일'
+			conn.setAutoCommit(false);
+			pst2 = conn.prepareStatement(sql_2);
+			for(int i=0; i<list.size(); i++) {
+				UnstoringDetailVO detail = new UnstoringDetailVO();
+				detail = list.get(i);
+
+				pst2.setString(1, vo1.getUnstoring_code());
+				pst2.setInt(2, detail.getProduct_code());
+				pst2.setInt(3, detail.getUnstoring_quantity());
+				pst2.addBatch();
+			}
+			int[] arr1 = pst2.executeBatch();
+			conn.commit();
+			
+			int result2 = eB2(arr1);
+			System.out.println("result2 "+result2);
+			result = result1 + result2;
+		} catch (SQLException e) {
+			System.out.println("DAO - 엑셀 파일 업로드에서 에러");
+			e.printStackTrace();
+		}
+		System.out.println("DAO result = "+result);
+		return result;
+	}
+	
+	
 	// 주문건 상세조회
 	public List<UnstoringDetailVO> selectUnstoringDetail(UnstoringVO vo, CompanyVO vo2) {
 		String sql = """
