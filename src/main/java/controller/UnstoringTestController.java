@@ -40,7 +40,7 @@ public class UnstoringTestController implements CommonInterface {
 		unstoringVO.setUnstoring_code(number2);
 		List<UnstoringDetailVO> detailVO = service.selectUnstoringDetail(unstoringVO, companyVO);
 		
-		// redirect 방식이니까 session에 저장함
+		// redirect 방식이니까 session에 저장함 (굳이 redirect로 했어야 했나? dispatch도 괜찮았으려나)
 		session.setAttribute("detailVO", detailVO);
 		System.out.println(detailVO);
 		
