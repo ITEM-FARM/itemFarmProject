@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="../common/commonCSS.jsp"%>
-<title>주문건 등록</title>
+<title>Insert title here</title>
 <style>
 #unstoring_memo {
 	width: 100%;
@@ -12,7 +12,43 @@
 	/*   resize: horizontal; // 가로크기만 조절가능 
 	resize: vertical;  세로크기만 조절가능  */
 }
-</style>
+</style> 
+
+<%-- 엑셀 파일 업로드를 위한 JS 코드 --%>
+<script type="text/javascript">
+ function goUploadExcel(){
+     var uploadForm = document.uploadForm;
+
+     if( uploadForm.file1.value == "" ) {
+         alert( "파일을 업로드해주세요." );
+         return false;
+     } else if( !checkFileType(uploadForm.file1.value) ) {
+         alert( "엑셀파일만 업로드 해주세요." );
+         return false;
+     }
+
+     if( confirm("업로드 하시겠습니까?") ) {
+         uploadForm.action = "/unstoring/upload.do"; // upload.do => Front => Controller(오더업로드) => 로직 처리 후 => insert.jsp로 dispatch
+         uploadForm.submit();
+     }
+ }
+
+ function checkFileType( filePath ) {
+     var fileFormat = filePath.toLowerCase();
+
+     if( fileFormat.indexOf(".xls") > -1 ) return true;
+     else return false;
+ }
+ 
+ $(function(){
+	/* var chk_insert = "${chk_insert}";
+	if(chk_insert > 0){
+		alert(chk_insert+'엑셀 파일 등록에 성공하였습니다.');
+	}else{
+		alert(chk_insert+'엑셀 파일 등록에 실패하였습니다.');
+	} */
+ });
+ </script>
 </head>
 <body>
 	<!-- 3. 그리고 그 msg 변수에 빈값을 넣어버려(빈값이면 출력 안하게 해놨으니까). scope는 session으로 해서 -->
@@ -37,25 +73,25 @@
 
 						<!-- grid 시작 -->
 						<div class="row">
-							<div class="col-lg-1"></div>
+							<div class="col-lg-2"></div>
 
 
-							<div class="col-lg-10">
+							<div class="col-lg-8">
 								<h1 class="h3 mb-2 text-gray-800">주문건 등록</h1>
 								<p class="mb-4">
-									<a target="_blank" href="https://chobopark.tistory.com/246">방법
-										2 관련 구글링 링크</a>.
 								<p>
 									<i class="fas fa-exclamation-triangle"></i> 모든
 									정보(성함/주소/주문일자/출고일자)를 입력해주세요.
 								</p>
 								</p>
+
+
+								<!-- 1. 주문건 등록 양식 A -->
 								<!-- DataTales Example -->
 								<div class="card shadow mb-4">
 									<div class="card-header py-3">
-										<h6 class="m-0 font-weight-bold text-primary">주문건 등록 양식</h6>
+										<h6 class="m-0 font-weight-bold text-primary">주문건 등록 양식 A</h6>
 									</div>
-
 									<div class="card-body">
 										<div class="table-responsive">
 											<table class="table table-bordered" id="dataTable"
@@ -118,30 +154,60 @@
 
 												</tbody>
 											</table>
-											<div class="card-body">
-												<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-													<button class="btn btn-primary me-md-2" type="button"
-														id="ConfirmBT">확정</button>
+					</form>
+												<div class="card-body">
+													<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+														<button class="btn btn-primary me-md-2" type="submit"
+															id="btnInsert">등록</button>
+													</div>
 												</div>
-												<div>
-													<input id="btnInsert" type="submit" value="등록">
+												</div>
+												</div>
+											<div class="col-lg-2">
+											</div>
+											</div>
+								
+								
+											<hr>
+								
+								
+											
+											<p>
+													<i class="fas fa-exclamation-triangle"></i> 주문건(Excel파일)을 업로드 하시고 등록 버튼을 눌러주십시오
+												</p>
+											<!-- 2. 엑셀파일 업로드 -->
+											<div class="card shadow mb-4">
+												<div class="card-header py-3" style="display:block-inline;">
+													<h6 class="m-0 font-weight-bold text-primary">주문건 등록 양식 B</h6>
+												</div>
+			
+												<div class="card-body">
+															<form name="uploadForm" action="" method="post"
+																onSubmit="return false;" encType="multipart/form-data">
+															<input type="file" name="file1" />
+															</form>
+														    <!-- <button type="button" onclick="goUploadExcel();"
+																	onkeypress="this.onclick();">등록</button> -->
+															<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+																<button class="btn btn-primary me-md-2" type="button"
+																		onclick="goUploadExcel()"
+																		onkeypress="this.onclick();"
+																		id="btnInsert">등록</button>
+															</div>
+			
+												</div>
+												<div class="col-lg-2">
 												</div>
 											</div>
+											
+											
 										</div>
-
+										<!-- 가운데 grid 끝 -->
 									</div>
-									<div class="col-lg-1">
-									</div>
-								</div>
+									<!-- grid 끝 -->
+								
 							</div>
-
 						</div>
-						<!-- grid 끝 -->
-					</form>
-					
-					
-				</div>
-			</div>
 			<%@ include file="../common/footer.jsp"%>
 		</div>
 	</div>
@@ -151,27 +217,6 @@
 <script>
 	// 용희 : '주문건 등록' 성공하면 알림창 표시
 	$(document).ready(function(){
-		
-		// 1. 용희 : 확정 버튼을 누르면 => form 양식 입력되게끔 (ref. 태영's balju.jsp) 
-		$('#ConfirmBT').on("click", ()=>{
-			var obj = {};
-			obj["balju_memo"] = $('#balju_memo').val()
-			arr.push(obj);
-			console.log(arr);
-			$.ajax({
-				url:"baljuConfirmList.do",
-				headers: {'Content-Type': 'application/json'},
-				data:{ baljuCheckList: arr},
-				method:"post",
-				success:(result,status,xhr)=>{
-					console.log("textStatus", status);
-				},
-				error:(jqXHR, textStatus, errorThrown)=>{
-					console.log("textStatus", textStatus); 
-				}
-			});
-		});
-		
 		// 2. 용희 : 등록 버튼 누르면 => 확인창 & 등록결과 유무 보여주기 
 		$("#btnInsert").on("click", function(){
 			var result = confirm('등록하시겠습니까?');

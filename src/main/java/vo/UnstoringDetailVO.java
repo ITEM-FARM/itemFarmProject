@@ -28,5 +28,10 @@ public class UnstoringDetailVO implements Serializable{
 	private String tracking_number; // 송장번호 (일단 String으로 할까?? 나중에 long이나 double, 맞는 거롤 바꾸고)
 	private String unstoring_state; // 출고상태
 	private Timestamp unstoring_date;
+	
+	private Date order_register; // 엑셀 업로드를 위해 추가
+	
+	// ★ 끝날 때 되서 든 생각이지만 unstoring VO 그냥 하나만 있었어도 됐을 듯. 
+	// 괜히 나누니까 개피곤하네
 
 }
