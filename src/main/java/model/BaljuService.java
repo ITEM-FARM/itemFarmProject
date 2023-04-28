@@ -30,8 +30,24 @@ public class BaljuService {
 		return baljudao.BaljuList(company_id);
 	}
 	
-	//[태영] 발주 내역 상세 조회(상품 포함)
+	//[태영] 발주 내역 상세 조회(상품 포함) --> row 한건
 	public List<BaljuVO> BaljuDeatailList(String balju_code){
 		return baljudao.BaljuDeatailList(balju_code);
+	}
+	
+	//[이솔] 발주 내역 상세 조회(상품 포함) --> row 여러개 (배열)
+	public List<BaljuVO> BaljuDetailLists(String []balju_code){
+		return baljudao.BaljuDetailLists(balju_code);
+	}
+	
+	//[이솔] 입고페이지에서 발주 테이블 조회(발주 불러오기) --> status='Y'인 것만
+	public List<BaljuVO> StoringBaljuList(int company_id){
+		return baljudao.StoringBaljuList(company_id);
+	}
+	
+	//[이솔] 입고 확정 시, 발주 status 'D'로 변경
+	public String BaljuStatusList(String []balju_status){
+		int result = baljudao.BaljuStatusList(balju_status);
+		return result!= 0? "발주서변경성공-D":"발주서변경실패-Y"  ;
 	}
 }
