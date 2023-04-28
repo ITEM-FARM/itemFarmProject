@@ -142,7 +142,7 @@ public class StatisticsDAO {
 				(select '주문취소', subcategory_name '취소_카테고리', sum(unstoring_quantity) '취소수량' , sum(product_price) '취소금액', sum(product_cost) '취소원가'
 				from product join unstoring_detail using(product_code) join unstoring using(unstoring_code)
 				where company_id = ? and unstoring_state = '주문취소'
-				group by subcategory_name) BB  on (AA.주문_카테고리 = BB.취소_카테고리);
+				group by subcategory_name) BB  on (AA.주문_카테고리 = BB.취소_카테고리)
 				""";
 		List<StatisticsVO> statList = new ArrayList<>();
 		conn = MysqlUtil.getConnection();
@@ -206,7 +206,7 @@ public class StatisticsDAO {
 				(select '주문취소', order_register '취소일자', sum(unstoring_quantity) '취소수량' , sum(product_price) '취소금액', sum(product_cost) '취소원가'
 				from product join unstoring_detail using(product_code) join unstoring using(unstoring_code)
 				where company_id = ? and unstoring_state = '주문취소'
-				group by order_register) BB  on (AA.주문일자 = BB.취소일자);
+				group by order_register) BB  on (AA.주문일자 = BB.취소일자)
 				""";
 		List<StatisticsVO> statList = new ArrayList<>();
 		conn = MysqlUtil.getConnection();
