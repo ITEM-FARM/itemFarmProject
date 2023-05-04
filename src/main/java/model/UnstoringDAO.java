@@ -39,7 +39,6 @@ public class UnstoringDAO {
 				insert into unstoring_detail
 				values(?, ?, ?)
 				""";
-		System.out.println("magID "+magID);
 		conn = MysqlUtil.getConnection();
 		try {
 			// 1번만 해야 하는 '출고'
@@ -50,7 +49,6 @@ public class UnstoringDAO {
 			pst.setDate(4, vo1.getOrder_register());
 			pst.setString(5, magID);
 			int result1 = pst.executeUpdate(); // 얘는 외래키 때문에 먼저 해줘야되서 일단 먼저 executeUpdate
-			System.out.println("result1 "+result1);
 			
 			// 여러번 실행해야 하는 '출고 디테일'
 			conn.setAutoCommit(false);
@@ -68,13 +66,11 @@ public class UnstoringDAO {
 			conn.commit();
 			
 			int result2 = eB2(arr1);
-			System.out.println("result2 "+result2);
 			result = result1 + result2;
 		} catch (SQLException e) {
 			System.out.println("DAO - 엑셀 파일 업로드에서 에러");
 			e.printStackTrace();
 		}
-		System.out.println("DAO result = "+result);
 		return result;
 	}
 	
@@ -162,9 +158,7 @@ public class UnstoringDAO {
 				// sql_stock
 				detailVO = detailList.get(i);
 				pst2.setInt(1, detailVO.getProduct_code());
-				System.out.println("detailVO.getProduct_code() : "+detailVO.getProduct_code());
 				pst2.setString(2, detailVO.getUnstoring_code());
-				System.out.println("detailVO.getUnstoring_code() : "+detailVO.getUnstoring_code());
 				pst2.setInt(3, detailVO.getProduct_code());
 				
 				pst.addBatch();
@@ -173,9 +167,6 @@ public class UnstoringDAO {
 			int[] arr1 = pst.executeBatch();
 		    int[] arr2 = pst2.executeBatch();
 			conn.commit();
-			
-			System.out.println("DAO - 송장입력에서 arr1 " + Arrays.toString(arr1));
-			System.out.println("DAO - 송장입력에서 arr2 " + Arrays.toString(arr2));
 			
 			result = eB1(arr1, arr2);
 //			resultCount = pst.executeUpdate(); // 여러 건이어도 executeUpdate의 리턴값은 1인가 보네
@@ -215,7 +206,6 @@ public class UnstoringDAO {
 					detailVO.setProduct_code(rs.getInt("product_code"));
 					detailVO.setUnstoring_quantity(rs.getInt("unstoring_quantity"));
 //					detailVO.setUnstoring_date(rs.getTimestamp("unstoring_date"));
-					System.out.println(rs.getTimestamp("unstoring_date"));
 					detailList.add(detailVO);
 				}
 			}
@@ -252,7 +242,6 @@ public class UnstoringDAO {
 			int[] arr1 = pst.executeBatch();
 			conn.commit();
 			
-			System.out.println("DAO - 주문취소에서 arr1 " + Arrays.toString(arr1));
 			
 			result = eB2(arr1);
 			// resultCount = pst.executeUpdate(); // executeUpdate가 아니라 Batch를 썼으므로 이걸 쓰는건 그리 좋지 않다. (by쌤)
@@ -276,7 +265,6 @@ public class UnstoringDAO {
 		for(int i=0; i<arr2.length; i++) {
 			result += arr2[i];
 		}
-		System.out.println("eb1 "+result);
 		return result;
 	}
 	
@@ -285,7 +273,6 @@ public class UnstoringDAO {
 		for(int i=0; i<arr1.length; i++) {
 			result += arr1[i];
 		}
-		System.out.println("eb2 "+result);
 		return result;
 	}
 	
@@ -345,19 +332,16 @@ public class UnstoringDAO {
 			pst.setString(6, unstoring.getUnstoring_memo());
 			pst.setString(7, unstoring.getManager_id());
 			int a = pst.executeUpdate();
-			System.out.println("a: "+a);
 			
 			pst2 = conn.prepareStatement(sql_insert_2);
 			pst2.setString(1, unstoring.getUnstoring_code());
 			pst2.setInt(2, detail.getProduct_code());
 			pst2.setInt(3, detail.getUnstoring_quantity());
 			int b = pst2.executeUpdate();
-			System.out.println("b: "+b);
 			
 			conn.commit();
 
 			resultCount = a+b;
-			System.out.println("resultCount"+resultCount);
 		} catch (SQLException e) {
 			resultCount = -1;
 			e.printStackTrace();

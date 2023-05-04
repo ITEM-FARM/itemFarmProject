@@ -36,11 +36,10 @@ public class OrderUploadController implements CommonInterface {
 		HttpSession session = request.getSession();
 		UnstoringService service = new UnstoringService();
 		
-		
 		// ordersInsert 를 하여 그 리턴값(아마도 배열, 왜냐면 executeBatch)을 얻어서 세션에 저장하자. 제대로 입력됐는지 
-		int chk_insert = excelFileRead(request, service);
-		request.setAttribute("chk_insert", chk_insert); // distpatch니까 세션이 아니라 리퀘스트에 저장하여 보여주기
-		
+		int excelInsert = excelFileRead(request, service);
+		int frmB = (excelInsert > 0) ? 0 : 1;
+		request.setAttribute("frmB", frmB); // distpatch니까 세션이 아니라 리퀘스트에 저장하여 보여주기
 		
 		String page = "/unstoring/unstoring_insert.jsp";
 		return page;
@@ -56,7 +55,6 @@ public class OrderUploadController implements CommonInterface {
 		// uploads 폴더 안에 있는 파일에 대한 경로를 지정하기 위한 코드들
 		String encoding = "utf-8";
 		String currentPath = request.getServletContext().getRealPath("uploads"); // getRealPath() : uploads에 대한 절대 경로 얻기
-		System.out.println(currentPath);
 		File currentDirPath = new File(currentPath); // new File(경로) : 경로에 해당하는 새 파일 객체를 생성????
 		
 		DiskFileItemFactory factory = new DiskFileItemFactory(); // 업로드 관련 클래스 (1)
@@ -70,11 +68,7 @@ public class OrderUploadController implements CommonInterface {
 				FileItem fileItem = (FileItem) items.get(i);
 
 				if (fileItem.isFormField()) { // input type이 file이 아닌 것
-					System.out.println(fileItem.getFieldName() + "=" + fileItem.getString(encoding));
 				} else { // 즉, <input type="file"/> 인 놈들
-					System.out.println("input 태그 이름 getFieldName:" + fileItem.getFieldName());
-					System.out.println("선택한 파일 이름 getName:" + fileItem.getName());
-					System.out.println("파일의 사이즈 getSize:" + fileItem.getSize() + "bytes");
 
 					if (fileItem.getSize() > 0) {
 						int idx = fileItem.getName().lastIndexOf("\\");
@@ -113,25 +107,18 @@ public class OrderUploadController implements CommonInterface {
 		// # 엑셀파일 Read
 		try {
 			String path = getFile(request);
-			System.out.println(path);
 			// 경로에 있는 파일을 읽음.
 			 
 			XSSFWorkbook workbook = new XSSFWorkbook(new FileInputStream(path));
 
 			int rowNo = 0;
-//			int cellIndex = 0;
 
 			XSSFSheet sheet = workbook.getSheetAt(0); // 0 번째 시트를 가져온다
 														// 만약 시트가 여러개 인 경우 for 문을 이용하여 각각의 시트를 가져온다
 			rows = sheet.getPhysicalNumberOfRows(); // 사용자가 입력한 엑셀 Row수를 가져온다
-			System.out.println("rows "+rows);
 			for (rowNo = 1; rowNo < rows; rowNo++) {
-//				System.out.println(rowNo);
 				XSSFRow row = sheet.getRow(rowNo);
-//				System.out.println(row);
 				if (row != null) {
-					//int cells = row.getPhysicalNumberOfCells(); // 해당 Row에 사용자가 입력한 셀의 수를 가져온다
-					//for (cellIndex = 0; cellIndex <= cells; cellIndex++) {
 						String customer_name =  row.getCell(0).getStringCellValue() + ""; // 셀의 값을 가져온다
 						String customer_address =  row.getCell(1).getStringCellValue() + ""; // 셀의 값을 가져온다
 						double product_code = row.getCell(2).getNumericCellValue();
@@ -143,7 +130,6 @@ public class OrderUploadController implements CommonInterface {
 						// => (1) 즉, 1명의 주문자가 여러가지를 주문한 경우라면 : vo2가 여러개 (vo1도 1개만 세팅하게끔 설정해주기. 왜냐면 출고 테이블엔 insert가 1번밖에 안되니까 PK라서)
 						// => (2) 각기 다른 주문자라면 : 그냥 하면 됨.
 						// 일단 포기..
-						
 						
 						// VO를 만들어서 세팅해서 넘기기만 하면 된다!
 						// VO 만들고 List에 넣어서 DAO에 보내
@@ -162,7 +148,6 @@ public class OrderUploadController implements CommonInterface {
 						vo2.setProduct_code((int)product_code);   
 						vo2.setUnstoring_quantity((int)unstoring_quantity); 
 						list.add(vo2);
-						
 						
 						// 이 부분을 왜 주석처리 했냐면.. => 이건 cell의 데이터 타입을 확인하고 그에 따라 value값을 저장해주는 작업인데(switch-case)니까
 						// 근데 우린 서식 정해주고, 그에 따라 입력하는 거니까 굳이 이 작업이 필요 없는 거지.
@@ -209,8 +194,6 @@ public class OrderUploadController implements CommonInterface {
 	//
 	public static String createUnstroingCode(int company_id, String magID) {
 		String unstoring_code = null;
-		char j;
-//		List<String> strList = new ArrayList<>();
 		
 		////////////////////////////주문번호 만들기 ////////////////////////////
 		// 등록일을 위한 현재 날짜 가져오기
@@ -223,7 +206,6 @@ public class OrderUploadController implements CommonInterface {
 
 		// 셀렉한 기업 코드 - ★ 추후 세션으로 가져올 예정
 		String selected_company = Integer.toString(company_id);
-		System.out.println("셀렉한 기업 코드 : " + selected_company);
 
 		// 날짜->시리얼 넘버 만들기
 		String formatedNow = now.format(DateTimeFormatter.ofPattern("yyMMddkmmss"));
