@@ -13,7 +13,6 @@ public class UnstoringDetailController implements CommonInterface {
 		HttpServletRequest request = (HttpServletRequest) data.get("request");
 		String modalTest = request.getParameter("modalTest");
 		request.setAttribute("modalTest", modalTest);
-		System.out.println("컨트롤러에서 " + modalTest);
 		
 		String page = "/unstoring/unstoringDetail.do";
 		return page;

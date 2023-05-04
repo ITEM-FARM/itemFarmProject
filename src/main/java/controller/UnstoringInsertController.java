@@ -53,8 +53,6 @@ public class UnstoringInsertController implements CommonInterface {
 			// 2. form 양식
 			UnstoringVO unstoringVO = makeUnstoringVO(request);
 			UnstoringDetailVO unstoringDetailVO = makeUnstoringDetailVO(request);
-			int resultInsert = 0;
-			
 			
 			//////////////////////////// 주문번호 만들기 ////////////////////////////
 			// 등록일을 위한 현재 날짜 가져오기
@@ -67,7 +65,6 @@ public class UnstoringInsertController implements CommonInterface {
 			
 			// 셀렉한 기업 코드 - ★ 추후 세션으로 가져올 예정
 			String selected_company = Integer.toString(company_id);
-			System.out.println("셀렉한 기업 코드 : " + selected_company);
 			
 			// 날짜->시리얼 넘버 만들기
 			String formatedNow = now.format(DateTimeFormatter.ofPattern("yyMMddkmmss"));
@@ -86,10 +83,9 @@ public class UnstoringInsertController implements CommonInterface {
 			
 
 			// 용희 : Insert 문장 2개라서 각각 실행하였음.  
-			resultInsert = service.unstoringInsert(unstoringVO, unstoringDetailVO);
-			System.out.println("Insert 컨트롤러: "+resultInsert);
-			session.setAttribute("resultInsert", resultInsert); 
-//			request.setAttribute("resultInsert", resultInsert);
+			int resultInsert = service.unstoringInsert(unstoringVO, unstoringDetailVO);
+			int ins = (resultInsert > 0) ? 0 : 1;
+			request.setAttribute("ins", ins);
 
 //			page = "redirect:/unstoring/unstoringInsert.do";
 //			page = "/unstoring/unstoringInsert.do";

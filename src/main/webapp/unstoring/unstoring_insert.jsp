@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <%@ include file="../common/commonCSS.jsp"%>
 <title>Insert title here</title>
 <style>
@@ -20,16 +21,22 @@
      var uploadForm = document.uploadForm;
 
      if( uploadForm.file1.value == "" ) {
-         alert( "파일을 업로드해주세요." );
+         swal( "파일을 업로드해주세요." ); // alert("") 대신 swal("")을 쓰면 되는 형태네
          return false;
      } else if( !checkFileType(uploadForm.file1.value) ) {
-         alert( "엑셀파일만 업로드 해주세요." );
+         swal( "엑셀파일만 업로드 해주세요." );
          return false;
      }
 
      if( confirm("업로드 하시겠습니까?") ) {
          uploadForm.action = "/unstoring/upload.do"; // upload.do => Front => Controller(오더업로드) => 로직 처리 후 => insert.jsp로 dispatch
          uploadForm.submit();
+         var frmB = "${frmB}";
+         if(frmB == 0){
+        	 alert('등록 성공!');
+         }else{
+        	 alert('등록 실패!');
+         }
      }
  }
 
@@ -39,19 +46,37 @@
      if( fileFormat.indexOf(".xls") > -1 ) return true;
      else return false;
  }
+
+ 
+//용희 : '주문건 등록' 성공하면 알림창 표시
+$(document).ready(function(){
+	// 주문건 등록 양식 A
+	$("#btnInsert1").on("click", function(){
+		var frm = $("#A");
+		var req1 = $("#customer_name").val();
+		var req2 = $("#customer_address").val();
+		var req3 = $("#unstoring_quantity").val();
+		var req4 = $("#order_register").val();
+		
+		if(req1 != '' && req2 != '' && req3 != '' && req4 != ''){
+			var conf = confirm('주문건을 등록하시겠습니까?');
+			if(conf){
+				frm.submit(); // '확정' 버튼의 타입이 submit로 돼있어서 if, else랑 상관없이 계속 form.submit()이 자동으로 되고 있었음.
+				              // 그래서 type="button"으로 바꾸고 => confirm 확인 눌렀을 때만 submit() 하도록 바꿔주었음.
+				var ins = "${ins}";
+				if(ins == 0){
+					alert('등록 성공!');
+				}else{
+					alert('등록 실패!');
+				}
+			}else{
+				alert('등록을 취소하셨습니다.');
+				return;
+			}
+		}
+	});
+});
 </script>
- 
- <script>
- 
- $(function(){
-	/* var chk_insert = "${chk_insert}";
-	if(chk_insert > 0){
-		alert(chk_insert+'엑셀 파일 등록에 성공하였습니다.');
-	}else{
-		alert(chk_insert+'엑셀 파일 등록에 실패하였습니다.');
-	} */
- });
- </script>
 </head>
 <body>
 	<!-- 3. 그리고 그 msg 변수에 빈값을 넣어버려(빈값이면 출력 안하게 해놨으니까). scope는 session으로 해서 -->
@@ -65,7 +90,7 @@
 				<div class="container-fluid">
 					<!-- empInsert.jsp 보고 따라함 -->
 					<!-- 여기 안에 내용을 다 써야 한다는 소리구나 -->
-					<form method="post" action="/unstoring/unstoringInsert.do">
+					<form method="post" id="A"> <!-- action="/unstoring/unstoringInsert.do" -->
 						<!-- 
 							★ 우선 방법1, 방법2 확정된게 아니라 입력 패턴은 넣지 않았음.
 							★ 주문번호 : 자동생성 될 거라서 나중에 뺄 수도
@@ -160,8 +185,8 @@
 					</form>
 												<div class="card-body">
 													<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-														<button class="btn btn-primary me-md-2" type="submit"
-															id="btnInsert">등록</button>
+														<button class="btn btn-primary me-md-2" type="button"
+															id="btnInsert1">등록</button>
 													</div>
 												</div>
 												</div>
@@ -186,6 +211,7 @@
 			
 												<div class="card-body">
 															<form name="uploadForm" action="" method="post"
+																id="B"
 																onSubmit="return false;" encType="multipart/form-data">
 															<input type="file" name="file1" />
 															</form>
@@ -195,7 +221,7 @@
 																<button class="btn btn-primary me-md-2" type="button"
 																		onclick="goUploadExcel()"
 																		onkeypress="this.onclick();"
-																		id="btnInsert">등록</button>
+																		id="btnInsert2">등록</button>
 															</div>
 			
 												</div>
@@ -217,30 +243,5 @@
 	<%@ include file="../common/commonETC.jsp"%>
 	<%@ include file="../common/commonJS.jsp"%>
 	
-<script>
-	// 용희 : '주문건 등록' 성공하면 알림창 표시
-	$(document).ready(function(){
-		// 2. 용희 : 등록 버튼 누르면 => 확인창 & 등록결과 유무 보여주기 
-		$("#btnInsert").on("click", function(){
-			var result = confirm('등록하시겠습니까?');
-			
-			
-			// # 에러나서 잠시 블락
-			/* if(result){
-				var resultInsert = "${resultInsert}";
-				if(resultInsert != 0){ // executeUpdate한 SQL문이 2개라서 1+1=2가 돼야 완전히 성공한 것
-					                   // 하나라도 안되면 1-1=0이 됨.
-					alert(' 주문 등록에 성공하였습니다.');
-				}else{
-					alert(' 주문 등록에 실패하였습니다.');
-				}
-			}else{
-				
-			} */
-			
-			
-		});
-	});
-</script>
 </body>
 </html>
