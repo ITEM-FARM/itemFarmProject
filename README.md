@@ -125,12 +125,12 @@
 ### 6) 엑셀파일 업로드 로직
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/926bc683-fe37-4dfc-9aa5-83fced2b796c" width="70%">
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/ed35359e-4820-4a0b-b201-a5e9abdd7130" width="70%"><br/>
-3PL 직원이 고객기업 측에서 보낸 주문건을 등록하는 방법에는 2가지가 있습니다. 
-첫째, 단 1건의 주문등록 - 직원이 고객과 주문정보를 일일이 입력하여 등록하는 방법
-둘째, 여러 건의 주문등록 - 고객기업 측에서 보낸 엑셀 데이터를 업로드하여 등록하는 방법
+3PL 직원이 고객기업 측에서 보낸 주문건을 등록하는 방법에는 2가지가 있습니다.<br>
+첫째, 단 1건의 주문등록 - 직원이 고객과 주문정보를 일일이 입력하여 등록하는 방법<br>
+둘째, 여러 건의 주문등록 - 고객기업 측에서 보낸 엑셀 데이터를 업로드하여 등록하는 방법<br>
 
-위 로직은 두번째 방법을 구현한 코드입니다.  
-(엑셀 데이터 예시 : [Samsung_김신한씨.xlsx](https://github.com/ITEM-FARM/itemFarmProject/files/11471278/Samsung_.xlsx))
+위 로직은 두번째 방법을 구현한 코드입니다.  <br>
+(엑셀 데이터 예시 : [Samsung_김신한씨.xlsx](https://github.com/ITEM-FARM/itemFarmProject/files/11471278/Samsung_.xlsx)) <br>
 기업 측에서 위 양식대로 주문 정보를 입력하여 보내면 다량의 주문건을 손쉽게 등록할 수 있습니다.
 
 ### 7) 송장 입력 로직
