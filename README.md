@@ -138,19 +138,19 @@
 
 ### 9) NAV바 로직
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/591a033a-cd6d-41be-8de0-3da94853fcc3" width="70%"><br/>
-(부가 설명)
+페이지마다 nav 바를 활성화하기 위해 주소창을 불러와 nav 링크 주소와 비교했습니다.
 
 ### 10) 조회 기업 변경 로직
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/79661a06-27c4-48ad-956a-80ce67c38061" width="70%"><br/>
-(부가 설명)
+3PL이 조회 기업을 변경할 때마다 기업 변경 컨트롤러로 이동해 세션에 기업 정보를 저장했습니다.
 
 ### 11) 시퀀스 생성
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/fd697251-d98f-47ec-a706-260091551578" width="70%"><br/>
-(부가 설명)
+MySQL에는 시퀀스가 존재하지 않기 때문에 procedure, function을 이용해 기업, 상품을 위한 별도의 시퀀스를 생성했습니다.
 
 ### 12) 모달 객체 생성 로직
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/049ff783-49b1-4a29-b17d-211d91d37aac" width="70%"><br/>
-(부가 설명)
+기업, 상품 수정 시 현재 정보를 모달 창에 그대로 보이기 위해 자바스크립트 객체 형태로 받아 조건에 따라 모달 창에 정보를 채웠습니다.
 
 ### 13) 입출고 날짜 처리 로직
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/9ee1b4b9-3a7e-4b66-b72d-544f00d53aa0" width="70%"><br/>
