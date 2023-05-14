@@ -125,22 +125,33 @@
 ### 6) 엑셀파일 업로드 로직
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/926bc683-fe37-4dfc-9aa5-83fced2b796c" width="70%">
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/ed35359e-4820-4a0b-b201-a5e9abdd7130" width="70%"><br/>
+[출고관리 - 주문건등록] <br>
 3PL 직원이 고객기업 측에서 보낸 주문건을 등록하는 방법에는 2가지가 있습니다.<br>
 첫째, 단 1건의 주문등록 - 직원이 고객과 주문정보를 일일이 입력하여 등록하는 방법<br>
 둘째, 여러 건의 주문등록 - 고객기업 측에서 보낸 엑셀 데이터를 업로드하여 등록하는 방법<br>
-
+<br>
 위 로직은 두번째 방법을 구현한 코드입니다.  <br>
 (엑셀 데이터 예시 : [Samsung_김신한씨.xlsx](https://github.com/ITEM-FARM/itemFarmProject/files/11471278/Samsung_.xlsx)) <br>
 기업 측에서 위 양식대로 주문 정보를 입력하여 보내면 다량의 주문건을 손쉽게 등록할 수 있습니다.
 
 ### 7) 송장 입력 로직
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/022793fb-dc31-42b5-837b-6aef2cd6d4d0" width="70%"><br/>
-(부가 설명)
+[출고관리 - 주문건조회] <br>
+'송장입력' 버튼을 누르고 => 입력할 주문건을 체크 => '입력저장' 버튼을 누르면 <br>
+(1)송장번호와 출고일자가 찍히고 주문상태는 '출고완료'로 바뀝니다. <br>
+(2)따라서 그에 해당하는 재고가 감소하게끔 로직을 짰습니다. <br>
+<br>
+'주문취소', '취소저장' 버튼에 대한 로직도 위와 비슷합니다. 
 
 ### 8) 매출 통계 로직
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/f924fb83-95e5-4903-be7b-a02c4ce89241" width="70%">
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/b746679a-c1e3-498a-a410-c969ac4aa02e" width="70%"><br/>
-(부가 설명)
+[마케팅 리포트] <br>
+각 기업마다 '일별', '카테고리별', '상품별' 매출 및 순이익 등에 대한 통계자료를 한눈에 보여주도록 하였습니다. <br>
+이는 위 '7)송장입력 및 주문취소'의 연장선상으로 주문완료 또는 주문취소 수량과 그에 대한 매출/순이익을 한 테이블에 보여줍니다. <br>
+보다 가시성을 높이기 위해 chart.js를 이용하여 그래프도 도입하였습니다. <br>
+<br>
+특이사항으로 위 로직을 짤 때 full outer join을 해야 했는데, 저희는 MySQL을 사용했기 때문에 union이라는 문법을 써서 해결했습니다.
 
 ### 9) NAV바 로직
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/591a033a-cd6d-41be-8de0-3da94853fcc3" width="70%"><br/>
