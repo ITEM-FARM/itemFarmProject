@@ -171,7 +171,7 @@ MySQL에는 시퀀스가 존재하지 않기 때문에 procedure, function을 �
 
 ### 13) 입출고 날짜 처리 로직
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/9ee1b4b9-3a7e-4b66-b72d-544f00d53aa0" width="70%"><br/>
-(부가 설명)
+입고, 출고 데이터를 하나의 테이블에 함께 보이기 위해 입고인 경우, 출고인 경우로 나눠 칼럼을 설정하였습니다. 또한 첫 번째로 날짜 기준 내림차순, 두 번째로 상품 번호 기준 오름차순 정렬을 위해 compareTo를 재정의했습니다. 
 
 ### 14) Chart.js를 이용한 통계 그래프 생성 로직
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/28faf0e4-983d-4f73-b2f4-b9cbf0f20070" width="70%"><br/>
