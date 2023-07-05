@@ -99,7 +99,7 @@
 
 ## 6️⃣프로그램화면
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/a6d623e1-b4de-4bdf-a9af-3b02c0f2fbd1" width="70%"/> <br/>
-(Youtube 링크 올릴 예정)
+<a href="https://youtu.be/vxyvumJXXcE">유튜브 링크</a>
 
 ## 7️⃣중요소스코드
 ### 1) 입고 트리거
