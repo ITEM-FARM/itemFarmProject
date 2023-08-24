@@ -69,10 +69,6 @@
 <img src="https://github.com/ITEM-FARM/itemFarmProject/assets/49816869/dfbb7aab-1c1f-461e-bdfe-16e48e6609d3" width="70%"/><br/>
 ### 3PL(Third Party Logistics)이란
 제 3자가 관여하는 물류대행 서비스이다. 회사에서 발생하는 물류 업무를 외부 물류 전문 업체에게 아웃소싱하여 물류 서비스를 제공받는다.
-### 시스템 흐름
-1.
-2.
-3. 
 
 ### 시스템 기능
 |분류|기능|비고|
